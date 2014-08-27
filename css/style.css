@@ -1,0 +1,14 @@
+.nav{
+    text-align:center;
+    margin: 0 auto;
+}
+
+.navLink{
+    padding-left:1em;
+    padding-right:1em;
+    margin:0 auto;
+}
+
+.dropdown:hover .dropdown-hover{
+    display:block;
+}
