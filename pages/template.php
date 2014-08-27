@@ -19,7 +19,7 @@
     <![endif]-->
   </head>
   <body>
-    <?php require '../php/nav.php';?>
+    <?php require_once('../php/nav.php');?>
     <article>
       
     </article>
@@ -27,7 +27,7 @@
     <aside>
       
     </aside>
-    <?php require '../php/footer.php';?>
+    <?php require_once('../php/footer.php');?>
     
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
