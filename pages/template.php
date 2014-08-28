@@ -21,7 +21,7 @@
   <body>
     
     <div class="page-header">
-      <h1>Group-Out<small> "Lorem Ipsum"</small></h1>
+      <h1>group-<strong>out</strong><small> "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In fringilla cursus viverra. In posuere enim."</small></h1>
     </div>
     <?php require_once('../php/nav.php');?>
     <div class = "container-fluid">
@@ -38,15 +38,7 @@ Morbi orci justo, imperdiet a sapien eget, pharetra gravida felis. Pellentesque 
       </article>
     
       <aside class = "col-lg-3">
-      <p>Nullam sit amet lacus vitae ante dapibus blandit. Mauris in aliquam arcu, lobortis pharetra enim. Cras finibus quis nulla nec pellentesque. Duis venenatis molestie ultrices. Vestibulum ex leo, condimentum ac libero id, blandit cursus ligula. Curabitur auctor, urna non rutrum sollicitudin, ante magna mollis dui, in malesuada nunc nisl ornare risus. Vestibulum lobortis a felis ut convallis. Nullam in lectus risus. In auctor arcu viverra vehicula condimentum.
-
-Integer placerat purus at pulvinar sodales. Maecenas ullamcorper fringilla efficitur. Nullam a lacus ex. Integer non porta nisl. Vestibulum in luctus felis. Mauris ultrices vehicula metus. In hac habitasse platea dictumst. Donec sit amet ex accumsan, fringilla massa ac, dictum velit. Curabitur vitae felis vehicula lectus lacinia ultricies. Etiam eros eros, elementum a volutpat non, tempus nec libero. Aenean orci tellus, euismod ac lectus sit amet, rutrum scelerisque odio. Aliquam imperdiet pulvinar egestas. Suspendisse lorem lectus, tempor in finibus vitae, feugiat ut mi. Cras vehicula eros vel tortor venenatis, ac laoreet arcu accumsan. Aenean fringilla, ligula ac elementum blandit, ipsum mauris posuere diam, id semper est risus a mauris.
-
-Curabitur facilisis, eros et varius aliquet, ex massa faucibus risus, eu blandit turpis sem non metus. Suspendisse mattis sem eros, ac pulvinar nulla cursus non. Duis mollis nisi vel sapien maximus viverra. Cras ac interdum sapien, vitae ornare ipsum. Nullam sapien sem, posuere vitae volutpat non, tincidunt scelerisque enim. Aliquam sit amet erat dui. Fusce suscipit mollis vestibulum. Phasellus ultricies laoreet sapien.
-
-Pellentesque malesuada sem sit amet purus varius mollis. Sed imperdiet risus ut nunc elementum facilisis. Phasellus lectus urna, tincidunt sit amet massa sit amet, semper egestas dui. Proin pretium diam tristique, condimentum lacus sit amet, congue purus. Fusce ut eros vitae mauris egestas posuere et condimentum arcu. Pellentesque facilisis ligula urna, vel volutpat tortor porta eget. Donec dapibus ligula at turpis tempor tincidunt ac ut massa.
-
-Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nullam nisl nibh, auctor non tincidunt ut, semper eu purus. Sed placerat odio neque, ac vestibulum mauris sollicitudin commodo. Nulla porttitor imperdiet tempus. Sed sem ex, semper id elit et, lobortis vestibulum lacus. In gravida arcu nec iaculis mattis. Suspendisse a faucibus nunc. Donec ornare porta ipsum, a fringilla nibh pretium sed.</p>
+      <?php require_once('../php/sidebarplaceholder.php');?>
       </aside>
     </div>
     <?php require_once('../php/footer.php');?>

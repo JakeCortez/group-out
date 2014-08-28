@@ -1,6 +1,11 @@
+.navbar-default{
+    background-color: aliceblue!important; 
+}
+
 .nav{
     text-align:center;
     margin: 0 auto;
+
 }
 
 .navLink{
@@ -16,6 +21,17 @@
 .dropdown:hover .dropdown-hover{
     display:block;
     
+}
+
+aside{
+    padding: 1em;
+    border: 1px solid #e7e7e7;
+    background-color:#f8f8f8;
+    margin-bottom:2em;
+}
+
+.media-object{
+    max-width:84px;
 }
 
 .social_link{
