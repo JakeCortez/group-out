@@ -9,6 +9,44 @@
     margin:0 auto;
 }
 
+.sign_in{
+    margin-left:3em;
+}
+
 .dropdown:hover .dropdown-hover{
     display:block;
+    
+}
+
+.social_link{
+    text-align:center;
+    margin:0 auto;
+    max-width:2em;
+    display:inline-block;
+}
+
+footer{
+    margin: 0 auto;
+    padding:1em;
+    background-color:#f8f8f8;
+    border: 1px solid #e7e7e7;
+}
+
+.footer{
+    display:inline-block;
+    color:#777;
+    padding-right: 1em;
+    padding-left: 1em;
+    border-right: 1px solid #e7e7e7;
+}
+
+.footer_links{
+    text-align:center;
+    border: .1em transparent solid;
+    display:block;
+    color:#777;
+}
+
+.footer_links:hover{
+    color:#777;
 }

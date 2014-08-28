@@ -46,13 +46,14 @@
                   </ul>
                 </li>
               </ul>
-              <form class="navbar-form navbar-left" role="search">
+              <button type="button" class="sign_in btn btn-default navbar-right navbar-btn">Sign in</button>
+              <form class="navbar-form navbar-right" role="search">
                 <div class="form-group">
-                  <input type="text" class="form-control" placeholder="Search">
+                  <input type="text" class="form-control" placeholder="find events and routes">
                 </div>
-                <button type="submit" class="btn btn-default">Submit</button>
+                <button type="submit" class="btn btn-default">Search</button>
               </form>
-              <button type="button" class="btn btn-default navbar-btn">Sign in</button>
+            
             </div><!-- /.navbar-collapse -->
           </div><!-- /.container-fluid -->
         </nav>
