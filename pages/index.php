@@ -22,7 +22,9 @@
     <div class="page-header">
       <h1>group<strong>out</strong><small> lorem ipsum</small></h1>
     </div>
+    
     <?php require_once('../php/nav.php');?>
+    
     <div class = "container-fluid">
       <div class = "row">
         <article class = "col-lg-12">
@@ -78,6 +80,7 @@
         </div>
       </div>
     </div>
+    
     <?php require_once('../php/footer.php');?>
     
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
