@@ -25,7 +25,7 @@
         <div class = "footer col-lg-1">
             <a class = "footer_links" href = "community.php">Community</a>
             <a class = "footer_links" href = "people.php">Find People</a>
-            <a class = "footer_links" href = "forum.php">Forums</a>
+            <a class = "footer_links" href = "forums.php">Forums</a>
             <a class = "footer_links" href = "about.php">About Us</a>
         </div>
         <div class = "footer col-lg-2">
