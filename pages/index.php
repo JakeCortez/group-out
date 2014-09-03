@@ -8,7 +8,7 @@
       <h1>group<strong>out</strong><small> lorem ipsum</small></h1>
     </div>
     
-    <?php require_once('../php/nav.php');?>
+    <?php require_once('../php/nav.html');?>
     
     <div class = "container-fluid">
       <div class = "row">
@@ -66,7 +66,7 @@
       </div>
     </div>
     
-    <?php require_once('../php/footer.php');?>
+    <?php require_once('../php/footer.html');?>
     
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
