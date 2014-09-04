@@ -7,92 +7,35 @@
     <?php require_once('../php/nav.html');?>
     <div class = "container-fluid">
       <article class = "col-lg-9">
-        
+        <h1>Create an Event</h1>
         <form id="eventName" method="post" action="">
-          <label for="eventName">Event Name</label>
-          <input type="text" id="eventName" name="eventName" placeholder="abc123"/><br />
-          <label for="eventCity">Event City</label>
-          <input type="text" id="eventCity" name="eventCity" placeholder="abc123"/><br />
-          <label type="eventState">Event State</label>
-          <input type="text" id="eventDescription" name="eventDescription" placeholder="abc123" /> <br />
-        
+            <label for="eventName"><h4>Event Name</h4></label>
+            <input type="text" id="eventName" name="eventName" placeholder="abc123"/><br />
+            <label for="eventCity"><h4>Event City</h4></label>
+            <input type="text" id="eventCity" name="eventCity" placeholder="abc123"/><br />
+            <label for="eventState"><h4>Event State</h4></label>
+            <input type="text" id="eventState" name="eventState" placeholder="abc123"/><br />
+            <label for="eventDescription"><h4>Event Description</h4></label>
+            <input type="text" max="300" id="eventDescription" name="eventDescription" placeholder="abc123" /> <br />
+            <label for="date"><h4>Event Time and Date</h4<label><br />
+            <input type="datetime-local" value="2014-09-04T21:00" id="datetime-local" name="datetime-local"><br /><br/>
+            <form action="">
+            <h4>Choose one or more activities</h4>
+            <input name="activity" type="checkbox" value="hike">Hike<input type="checkbox" value="bike">Bike<input type="checkbox" value="run">Run<input type="checkbox" value="other">Other<br /><br />
+            <h4>Choose Group Skill Level</h4>
+            <input name="skillLevel"  type="checkbox" value="low">Lo<input type="checkbox" value="medium">Med<input type="checkbox" value="hi">Hi<br /><br />
+            <h4>Privacy Setting</h4>
+            <input name="privacy" type="checkbox" value="private">Private / only people you invite can join<br /><input type="checkbox" value="public">Public / anyone can request to join<br />
         </form>
-<?Php
-        $todo=$_POST['todo'];
-        if(isset($todo) and $todo=="submit"){
-        $month=$_POST['month'];
-        $dt=$_POST['dt'];
-        $year=$_POST['year'];
-        $date_value="$month/$dt/$year";
-        echo "mm/dd/yyyy format :$date_value<br>";
-        $date_value="$year-$month-$dt";
-        echo "YYYY-mm-dd format :$date_value<br>";
-        }
-
-?>
-      <form method=post name=f1 action=''><input type=hidden name=todo value=submit>
-      <table border="0" cellspacing="0" >
-      <tr><td  align=left  >   
-      <select name=month value=''>Select Month</option>
-      <option value='01'>January</option>
-      <option value='02'>February</option>
-      <option value='03'>March</option>
-      <option value='04'>April</option>
-      <option value='05'>May</option>
-      <option value='06'>June</option>
-      <option value='07'>July</option>
-      <option value='08'>August</option>
-      <option value='09'>September</option>
-      <option value='10'>October</option>
-      <option value='11'>November</option>
-      <option value='12'>December</option>
-      </select>
-
-      </td><td  align=left  >   
-      Date<select name=dt >
-      <option value='01'>01</option>
-
-
-        <option value='02'>02</option>
-        <option value='03'>03</option>
-        <option value='04'>04</option>
-        <option value='05'>05</option>
-        <option value='06'>06</option>
-        <option value='07'>07</option>
-        <option value='08'>08</option>
-        <option value='09'>09</option>
-        <option value='10'>10</option>
-        <option value='11'>11</option>
-        <option value='12'>12</option>
-        <option value='13'>13</option>
-        <option value='14'>14</option>
-        <option value='15'>15</option>
-        <option value='16'>16</option>
-        <option value='17'>17</option>
-        <option value='18'>18</option>
-        <option value='19'>19</option>
-        <option value='20'>20</option>
-        <option value='21'>21</option>
-        <option value='22'>22</option>
-        <option value='23'>23</option>
-        <option value='24'>24</option>
-        <option value='25'>25</option>
-        <option value='26'>26</option>
-        <option value='27'>27</option>
-        <option value='28'>28</option>
-        <option value='29'>29</option>
-        <option value='30'>30</option>
-        <option value='31'>31</option>
-        </select>
-
-
-</td><td  align=left  >   
-Year(yyyy)<input type=text name=year size=4 value=2005>
-<input type=submit value=Submit>
-</table>
-
-
-</form>
+            <br />
+          
+          
+          
+          
+          
+          
+          
+          <button type="submit">Click to Create Event</button>
       </article>
     
       <aside class = "col-lg-3">
@@ -107,3 +50,4 @@ Year(yyyy)<input type=text name=year size=4 value=2005>
     <script src="../bootstrap/js/bootstrap.min.js"></script>
   </body>
 </html>
+
