@@ -1,7 +1,10 @@
 <div class = "side_bar container">
-    <ul>
-        <li>Routes Home</li>
-        <li>Route Map</li>
-        <li>My Routes</li>
-    </ul>
+    <div>
+        <ul>
+            <!--again I believe we need to use php to load routes dependant from database-->
+            <li>Rockslide</li>
+            <li>Rain Damage</li>
+            <
+        </ul>
+    </div>
 </div>
