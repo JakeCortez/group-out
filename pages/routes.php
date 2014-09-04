@@ -6,7 +6,6 @@
     
     <?php require_once('../php/nav.html');?>
     <div class = "container-fluid">
-      <div class = "row">
         <section class = "col-lg-9">
           <div class = "row">
             <h3>find a route</h3>
@@ -50,7 +49,6 @@
         <aside class = "col-lg-3">
         <?php require_once('../php/sidebar_routes.php');?>
         </aside>
-      </div>
     </div>
     <?php require_once('../php/footer.html');?>
   </body>
