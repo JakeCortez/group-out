@@ -120,3 +120,24 @@ footer{
 .footer_links:hover{
     color:#777;
 }
+
+.route-nav{
+    display:inline;
+}
+
+.pagination{
+    
+}
+
+.page_info{
+    padding:1em;
+    background-color:#f8f8f8;
+    border: 1px solid #e7e7e7;
+    border-bottom: none;
+    border-top-left-radius: .5em;
+    border-top-right-radius: .5em;
+}
+
+.content-default{
+    padding:1em;
+}
