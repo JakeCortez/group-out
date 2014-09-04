@@ -10,13 +10,15 @@
         <h1>Create an Event</h1>
         <form id="eventName" method="post" action="">
             <label for="eventName"><h4>Event Name</h4></label>
-            <input type="text" id="eventName" name="eventName" placeholder="abc123"/><br />
+            <input type="text" id="eventName" name="eventName" size="35" placeholder="abc123"/><br />
             <label for="eventCity"><h4>Event City</h4></label>
-            <input type="text" id="eventCity" name="eventCity" placeholder="abc123"/><br />
+            <input type="text" id="eventCity" name="eventCity" size="35" placeholder="abc123"/><br />
             <label for="eventState"><h4>Event State</h4></label>
-            <input type="text" id="eventState" name="eventState" placeholder="abc123"/><br />
+            <input type="text" id="eventState" name="eventState" size="2" placeholder="NM"/><br />
+            <label for="eventZipCode"><h4>Event Zipcode</h4></label>
+            <input type="number" id="eventZipCode" name="eventZipCode" size="5" placeholder="87185"/><br />
             <label for="eventDescription"><h4>Event Description</h4></label>
-            <input type="text" max="300" id="eventDescription" name="eventDescription" placeholder="abc123" /> <br />
+            <input type="text" maxlength="300" id="eventDescription" name="eventDescription" placeholder="abc123" /> <br />
             <label for="date"><h4>Event Time and Date</h4<label><br />
             <input type="datetime-local" value="2014-09-04T21:00" id="datetime-local" name="datetime-local"><br /><br/>
             <form action="">
