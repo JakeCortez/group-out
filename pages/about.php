@@ -7,7 +7,7 @@
     <?php require_once('../php/nav.html');?>
     <div class = "container-fluid">
       <article class = "col-lg-9">
-        
+        <h1>AboutUs</h1>
       </article>
     
       <aside class = "col-lg-3">

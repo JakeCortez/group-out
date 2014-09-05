@@ -10,7 +10,7 @@
     
     <?php require_once('../php/nav.html');?>
     
-    <div class = "container-fluid">
+     <div class = "container-fluid">
       <div class = "row">
         <article class = "col-lg-12">
           <!--carousel start-->
