@@ -43,7 +43,7 @@ $(document).ready(
             eventZipCode: {
                 size: "Zip Code must be five numbers long",
                 required: "Please add zip code!"                
-            }
+            },
             eventDate: {
                 required:  "Please let us know when your event is being held!"
             }
