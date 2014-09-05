@@ -16,7 +16,7 @@
             <label for="eventState"><h4>Event State</h4></label>
             <input type="text" size=2 id="eventState" name="eventState" placeholder="NM"/><br />
             <label for="eventZipCode"><h4>Event Zip Code</h4></label>
-            <input type="number" max="5" id="eventZipCode" name="eventZipCode" placeholder="zip!" /> <br />
+            <input type="number" maxlength="5" id="eventZipCode" name="eventZipCode" placeholder="zip!" /> <br />
             <label for="eventDescription"><h4>Event Description</h4></label>
             <input type="text" max="300" id="eventDescription" name="eventDescription" placeholder="abc123" /> <br />
             <label for="date"><h4>Event Time and Date</h4<label><br />
