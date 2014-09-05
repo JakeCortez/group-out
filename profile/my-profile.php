@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 
-<?php require_once('../php/head.html');?>
+<?php require_once('/php/head.html');?>
  <body>
 
    <?php require_once('../php/nav.html');?>
@@ -14,7 +14,7 @@
         <div class="userAboutMe" style="clear:both;margin-bottom:20px;"><span style="font-size:2em;font-weight:bold;">About Me</span><br />Praesent accumsan lacus massa, sed aliquam lorem dapibus vitae. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Sed a gravida leo, vel blandit dolor. Praesent vulputate purus justo, sed ornare tortor aliquet id. Vivamus commodo fringilla nisl non eleifend.</div>
 
 <!-- User Link area -->
-        <div class="userLinks" style="font-size:2em;font-weight:bold;margin-bottom:20px;">my website / facebook / twitter / instagram</div>
+        <div class="userLinks" style="font-size:1.75em;font-weight:bold;margin-bottom:20px;">my website / facebook / twitter / instagram</div>
 
 <!-- Listed routes, events and groups -->
         <div class="bar" style="height:40px;background-color:#7f7f7f;color:#fff;font-size:1.5em;font-weight:bold;padding:5px 5px 5px 20px;">Tabs</div>
