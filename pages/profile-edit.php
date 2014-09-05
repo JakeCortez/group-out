@@ -7,9 +7,19 @@
     <?php require_once('../php/nav.html');?>
     <div class = "container-fluid">
       <article class = "col-lg-9">
-        <img src="url" alt="Profile Picture"><a href="">Upload Profile Image</a>
+        <img src="url" alt="Profile Picture"><br />
+        <fieldset title="Other form elements">
+          <legend>Profile Photo</legend>
+          <label>Upload file
+          <input type="file" name="name">
+            </label>
+        </fieldset>
+        <input type="submit">
+        
+        
         <form id="displayName" method="post" action="">
             <label for="displayName"><h4>Display Name</h4></label><p> Choose a name you would like to be visible to public</p><br />
+            <input name="displayName" type="text" id="displayName" placeholder="abc123" required max="25">
             <h4>Preferred Activities</h4><p> Choose one or more</p>
             <input name="activity" type="checkbox" value="hike">Hike<input type="checkbox" value="bike">Bike<input type="checkbox" value="run">Run<input type="checkbox" value="other">Other<br /><br />
             
