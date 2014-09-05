@@ -16,8 +16,10 @@
 <!-- User Link area -->
         <div class="userLinks" style="font-size:1.75em;font-weight:bold;margin-bottom:20px;">my website / facebook / twitter / instagram</div>
 
-<!-- Listed routes, events and groups -->
+<!-- PLACEHOLDER FOR THE TAB BAR ABOVE LIST AREA -->
         <div class="bar" style="height:40px;background-color:#7f7f7f;color:#fff;font-size:1.5em;font-weight:bold;padding:5px 5px 5px 20px;">Tabs</div>
+
+<!-- Listed routes, events and groups -->
         <div class="listItem" style="border-bottom:1px solid #b6b6b6;padding:20px 0px 20px 0px;">
           <div class="listThumb" style="float:left;width:140px;height:140px;background-color:#c9f9a5;margin-right:20px;"></div>
 
