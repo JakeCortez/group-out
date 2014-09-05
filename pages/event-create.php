@@ -30,13 +30,6 @@
             <input name="privacy" type="checkbox" value="private">Private / only people you invite can join<br /><input type="checkbox" value="public">Public / anyone can request to join<br />
         </form>
             <br />
-          
-          
-          
-          
-          
-          
-          
         <button type="submit">Click to Create Event</button>
       </article>
     
