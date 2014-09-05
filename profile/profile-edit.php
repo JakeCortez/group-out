@@ -94,7 +94,9 @@
             
             <label for="zip"><h4>Zip Code</h4></label><input type="text" id="zipCode" name="zipCode" placeholder="12345" minlength="5" maxlength="5">
             <label for="aboutMe"><h4>Describe Yourself</h4></label>
-            <input type="text" max="300" id="aboutMe" name="aboutMe" placeholder="abc123" /> <br />
+            <textarea type="text" id="aboutMe" name="aboutMe" placeholder="abc123" /></textarea><br />
+            <label for="email"><h4>Email (required)</h4> </h4></label>
+            <input type"email" name="email" id="email" placeholder="abc@defg.com><br />
             <label for="website"><h4>Website (optional)</h4<label><br />
             <input type="url" id="website" name="website" placeholder="abc@groupout.com"/>
             <label for="faceboook"><h4>Facebook (optional)</h4<label><br />
