@@ -1,14 +1,14 @@
  <!DOCTYPE html>
 <html>
   
-  <?php require_once('../php/head.html');?>
+  <?php require_once('php/head.html');?>
   
   <body>
     <div class="page-header">
       <h1>group<strong>out</strong><small> lorem ipsum</small></h1>
     </div>
     
-    <?php require_once('../php/nav.html');?>
+    <?php require_once('php/nav.html');?>
     
      <div class = "container-fluid">
       <div class = "row">
@@ -17,27 +17,27 @@
           <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
             <!-- Indicators -->
             <ol class="carousel-indicators">
-              <li data-target="../images/share_routes.jpg" data-slide-to="0" class="active"></li>
-              <li data-target="../images/meet_people.jpg" data-slide-to="1"></li>
-              <li data-target="../images/make_events.jpg" data-slide-to="2"></li>
+              <li data-target="images/share_routes.jpg" data-slide-to="0" class="active"></li>
+              <li data-target="images/meet_people.jpg" data-slide-to="1"></li>
+              <li data-target="images/make_events.jpg" data-slide-to="2"></li>
             </ol>
           
             <!-- Wrapper for slides -->
             <div class="carousel-inner">
               <div class="item active">
-                <img src="../images/share_routes.jpg" alt="...">
+                <img src="images/share_routes.jpg" alt="...">
                 <div class="carousel-caption">
                   <h3>Share your favorite routes</h3>
                 </div>
               </div>
               <div class="item">
-                <img src="../images/meet_people.jpg" alt="...">
+                <img src="images/meet_people.jpg" alt="...">
                 <div class="carousel-caption">
                   <h3>Meet new people</h3>
                 </div>
               </div>
                 <div class="item">
-                <img src="../images/make_events.jpg" alt="...">
+                <img src="images/make_events.jpg" alt="...">
                 <div class="carousel-caption">
                   <h3>Make an event for your friends to attend</h3>
                 </div>
@@ -66,11 +66,6 @@
       </div>
     </div>
     
-    <?php require_once('../php/footer.html');?>
-    
-        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="../bootstrap/js/bootstrap.min.js"></script>
+    <?php require_once('php/footer.html');?>
   </body>
 </html>
