@@ -10,17 +10,17 @@
         <h1>Create an Event</h1>
         <form id="eventName" method="post" action="">
             <label for="eventName"><h4>Event Name</h4></label>
-            <input type="text" id="eventName" name="eventName" placeholder="myEvent!"/><br />
+            <input type="text" id="eventName" required name="eventName" placeholder="myEvent!"/><br />
             <label for="eventCity"><h4>Event City</h4></label>
-            <input type="text" id="eventCity" name="eventCity" placeholder="Albuquerque?"/><br />
+            <input type="text" id="eventCity" required name="eventCity" placeholder="Albuquerque?"/><br />
             <label for="eventState"><h4>Event State</h4></label>
-            <input type="text" size=2 id="eventState" name="eventState" placeholder="NM"/><br />
+            <input type="text" size=2 id="eventState" required name="eventState" placeholder="NM"/><br />
             <label for="eventZipCode"><h4>Event Zip Code</h4></label>
-            <input type="number" maxlength="5" id="eventZipCode" name="eventZipCode" placeholder="zip!" /> <br />
+            <input type="number" max="10" id="eventZipCode" required name="eventZipCode" placeholder="zip!" /> <br />
             <label for="eventDescription"><h4>Event Description</h4></label>
-            <input type="text" max="300" id="eventDescription" name="eventDescription" placeholder="abc123" /> <br />
+            <input type="text" max="300" id="eventDescription" required name="eventDescription" placeholder="abc123" /> <br />
             <label for="date"><h4>Event Time and Date</h4<label><br />
-            <input type="datetime-local" value="2014-09-04T21:00" id="datetime-local" name="datetime-local"><br /><br/>
+            <input type="datetime-local" value="2014-09-04T21:00" id="datetime-local" required name="datetime-local"><br /><br/>
             <form action="">
             <h4>Choose one or more activities</h4>
             <input name="activity" type="checkbox" value="hike">Hike<br>
