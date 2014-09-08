@@ -46,12 +46,42 @@ $(document).ready(
             }
         },
         
-var zipTest = \d{5}(-\d{4}?);
+var zipTest = ^\d{5}(-\d{4})?$;
    if (!zip.Test) {
-      alert("this is not a valid zip code");  
+      alert("Please use a valid zip code");  
    } else {
       //zip is valid
    }
+   
+   // OR?
+   //function checkZip(value) {
+   // return (/(^\d{5}$)|(^\d{5}-\d{4}$)/).test(value);
+   //};
+   
+//   <html xmlns="http://www.w3.org/1999/xhtml">
+//<head>
+   // <title>Validate US Zip Code in JavaScript</title>
+    //<script type="text/javascript">
+      //  function IsValidZipCode(zip) {
+           // var isValid = /^[0-9]{5}(?:-[0-9]{4})?$/.test(zip);
+           // if (isValid)
+              //  alert('Valid ZipCode');
+           // else {
+             //   alert('Invalid ZipCode');
+          //  }
+       // }
+    //</script>
+//</head>
+
+//<body>
+//<form>
+//<input id="txtZip" name="zip" type="text" /><br />
+//<input id="Button1" type="submit" value="Validate"
+//onclick="IsValidZipCode(this.form.zip.value)" />
+//</form>
+//</body>
+//</html>
+   
              //set up AJAX call -- DOESN;T WORK IF DEBUG IS ON!
              submitHandler: function(form) {
                 $(form).ajaxSubmit({
