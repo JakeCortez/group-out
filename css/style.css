@@ -20,7 +20,11 @@ html{
     margin: 0 auto;
 
 }
-
+@media (min-width: 768px) {
+    .dropdown:hover .dropdown-hover{
+    display:block;
+    }
+}
 .navLink{
     padding-left:1em;
     padding-right:1em;
@@ -31,10 +35,6 @@ html{
     margin-left:3em;
 }
 
-.dropdown:hover .dropdown-hover{
-    display:block;
-    
-}
 #carousel-example-generic{
     height:50em;    
 }
