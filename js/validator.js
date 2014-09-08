@@ -38,7 +38,7 @@ $(document).ready(
                 required: "Please submit the two-letter code of the state where the event will be held",
             },
             eventZipCode: {
-                size: "Please add your zip code",
+                size: "Please add the event's zip code",
                 required: "Zip Code Please!"                
             },
             eventDate: {
@@ -47,9 +47,10 @@ $(document).ready(
         },
         
 var zipTest = \d{5}(-\d{4}?);
-   if (zip.search(zip.Test)==-1) {
+   if (!zip.Test) {
       alert("this is not a valid zip code");  
    } else {
+      //zip is valid
    }
              //set up AJAX call -- DOESN;T WORK IF DEBUG IS ON!
              submitHandler: function(form) {
