@@ -49,6 +49,11 @@ $(document).ready(
             }
         },
         
+var zipTest = \d{5}(-\d{4}?);
+   if (zip.search(zip.Test)==-1) {
+      alert("this is not a valid zip code");  
+   } else {
+   }
              //set up AJAX call -- DOESN;T WORK IF DEBUG IS ON!
             // submit Handler customizes form's -- no default behavior
              submitHandler: function(form) {
