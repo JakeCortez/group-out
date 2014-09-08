@@ -23,14 +23,9 @@
             <input type="datetime-local" value="2014-09-04T21:00" id="datetime-local" required name="datetime-local"><br /><br/>
             <form action="">
             <h4>Choose one or more activities</h4>
-            <input name="activity" type="checkbox" value="hike">Hike<br>
-            <input type="checkbox" value="bike">Bike<br>
-            <input type="checkbox" value="run">Run<br>
-            <input type="checkbox" value="other">Other<br><br>
+            <input name="activity" type="checkbox" value="hike">Hike<input type="checkbox" value="bike">Bike<input type="checkbox" value="run">Run<input type="checkbox" value="other">Other<br /><br />
             <h4>Choose Group Skill Level</h4>
-            <input name="skillLevel"  type="checkbox" value="low">Lo<br>
-            <input type="checkbox" value="medium">Med<br>
-            <input type="checkbox" value="hi">Hi<br><br>
+            <input name="skillLevel"  type="checkbox" value="low">Lo<input type="checkbox" value="medium">Med<input type="checkbox" value="hi">Hi<br /><br />
             <h4>Privacy Setting</h4>
             <input name="privacy" type="checkbox" value="private">Private / only people you invite can join<br /><input type="checkbox" value="public">Public / anyone can request to join<br />
         </form>

@@ -23,7 +23,6 @@
             <h4>Preferred Activities</h4><p> Choose one or more</p>
             <input name="activity" type="checkbox" value="hike">Hike<input type="checkbox" value="bike">Bike<input type="checkbox" value="run">Run<input type="checkbox" value="other">Other<br /><br />
             
-            
             <label for="city"><h4>City</h4></label>
             <input type="text" id="city" name="city" placeholder="abc123"/><br />
             <label for="state"><h4>State</h4></label>
@@ -92,7 +91,7 @@
 
             </select>
             
-            <label for="zip"><h4>Zip Code</h4></label><input type="text" id="zipCode" name="zipCode" placeholder="12345" minlength="5" maxlength="5">
+            <label for="zip"><h4>Zip Code</h4></label><input type="number" id="zipCode" required name="zipCode" placeholder="87185" minlength="5" maxlength="10">
             <label for="aboutMe"><h4>Describe Yourself</h4></label>
             <textarea type="text" id="aboutMe" name="aboutMe" placeholder="abc123" /></textarea><br />
             <label for="email"><h4>Email (required)</h4> </h4></label>

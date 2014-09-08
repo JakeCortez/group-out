@@ -141,3 +141,10 @@ footer{
 .content-default{
     padding:1em;
 }
+
+input:valid {
+   outline:  5px solid green;
+}
+input:invalid {
+    outline: 5px dashed red;
+}
