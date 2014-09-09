@@ -101,3 +101,12 @@ var zipTest = ^\d{5}(-\d{4})?$;
         });
     }
 );
+
+//<?php
+
+//echo $safeEmail = htmlspecialchars($_POST["email"]);
+//if (strpos($safeEmail, "@", 1)=== false) {
+    
+//}
+//echo $safeEmail . " thanks ";
+//?>

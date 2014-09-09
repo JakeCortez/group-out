@@ -162,9 +162,9 @@ footer{
     padding:1em;
 }
 
-input:valid {
+input:valid{
    outline:  5px solid green;
 }
-input:invalid {
+input:invalid{
     outline: 5px dashed red;
 }
