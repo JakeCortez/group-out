@@ -8,7 +8,7 @@ html{
 }
 
 .navbar-default{
-    background-color: #f8f8f8 !important; 
+    background-color: #f8f8f8 !important;
 }
 
 .navbar-brand{
@@ -20,11 +20,7 @@ html{
     margin: 0 auto;
 
 }
-@media (min-width: 768px) {
-    .dropdown:hover .dropdown-hover{
-    display:block;
-    }
-}
+
 .navLink{
     padding-left:1em;
     padding-right:1em;
@@ -36,7 +32,7 @@ html{
 }
 
 #carousel-example-generic{
-    height:50em;    
+    height:50em;
 }
 
 #carousel-example-generic img {
@@ -114,6 +110,11 @@ p{
     display:inline-block;
 }
 
+/*** LISTS ***/
+
+
+
+/*** FOOTER ***/
 footer{
     margin: 0 !important;
     margin-top:4em !important;
@@ -146,7 +147,7 @@ footer{
 }
 
 .pagination{
-    
+
 }
 
 .page_info{
@@ -172,4 +173,13 @@ input:invalid{
 #map-canvas{
     height:100%;
     background-color: aliceblue;
+}
+
+
+/*** RESPONSIVE (@MEDIA) STYLES ***/
+
+@media (min-width: 768px) {
+    .dropdown:hover .dropdown-hover{
+    display:block;
+    }
 }
