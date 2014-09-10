@@ -42,5 +42,6 @@
       </aside>
       <?php require_once('../php/footer.html');?>
     </div>
+    </div>
   </body>
 </html>
