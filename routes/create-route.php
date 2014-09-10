@@ -7,6 +7,8 @@
      <title>Group Out</title>
           <!--custom css and javascript-->
       <link href="../css/style.css" rel="stylesheet">
+      <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBy-_PKHdZOkY8jGVZlOFN7hbXVflQ-4us">
+    </script>
             <!-- Bootstrap -->
       <link href="../css/bootstrap.min.css" rel="stylesheet">
       <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
@@ -22,7 +24,7 @@
   <body>
     
     <?php require_once('../php/nav.html');?>
-    <div class = "container-fluid">
+    <div id = "map-canvas">
       <article class = "col-lg-9">
         <div id = "placeholder-map"></div>
         <form>
