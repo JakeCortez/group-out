@@ -43,6 +43,7 @@ html {
 }
 
 
+
 /*** ARTICLE AREA ***/
 
 article {
@@ -210,9 +211,6 @@ aside {
 }
 
 
-
-
-
 /*** FOOTER ***/
 footer {
   margin: 0 !important;
@@ -269,6 +267,13 @@ footer {
   padding: 1em;
 }
 
+#map-canvas{
+    height:100%;
+    background-color: aliceblue;
+}
+
+/***** SIGNUP FORM VALIDATION  ***/
+
 input:valid {
  outline: 1px solid green;
 }
@@ -283,11 +288,6 @@ input:invalid {
     font-weight: normal;
 }
 
-#map-canvas{
-    height:100%;
-    background-color: aliceblue;
-}
-
 #signUpForm {
     margin-left: auto;
     margin-right: auto;
@@ -300,6 +300,10 @@ input:invalid {
     font-family: Verdana, Arial, Sans-Serif;
     opacity: 0.5;
 }
+
+
+
+
 /*** RESPONSIVE (@MEDIA) STYLES ***/
 
 @media (min-width: 768px) {
