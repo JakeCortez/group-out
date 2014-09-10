@@ -168,3 +168,7 @@ input:valid{
 input:invalid{
     outline: 1px solid red;
 }
+
+#map-canvas{
+    width:100%;
+}
