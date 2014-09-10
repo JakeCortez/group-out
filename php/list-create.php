@@ -4,8 +4,8 @@
 // step 3 loop over result set grabbing up to 5 routes & buiding html
 
 
-// function to output a route block for a route list
-function output_block($routeName, $routeActivity, $routeCity, $routeState, $routeDateCreated, $routeDifficulty) {
+// function to output a event block for an event list
+function output_block_route($routeName, $routeActivity, $routeCity, $routeState, $routeDateCreated, $routeDifficulty) {
   // change route date stored in database to "Month DD, YYYY"
   $routeDateCreated = X
 
@@ -21,6 +21,15 @@ function output_block($routeName, $routeActivity, $routeCity, $routeState, $rout
       <div class='listInfo'>$routeCity, $routeState | $routeDateCreated</div>
       <div class='listDifficulty'>difficulty | $routeDifficulty</div>
     </div>
+
+    <div class="listJoin">
+      <div class="numberJoined">
+        <p class="number">$numberJoined</p>
+        <p style="">joined</p>
+      </div>
+    </div>
+    <div class="listButton">joined</div>
+
     <div style='clear:both;'></div>
   </div>";
 }
