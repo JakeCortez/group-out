@@ -24,7 +24,9 @@
   <body>
     
     <?php require_once('../php/nav.html');?>
-    <div id = "map-canvas">
+    <div id = "container-fluid">
+      <div id = "map-canvas">
+      </div>
       <article class = "col-lg-9">
         <div id = "placeholder-map"></div>
         <form>
@@ -33,14 +35,13 @@
           Run<input type = "checkbox"><br>
           Hike<input type = "checkbox"><br>
           Bike<input type = "checkbox"><br>
-          <input type = "" > <br>
+           <input type = "" > <br>
         </form>
       </article>
       <aside class = "col-lg-3">
       <?php require_once('../php/sidebarplaceholder.html');?>
       </aside>
+      <?php require_once('../php/footer.html');?>
     </div>
-    <?php require_once('../php/footer.html');?>
-
   </body>
 </html>
