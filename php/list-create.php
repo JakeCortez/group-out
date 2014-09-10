@@ -1,25 +1,25 @@
 <?php
 // step 1 connect to database
 // step 2 construct the sql select with userID
-// step 3 loop over result set grabbing up to 5 routes & buiding html
+// step 3 loop over result set grabbing up to 5 events & buiding html
 
 
 // function to output a event block for an event list
-function output_block_route($routeName, $routeActivity, $routeCity, $routeState, $routeDateCreated, $routeDifficulty) {
-  // change route date stored in database to "Month DD, YYYY"
-  $routeDateCreated = X
+function output_block($eventName, $eventActivity, $eventCity, $eventState, $eventDateCreated, $eventDifficulty) {
+  // change event date stored in database to "Month DD, YYYY"
+  $eventDateCreated = X
 
-  // routes will be an array, can be one or more of run, bike & hike
-  $routeActivity = Y
+  // events will be an array, can be one or more of run, bike & hike
+  $eventActivity = Y
 
   // creation of the html for a single block
   echo "<div class='listItem'>
-    <div class='listThumb'>$routeMapThumb</div>
+    <div class='listThumb'>$eventThumb</div>
 
     <div class='listDetails'>
-      <div class='listHead'>$routeName | $routeActivity</div>
-      <div class='listInfo'>$routeCity, $routeState | $routeDateCreated</div>
-      <div class='listDifficulty'>difficulty | $routeDifficulty</div>
+      <div class='listHead'>$eventName | $eventActivity</div>
+      <div class='listInfo'>$eventCity, $eventState | $eventDateCreated</div>
+      <div class='listDifficulty'>difficulty | $eventDifficulty</div>
     </div>
 
     <div class="listJoin">
