@@ -4,12 +4,18 @@
      <meta charset="UTF-8">
      <meta http-equiv="X-UA-Compatible" content="IE=edge">
      <meta name="viewport" content="width=device-width, initial-scale=1">
-     <title>Group Out</title>
+     <title>Group Out Home Page</title>
           <!--custom css and javascript-->
       <link href="css/style.css" rel="stylesheet">
             <!-- Bootstrap -->
       <link href="css/bootstrap.min.css" rel="stylesheet">
+
       <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+      <script src="//malsup.github.com/jquery.form.js"></script>
+     
+      <script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/jquery.validate.min.js"></script>
+      <script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/additional-methods.min.js"></script>
+      
       <script src="js/bootstrap.min.js"></script>
           <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
           <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -17,7 +23,7 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
           <![endif]-->
-      <script src="js/group-out.js"></script>
+      <script src="js/validator.js"></script>
   </head>
   <body>
     <div class="page-header">
@@ -71,13 +77,14 @@
       </div>
       <div class = "row">
         <div class = "col-lg-12" id = "new-user-index">
-          <h1 style="text-align:center"><small>Register with just your email!</small></h1>
-          <form>
-            <input type   = "email" placeholder    = "your-email@email.com" name = "new-email">
-            <input type   = "password" placeholder = "password">
-            <input type   = "password" placeholder = "confirm password">
-            <button class = "btn btn-default" type ="submit">Sign Up!</button>
+          <p>Make an account today with just your email!</p>
+          <form id="signUpForm" method="post" action="index.php">
+            <input type = "email" placeholder = "your-email@email.com" name = "new-email">
+            <input type = "password" placeholder = "password">
+            <input type = "password" placeholder = "confirm password">
+            <button class = "btn btn-default" type="submit">Sign Up!</button>
           </form>
+            <div><p id="outputArea"></p></div>
         </div>
       </div>
     </div>

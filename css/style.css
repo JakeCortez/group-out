@@ -276,12 +276,30 @@ input:invalid {
   outline: 1px solid red;
 }
 
-#map-canvas {
-  height: 100%;
-  background-color: aliceblue;
+.badForm,
+.error {
+    background: aliceblue;
+    color: #cc3300;
+    font-weight: normal;
 }
 
+#map-canvas{
+    height:100%;
+    background-color: aliceblue;
+}
 
+#signUpForm {
+    margin-left: auto;
+    margin-right: auto;
+    height: 200px;
+    width: 450px;
+    border-radius: 5px 5px 5px 5px;
+    background-color: white;
+    text-align: center;
+    color: black;
+    font-family: Verdana, Arial, Sans-Serif;
+    opacity: 0.5;
+}
 /*** RESPONSIVE (@MEDIA) STYLES ***/
 
 @media (min-width: 768px) {
