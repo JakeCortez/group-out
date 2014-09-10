@@ -24,9 +24,16 @@
     <?php require_once('../php/nav.html');?>
     <div class = "container-fluid">
       <article class = "col-lg-9">
-        
+        <div id = "placeholder-map"></div>
+        <form>
+          <input type = "text" placeholder = "Route Name"><br>
+          Route Type: <br>
+          Run<input type = "checkbox"><br>
+          Hike<input type = "checkbox"><br>
+          Bike<input type = "checkbox"><br>
+          <input type = "" > <br>
+        </form>
       </article>
-    
       <aside class = "col-lg-3">
       <?php require_once('../php/sidebarplaceholder.html');?>
       </aside>
