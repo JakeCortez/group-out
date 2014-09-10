@@ -25,13 +25,16 @@
    <div class="container-fluid">
      <article class="col-lg-8">
 <!-- Main User Area -->
-        <div class="userAvatar" style="float:left;width:200px;height:200px;background-color:#c9f9a5;margin-right:20px;margin-bottom:20px;"></div>
-        <div class="userDisplayName" style="font-weight:bold;font-size:2em;">Display Name</div>
-        <div class="userActivities" style="font-size:1.5em;">biker | runner</div>
-        <div class="userAboutMe" style="clear:both;margin-bottom:20px;"><span style="font-size:2em;font-weight:bold;">About Me</span><br />Praesent accumsan lacus massa, sed aliquam lorem dapibus vitae. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Sed a gravida leo, vel blandit dolor. Praesent vulputate purus justo, sed ornare tortor aliquet id. Vivamus commodo fringilla nisl non eleifend.</div>
+        <div class="userAvatar"></div>
+        <div class="userDisplayName">Display Name</div>
+        <div class="userActivities">biker | runner</div>
+        <div class="userAboutMe">
+          <h1>About Me</h1>
+          <p>Praesent accumsan lacus massa, sed aliquam lorem dapibus vitae. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Sed a gravida leo, vel blandit dolor. Praesent vulputate purus justo, sed ornare tortor aliquet id. Vivamus commodo fringilla nisl non eleifend.</p>
+        </div>
 
 <!-- User Link area -->
-        <div class="userLinks" style="font-size:1.75em;font-weight:bold;margin-bottom:20px;">my website / facebook / twitter / instagram</div>
+        <div class="userLinks">my website / facebook / twitter / instagram</div>
 
 <!-- PLACEHOLDER FOR THE TAB BAR ABOVE LIST AREA -->
         <div class="bar" style="height:40px;background-color:#7f7f7f;color:#fff;font-size:1.5em;font-weight:bold;padding:5px 5px 5px 20px;">Tabs</div>

@@ -53,6 +53,37 @@ article {
   color: #b8e65c;
 }
 
+/*** PROFILE ***/
+.userAvatar {
+  float: left;
+  width: 200px;
+  height: 200px;
+  background-color: #c9f9a5;
+  margin-right: 20px;
+  margin-bottom: 20px;
+}
+
+.userDisplayName {
+  font-weight: bold;
+  font-size: 2em;
+}
+
+.userActivities {
+  font-size: 1.5em;
+}
+
+.userAboutMe {
+  clear: both;
+  margin-bottom: 20px;
+}
+
+.userAboutMe h1 {
+  font-size: 2em;
+  font-weight: bold;
+}
+
+
+
 /*** LISTS (INSIDE ARTICLE AREA) ***/
 .listItem {
   border-bottom: 1px solid #b6b6b6;
@@ -86,9 +117,9 @@ article {
 }
 
 .listJoin {
-  float:right;
-  font-weight:bold;
-  text-align:center;
+  float: right;
+  font-weight: bold;
+  text-align: center;
 }
 
 .numberJoined {
@@ -118,6 +149,13 @@ article {
 
 .listButton:hover {
   background-color: #356310;
+  cursor: pointer;
+}
+
+.userLinks {
+  font-size: 1.75em;
+  font-weight: bold;
+  margin-bottom: 20px;
 }
 
 
@@ -134,9 +172,10 @@ aside {
   max-width: 84px;
 }
 
-p {
+/* p {
   text-align: center;
 }
+*/
 
 .carousel-inner img {
   overflow: hidden;
