@@ -24,6 +24,7 @@
    <?php require_once('../php/nav.html');?>
    <div class="container-fluid">
      <article class="col-lg-8">
+
 <!-- Main User Area -->
         <div class="userAvatar"></div>
         <div class="userDisplayName">Display Name</div>
@@ -41,14 +42,17 @@
 
 <!-- Listed routes, events and groups -->
         <div class="listItem">
+          <!-- thumbnail image -->
           <div class="listThumb"></div>
 
+          <!-- details area -->
           <div class="listDetails">
             <div class="listHead">Event Name | hike, bike</div>
             <div class="listInfo">City Name, ST | May 10, 2015</div>
             <div class="listDifficulty">difficulty / med</div>
           </div>
 
+          <!-- joined # and join button area -->
           <div class="listJoin">
             <div class="numberJoined">
               <p class="number">132</p>
@@ -56,6 +60,8 @@
             </div>
           </div>
           <div class="listButton">join event</div>
+
+          <!-- empty div to clear floating elements -->
           <div style="clear:both;"></div>
         </div>
 <!-- END OF Listed routes, events and groups -->
