@@ -1,178 +1,245 @@
-html{
-    padding: 0;
+html {
+  padding: 0;
 }
 
-.page-header{
-    padding-left:2em;
-    color: #b8e65c
+
+/*** TOP NAV ***/
+.page-header {
+  padding-left: 2em;
+  color: #b8e65c
 }
 
-.navbar-default{
-    background-color: #f8f8f8 !important;
+.navbar-default {
+  background-color: #f8f8f8 !important;
 }
 
-.navbar-brand{
-    color: #b8e65c !important;
+.navbar-brand {
+  color: #b8e65c !important;
 }
 
-.nav{
-    text-align:center;
-    margin: 0 auto;
-
+.nav {
+  text-align: center;
+  margin: 0 auto;
 }
 
-.navLink{
-    padding-left:1em;
-    padding-right:1em;
-    margin:0 auto;
+.navLink {
+  padding-left: 1em;
+  padding-right: 1em;
+  margin: 0 auto;
 }
 
-.sign_in{
-    margin-left:3em;
+.sign_in {
+  margin-left: 3em;
 }
 
-#carousel-example-generic{
-    height:50em;
+/*** HOME PAGE ***/
+#carousel-example-generic {
+  height: 50em;
 }
 
 #carousel-example-generic img {
-    max-height:100%;
-    min-width: 100%;
+  max-height: 100%;
+  min-width: 100%;
 }
 
-article{
-    padding-bottom:2em;
+
+/*** ARTICLE AREA ***/
+
+article {
+  padding-bottom: 2em;
 }
 
-.current{
-    color: #b8e65c;
+.current {
+  color: #b8e65c;
 }
 
-aside{
-    padding: 1em;
-    border: 1px solid #e7e7e7;
-    background-color:#f8f8f8;
-    margin-bottom:2em;
+/*** LISTS (INSIDE ARTICLE AREA) ***/
+.listItem {
+  border-bottom: 1px solid #b6b6b6;
+  padding: 20px 0px 20px 0px;
 }
 
-.media-object{
-    max-width:84px;
+.listThumb {
+  float: left;
+  width: 140px;
+  height: 140px;
+  background-color: #c9f9a5;
+  margin-right: 20px;
 }
 
-p{
-    text-align:center;
+.listDetails {
+  float:left;
 }
 
-.carousel-inner img{
-    overflow:hidden;
+.listHead {
+  font-weight: bold;
+  font-size: 1.9em;
 }
 
-.basicModal-content{
-    margin: 1em !important;
-    border: 2px black solid;
+.listInfo {
+  font-size: 1.25em;
 }
 
-.modalLogIn{
-    display: inline-block;
-    margin: 0 auto;
-    margin-top: 1em;
-    margin-bottom: 1em;
-    text-align:center;
+.listDifficulty {
+  font-weight: bold;
+  font-size: 1.25em;
 }
 
-.basicForm input,button {
-    display:block;
-    margin: 0 auto;
-    margin-top:.25em;
-    margin-bottom: .25em;
+.listJoin {
+  float:right;
+  font-weight:bold;
+  text-align:center;
 }
 
-#new-user-index input{
-        text-align:center;
-        margin: 0 auto;
-        margin-top:.25em;
-        margin-bottom:.25em;
-        display: block;
-    }
-
-#new-user-index button{
-        text-align:center;
-        margin: 0 auto;
-        margin-top:.25em;
-        margin-bottom:.25em;
-        display: block;
-    }
-
-.social_link{
-    text-align:center;
-    margin:0 auto;
-    max-width:2em;
-    display:inline-block;
+.numberJoined {
+  width: 120px;
+  height: 100px;
+  background-color: #d0e4c1;
 }
 
-/*** LISTS ***/
+.number {
+  font-size: 3.5em;
+  padding: 0px;
+  margin: 0px;
+}
+
+.listButton {
+  float: right;
+  clear: right;
+  text-align: center;
+  font-weight: bold;
+  width: 120px;
+  height: 40px;
+  background-color: #4c9a11;
+  color: #fff;
+  padding: 5px;
+  font-size: 1.25em;
+}
+
+.listButton:hover {
+  background-color: #356310;
+}
+
+
+/*** ASIDE(SIDEBAR) AREA ***/
+
+aside {
+  padding: 1em;
+  border: 1px solid #e7e7e7;
+  background-color: #f8f8f8;
+  margin-bottom: 2em;
+}
+
+.media-object {
+  max-width: 84px;
+}
+
+p {
+  text-align: center;
+}
+
+.carousel-inner img {
+  overflow: hidden;
+}
+
+.basicModal-content {
+  margin: 1em !important;
+  border: 2px black solid;
+}
+
+.modalLogIn {
+  display: inline-block;
+  margin: 0 auto;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  text-align: center;
+}
+
+.basicForm input, .basicForm button {
+  display: block;
+  margin: 0 auto;
+  margin-top: 0.25em;
+  margin-bottom: 0.25em;
+}
+
+#new-user-index input, #new-user-index button {
+  text-align:center;
+  margin: 0 auto;
+  margin-top: 0.25em;
+  margin-bottom: 0.25em;
+  display: block;
+}
+
+
 
 
 
 /*** FOOTER ***/
-footer{
-    margin: 0 !important;
-    margin-top:4em !important;
-    padding: 1em;
-    background-color: #f8f8f8;
-    border: 1px solid #e7e7e7;
+footer {
+  margin: 0 !important;
+  margin-top:4em !important;
+  padding: 1em;
+  background-color: #f8f8f8;
+  border: 1px solid #e7e7e7;
 }
 
-.footer{
-    display:inline-block;
-    color:#777;
-    padding-right: .5em;
-    padding-left: .5em;
-    border-right: 1px solid #e7e7e7;
+.footer {
+  display:inline-block;
+  color: #777;
+  padding-right: 0.5em;
+  padding-left: 0.5em;
+  border-right: 1px solid #e7e7e7;
 }
 
-.footer_links{
-    text-align:center;
-    border: .1em transparent solid;
-    display:block;
-    color:#777;
+.footer_links {
+  text-align: center;
+  border: 0.1em transparent solid;
+  display: block;
+  color: #777;
 }
 
-.footer_links:hover{
-    color:#777;
+.footer_links:hover {
+  color: #777;
 }
 
-.route-nav{
-    display:inline;
+.route-nav {
+  display: inline;
 }
 
-.pagination{
+.pagination {
 
 }
 
-.page_info{
-    padding:1em;
-    background-color:#f8f8f8;
-    border: 1px solid #e7e7e7;
-    border-bottom: none;
-    border-top-left-radius: .5em;
-    border-top-right-radius: .5em;
+.social_link {
+  text-align: center;
+  margin: 0 auto;
+  max-width: 2em;
+  display: inline-block;
 }
 
-.content-default{
-    padding:1em;
+.page_info {
+  padding: 1em;
+  background-color: #f8f8f8;
+  border: 1px solid #e7e7e7;
+  border-bottom: none;
+  border-top-left-radius: 0.5em;
+  border-top-right-radius: 0.5em;
 }
 
-input:valid{
-   outline:  1px solid green;
-}
-input:invalid{
-    outline: 1px solid red;
+.content-default {
+  padding: 1em;
 }
 
-#map-canvas{
-    height:100%;
-    background-color: aliceblue;
+input:valid {
+ outline: 1px solid green;
+}
+input:invalid {
+  outline: 1px solid red;
+}
+
+#map-canvas {
+  height: 100%;
+  background-color: aliceblue;
 }
 
 
@@ -180,6 +247,6 @@ input:invalid{
 
 @media (min-width: 768px) {
     .dropdown:hover .dropdown-hover{
-    display:block;
+    display: block;
     }
 }
