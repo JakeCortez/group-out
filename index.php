@@ -21,7 +21,7 @@
   </head>
   <body>
     <div class="page-header">
-      <h1>group<strong>out</strong><small> lorem ipsum</small></h1>
+      <h1>group<strong>out</strong><small> Event creator for outdoor enthusiasts.</small></h1>
     </div>
 
     <?php require_once('php/nav.html');?>
@@ -43,19 +43,19 @@
               <div class="item active">
                 <img src="images/share_routes.jpg" alt="...">
                 <div class="carousel-caption">
-                  <h3>Share your favorite routes</h3>
+                  <h3>Share your favorite routes.</h3>
                 </div>
               </div>
               <div class="item">
                 <img src="images/meet_people.jpg" alt="...">
                 <div class="carousel-caption">
-                  <h3>Meet new people</h3>
+                  <h3>Meet new people.</h3>
                 </div>
               </div>
                 <div class="item">
                 <img src="images/make_events.jpg" alt="...">
                 <div class="carousel-caption">
-                  <h3>Make an event for your friends to attend</h3>
+                  <h3>Make an event for your group to attend.</h3>
                 </div>
               </div>
             </div>
@@ -71,12 +71,12 @@
       </div>
       <div class = "row">
         <div class = "col-lg-12" id = "new-user-index">
-          <p>Make an account today with just your email!</p>
+          <h1 style="text-align:center"><small>Register with just your email!</small></h1>
           <form>
-            <input type = "email" placeholder = "your-email@email.com" name = "new-email">
-            <input type = "password" placeholder = "password">
-            <input type = "password" placeholder = "confirm password">
-            <button class = "btn btn-default" type="submit">Sign Up!</button>
+            <input type   = "email" placeholder    = "your-email@email.com" name = "new-email">
+            <input type   = "password" placeholder = "password">
+            <input type   = "password" placeholder = "confirm password">
+            <button class = "btn btn-default" type ="submit">Sign Up!</button>
           </form>
         </div>
       </div>
