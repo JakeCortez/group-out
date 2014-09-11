@@ -47,19 +47,19 @@
             <!-- Wrapper for slides -->
             <div class="carousel-inner">
               <div class="item active">
-                <img src="images/share_routes.jpg" alt="...">
+                <img src="images/share_routes.jpg" alt="..." />
                 <div class="carousel-caption">
                   <h3>Share your favorite routes.</h3>
                 </div>
               </div>
               <div class="item">
-                <img src="images/meet_people.jpg" alt="...">
+                <img src="images/meet_people.jpg" alt="..." />
                 <div class="carousel-caption">
                   <h3>Meet new people.</h3>
                 </div>
               </div>
                 <div class="item">
-                <img src="images/make_events.jpg" alt="...">
+                <img src="images/make_events.jpg" alt="..." />
                 <div class="carousel-caption">
                   <h3>Make an event for your group to attend.</h3>
                 </div>
@@ -79,9 +79,9 @@
         <div class = "col-lg-12" id = "new-user-index">
           <p>Make an account today with just your email!</p>
           <form id="signUpForm" method="post" action="index.php">
-            <input type = "email" placeholder = "your-email@email.com" required name = "new-email">
-            <input type = "password" required placeholder = "password">
-            <input type = "password" required placeholder = "confirm password">
+            <input type = "email" id = "email" placeholder = "your-email@email.com" required name = "email" >
+            <input type = "password" id = "password" required name ="password" minlength = 8 placeholder = "password">
+            <input type = "password" id = "confirmPassword" required name = "confirmPassword" placeholder = "confirm password">
             <button class = "btn btn-default" type="submit">Sign Up!</button>
           </form>
             <div><p id="outputArea"></p></div>
