@@ -38,35 +38,10 @@
         <div class="userLinks">my website / facebook / twitter / instagram</div>
 
 <!-- PLACEHOLDER FOR THE TAB BAR ABOVE LIST AREA -->
-        <div class="bar" style="height:40px;background-color:#7f7f7f;color:#fff;font-size:1.5em;font-weight:bold;padding:5px 5px 5px 20px;">Tabs</div>
+        <div class="bar">Events</div>
 
-<!-- Listed routes, events and groups -->
-
-
-        <div class="listItem">
-          <!-- thumbnail image -->
-          <div class="listThumb"></div>
-
-          <!-- details area -->
-          <div class="listDetails">
-            <div class="listHead">Event Name | hike, bike</div>
-            <div class="listInfo">City Name, ST | May 10, 2015</div>
-            <div class="listDifficulty">difficulty / med</div>
-          </div>
-
-          <!-- joined # and join button area -->
-          <div class="listJoin">
-            <div class="numberJoined">
-              <p class="number">132</p>
-              <p style="">joined</p>
-            </div>
-          </div>
-          <div class="listButton">join event</div>
-
-          <!-- empty div to clear floating elements -->
-          <div style="clear:both;"></div>
-        </div>
-<!-- END OF Listed routes, events and groups -->
+<!-- Route, Group and Event Lists -->
+        <?php require_once('../php/list-create.php');?>
 
      </article>
 
