@@ -8,7 +8,7 @@ if (mysqli_connect_errno()) {
 }
 
 // step 2 construct the sql query for events created by userID 1 and limit to 3 results
-$result = mysqli_query($db,"SELECT *, DATE_FORMAT(eventDateCreated,'%M %e, %Y') AS niceDate FROM events WHERE userID=1 LIMIT 5");
+$result = mysqli_query($db,"SELECT *, DATE_FORMAT(eventDateCreated,'%M %e, %Y') AS niceDate FROM events WHERE userID=1 LIMIT 3");
 
 // step 3 create the html from the results of the sql query
 while($row = mysqli_fetch_array($result)) {
@@ -35,5 +35,14 @@ while($row = mysqli_fetch_array($result)) {
 
 // step 4 close the database connection
 mysqli_close($db);
+
+// THINGS THAT STILL NEED TO HAPPEN
+// the active user needs to be id'd first, so that the list data is related to them
+// for the profile page, the event, route and group lists need to be related to the active user
+// the join button needs to trigger that the active user has joined the event
+  // if the active user already joined an event, the button should say "joined"
+// eventActivity is actually going to be a separate table
+// eventJoined is going to see who's joined the event, but people can unjoin them too
+
 
 ?>
