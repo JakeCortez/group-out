@@ -38,33 +38,27 @@ try {
     $niceDate = $dateTime->format("F j, Y");
 
     // echo the result
-    echo "<div class='listItem'>
-          <div class='listThumb'></div>
+    echo <<<EOD
+      <div class="listItem">
+      <div class="listThumb"></div>
 
-          <div class='listDetails'>
-            <div class='listHead'>" . $row['eventName'] . " | " . $row['eventActivity'] . "</div>
-            <div class='listInfo'>" . $row['eventCity'] . ", " . $row['eventState'] . " | " . $niceDate .  "</div>
-            <div class='listDifficulty'>difficulty / " . $row['eventDifficulty'] . "</div>
-          </div>
+      <div class="listDetails">
+        <div class="listHead">$row[eventName] | $row[eventActivity]</div>
+        <div class="listInfo">$row[eventCity], $row[eventState] | $niceDate</div>
+        <div class="listDifficulty">difficulty / $row[eventDifficulty]</div>
+      </div>
 
-          <div class='listJoin'>
-            <div class='numberJoined'>
-              <p class='number'>" . $row['eventJoined'] . "</p>
-              <p>joined</p>
-            </div>
-          </div>
-          <div class='listButton'>join event</div>
+      <div class="listJoin">
+        <div class="numberJoined">
+          <p class="number">$row[eventJoined]</p>
+          <p>joined</p>
+        </div>
+      </div>
+      <div class="listButton">join event</div>
 
-          <div style='clear:both;'></div>
-          </div>";
-
-/*      $bart = <<<EOF
-I will not write bad code.
-I will not write bad code.
-I will not write bad code.
-I will not write bad code.
-I will not write bad code.
-EOF; */
+      <div style="clear:both;"></div>
+      </div>
+EOD;
   }
 
   // clean up the result set
@@ -76,7 +70,7 @@ EOF; */
   // now, unplug the mySQL connection
   $mysqli->close();
 } catch(mysqli_sql_exception $error) {
-  // FIXME: write good error message
+  // echo $error
 }
 
 // THINGS THAT STILL NEED TO HAPPEN
