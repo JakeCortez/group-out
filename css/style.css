@@ -278,11 +278,15 @@ footer {
 
 /***** SIGNUP FORM VALIDATION  ***/
 
+input:focus:invalid {
+  background-color: #CCCCCC;
+  outline: 1px solid red;
+}
 input:valid {
  outline: 1px solid green;
 }
-input:invalid {
-  outline: 1px solid red;
+input:required {
+    border: 2px solid blue;
 }
 
 .badForm,
