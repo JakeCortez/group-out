@@ -1,40 +1,83 @@
 <?php
-// step 1a connect to database
-$db = mysqli_connect("localhost","root","","groupOut");
 
-// step 1b Check connection
-if (mysqli_connect_errno()) {
-  echo "Failed to connect to MySQL: " . mysqli_connect_error();
-}
+try {
+  // throw exceptions instead of PHP errors
+  mysqli_report(MYSQLI_REPORT_STRICT);
 
-// step 2 construct the sql query for events created by userID 1 and limit to 3 results
-$result = mysqli_query($db,"SELECT *, DATE_FORMAT(eventDateCreated,'%M %e, %Y') AS niceDate FROM events WHERE userID=1 LIMIT 3");
+  // connect!
+  $mysqli = new mysqli("localhost", "root", "", "groupOut");
 
-// step 3 create the html from the results of the sql query
-while($row = mysqli_fetch_array($result)) {
-  echo "<div class='listItem'>
-        <div class='listThumb'></div>
+  // create & prepare a query template
+  $query = "SELECT eventActivity, eventCity, eventDateCreated, eventDifficulty, eventJoined, eventName, eventState FROM events WHERE userID = ? LIMIT 3";
 
-        <div class='listDetails'>
-          <div class='listHead'>" . $row['eventName'] . " | " . $row['eventActivity'] . "</div>
-          <div class='listInfo'>" . $row['eventCity'] . ", " . $row['eventState'] . " | " . $row['niceDate'] .  "</div>
-          <div class='listDifficulty'>difficulty / " . $row['eventDifficulty'] . "</div>
-        </div>
+  // prepare the statement
+  if(($statement = $mysqli->prepare($query)) === false) {
+    throw(new mysqli_sql_exception("Unable to prepare query $query"));
+  }
 
-        <div class='listJoin'>
-          <div class='numberJoined'>
-            <p class='number'>" . $row['eventJoined'] . "</p>
-            <p>joined</p>
+  // bind parameters to the template
+  $userID = 1; // yucky hard wired value - get this from a session...
+  if(($statement->bind_param("i", $userID)) === false) {
+    throw(new mysqli_sql_exception("Unable to bind parameters"));
+  }
+
+  // execute the query
+  if(($statement->execute()) === false) {
+    throw(new mysqli_sql_exception("Unable to execute statement"));
+  }
+
+  // be demanding and get results! *pounds fist*
+  if(($result = $statement->get_result()) === false) {
+    throw(new mysqli_sql_exception("Unable to get results"));
+  }
+
+  // loop through the result set
+  while(($row = $result->fetch_assoc()) !== null) {
+    // reformat the date
+    $dateTime = DateTime::createFromFormat("Y-m-d H:i:s", $row["eventDateCreated"]);
+    $niceDate = $dateTime->format("F j, Y");
+
+    // echo the result
+    echo "<div class='listItem'>
+          <div class='listThumb'></div>
+
+          <div class='listDetails'>
+            <div class='listHead'>" . $row['eventName'] . " | " . $row['eventActivity'] . "</div>
+            <div class='listInfo'>" . $row['eventCity'] . ", " . $row['eventState'] . " | " . $niceDate .  "</div>
+            <div class='listDifficulty'>difficulty / " . $row['eventDifficulty'] . "</div>
           </div>
-        </div>
-        <div class='listButton'>join event</div>
 
-        <div style='clear:both;'></div>
-        </div>";
+          <div class='listJoin'>
+            <div class='numberJoined'>
+              <p class='number'>" . $row['eventJoined'] . "</p>
+              <p>joined</p>
+            </div>
+          </div>
+          <div class='listButton'>join event</div>
+
+          <div style='clear:both;'></div>
+          </div>";
+
+/*      $bart = <<<EOF
+I will not write bad code.
+I will not write bad code.
+I will not write bad code.
+I will not write bad code.
+I will not write bad code.
+EOF; */
+  }
+
+  // clean up the result set
+  $result->free();
+
+  // free up the statement
+  $statement->close();
+
+  // now, unplug the mySQL connection
+  $mysqli->close();
+} catch(mysqli_sql_exception $error) {
+  // FIXME: write good error message
 }
-
-// step 4 close the database connection
-mysqli_close($db);
 
 // THINGS THAT STILL NEED TO HAPPEN
 // the active user needs to be id'd first, so that the list data is related to them
@@ -43,6 +86,4 @@ mysqli_close($db);
   // if the active user already joined an event, the button should say "joined"
 // eventActivity is actually going to be a separate table
 // eventJoined is going to see who's joined the event, but people can unjoin them too
-
-
 ?>
