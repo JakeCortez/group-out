@@ -24,10 +24,10 @@
     
     <?php require_once('../php/nav.html');?>
     <div id = "container-fluid">
-      <div id = "map-canvas">
-      </div>
+    <div class = "row">
       <article class = "col-lg-9">
-        <div id = "placeholder-map"></div>
+        <div id = "map-canvas">
+        </div>
         <form>
           <input type = "text" placeholder = "Route Name"><br>
           Route Type: <br>
@@ -40,6 +40,7 @@
       <aside class = "col-lg-3">
       <?php require_once('../php/sidebarplaceholder.html');?>
       </aside>
+    </div>
       <?php require_once('../php/footer.html');?>
     </div>
     </div>
