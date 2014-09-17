@@ -25,19 +25,19 @@
     <div class = "container-fluid">
       <article class = "col-lg-9">
        
-       <form id="signUpForm" method="post" action="jquery-form.php">
-        <label for="email">Email</label>
-        <input type="email" id="email" name="email" placeholder="john_smith@email.com"/><br />
-        <label for="password">Password</label>
-        <input type="password" id="password" name="password" placeholder="abc123" /><br />
-        <label for="confirmPassword">Confirm Password</label>
-        <input type="password" id="confirmPassword" name="confirmPassword" placeholder="abc123" /> <br />
-        <label for="member">Member Number</label>
-        <input type="number" id="member" name="member" placeholder="abc123"/><br />
-        <label type="napHours">Nap Hours</label>
-        <input type="number" min="0" step="1.75" id="napHours" name="napHours" placeholder="Sleep Well!" /> <br />
-        <button type="submit">Nap Time!</button>
-    </form>  
+        <form id="nameGroup" method="post"<h1>Create a group</h1><form action="jquery-form.php">
+            <label for="groupName">Group Name</label>
+            <input type="text" id="groupName" name="email" placeholder="The Wicked Lobos"/><br />
+            <label for="">Password</label>
+            <input type="password" id="password" name="password" placeholder="abc123" /><br />
+            <label for="confirmPassword">Confirm Password</label>
+            <input type="password" id="confirmPassword" name="confirmPassword" placeholder="abc123" /> <br />
+            <label for="member">Member Number</label>
+            <input type="number" id="member" name="member" placeholder="abc123"/><br />
+            <label type="napHours">Nap Hours</label>
+            <input type="number" min="0" step="1.75" id="napHours" name="napHours" placeholder="Sleep Well!" /> <br />
+            <button type="submit">Nap Time!</button>
+        </form>  
       </article>
     
       <aside class = "col-lg-3">

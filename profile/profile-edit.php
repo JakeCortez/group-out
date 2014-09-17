@@ -4,7 +4,7 @@
      <meta charset="UTF-8">
      <meta http-equiv="X-UA-Compatible" content="IE=edge">
      <meta name="viewport" content="width=device-width, initial-scale=1">
-     <title>Group Out</title>
+     <title>Groupout profile edit</title>
           <!--custom css and javascript-->
       <link href="../css/style.css" rel="stylesheet">
             <!-- Bootstrap -->
@@ -35,8 +35,8 @@
         
         
         <form id="displayName" method="post" action="">
-            <label for="displayName"><h4>Display Name</h4></label><p> Choose a name you would like to be visible to public</p><br />
-            <input name="displayName" type="text" id="displayName" placeholder="abc123" required max="25">
+            <label for="displayName"><h4>Display Name</h4></label><p>Choose a name you would like to be visible to public</p><br />
+            <input name="displayName" type="text" id="displayName" placeholder="abc123" required max="25">< br/>
             <h4>Preferred Activities</h4><p> Choose one or more</p>
             <input name="activity" type="checkbox" value="hike">Hike<input type="checkbox" value="bike">Bike<input type="checkbox" value="run">Run<input type="checkbox" value="other">Other<br /><br />
             
