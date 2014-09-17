@@ -5,23 +5,23 @@ class Event {
 // PROPERTIES
 
   /**
-   * @var primary key, integer, auto inserted upon creating an event
+   * primary key, integer, auto inserted upon creating an event
    */
   private $eventID;
   /**
-   * @var foriegn key, originates from Routes
+   * foreign key, originates from Routes
    */
   private $routeID;
   /**
-   * @var foriegn key, originates from UserProfiles
+   * foreign key, originates from UserProfiles
    */
   private $userID;
   /**
-   * @var TIMESTAMP, auto inserted upon creating an event
+   * TIMESTAMP, auto inserted upon creating an event
    */
   private $eventDateCreated;
   /**
-   * @var
+   *
    */
   private $eventCity;
   /**

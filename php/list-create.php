@@ -31,8 +31,11 @@ try {
     throw(new mysqli_sql_exception("Unable to get results"));
   }
 
+
   // loop through the result set
   while(($row = $result->fetch_assoc()) !== null) {
+
+
     // reformat the date
     $dateTime = DateTime::createFromFormat("Y-m-d H:i:s", $row["eventDateCreated"]);
     $niceDate = $dateTime->format("F j, Y");

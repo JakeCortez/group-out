@@ -9,32 +9,103 @@
 class EventMember {
 
 // PROPERTIES
-
   /**
-   * @var primary key, integer, auto inserted upon creating an event
+   * primary key, integer, auto inserted upon creating an event
    */
   private $eventID;
   /**
-   * @var foriegn key, originates from the UserProfile
+   * foreign key, originates from the UserProfile
    */
   private $userID;
 
-// ACCESSORS
 
-  public function setEventID($eventID) {
-      $this->eventID = $eventID;
-  }
+// eventID ACCESSOR AND MUTATOR
+  /**
+   * accessor method for eventID
+   *
+   * @return integer value of eventID
+   */
   public function getEventID() {
       return $this->eventID;
   }
+  /**
+   * mutator method for eventID
+   *
+   * @param integer new value of eventID
+   * @throws UnexpectedValueException if the eventID is not an integer
+   * @throws RangeException if the eventID is not positive
+   */
+  public function setEventID($newEventID) {
+    // zeroth, allow a null if this is a new object
+    if($newEventID === null) {
+      $this->eventID = null;
+      return;
+    }
 
-  public function setUserID($userID) {
-      $this->userID = $userID;
+    // first, trim the input of excess whitespace
+    $newEventID = trim($newEventID);
+
+    // second, verify this is an integer
+    if((filter_var($newEventID, FILTER_VALIDATE_INT)) === false) {
+      throw(new UnexpectedValueException("eventID $newEventID is not an integer"));
+    }
+
+    // third, convert the eventID to an integer and ensure it's positive
+    $newEventID = intval($newEventID);
+    if($newEventID <= 0) {
+      throw(new RangeException("eventID $newEventID is not positive"));
+    }
+
+    // finally, the eventID is clean and can be set
+    $this->eventID = $eventID;
   }
+
+// userID ACCESSOR AND MUTATOR
+  /**
+   * accessor method for userID
+   *
+   * @return integer value of userID
+   */
   public function getUserID() {
       return $this->userID;
   }
+  /**
+   * mutator method for userID
+   *
+   * @param integer new value of userID
+   * @throws UnexpectedValueException if the userID is not an integer
+   * @throws RangeException if the userID is not positive
+   */
+  public function setUserID($newuserID) {
+    // zeroth, allow a null if this is a new object
+    if($newUserID === null) {
+      $this->userID = null;
+      return;
+    }
 
+    // first, trim the input of excess whitespace
+    $newUserID = trim($newUserID);
+
+    // second, verify this is an integer
+    if((filter_var($newUserID, FILTER_VALIDATE_INT)) === false) {
+      throw(new UnexpectedValueException("userID $newUserID is not an integer"));
+    }
+
+    // third, convert the userID to an integer and ensure it's positive
+    $newUserID = intval($newUserID);
+    if($newUserID <= 0) {
+      throw(new RangeException("userID $newUserID is not positive"));
+    }
+
+    // finally, the userID is clean and can be set
+    $this->userID = $userID;
+  }
+
+  public function getUserID() {
+    return $this->userID;
+  }
+
+// END CLASS
 }
 
 
