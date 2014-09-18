@@ -248,7 +248,6 @@ class Group {
      * sets value of state
      *
      * @param  mixed state or allow null
-     * @throws UnexpectedValueException if value has special chars
      * @throws if values are not on server
      **/
     public function setGroupState($newGroupState){
@@ -275,7 +274,7 @@ class Group {
         }
         
         //set value of state
-        $this->groupState = $newGroupState[$i];
+        $this->groupState = $newGroupState;
     }
     
     /**
@@ -361,7 +360,7 @@ class Group {
      * sets value of group avatar
      *
      **/
-    public function setGroupAvatar(){
+    public function setGroupAvatar($newGroupAvatar){
         
     }
     
@@ -375,15 +374,57 @@ class Group {
     /*
      * sets value of city of group
      *
-     * @param mixed value of city associated with group
-     * @throws 
-     * 
+     * @param mixed value of city associated with group allowing null if not set
+     * @throws UnexpectedValueException if value is not string
+     **/
+    public function setGroupCity($newGroupCity){
+        //checks if null
+        if($newGroupCity === null){
+            $this->groupCity = null;
+            return;
+        }
+        
+        //sanitizes for special characters
+        $newGroupCity = filter_var($newGroupCity, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        
+        //checks if value is string
+        if(gettype($newGroupCity) !== "string"){
+            throw(new UnexpectedValueExcperion("$newGroupCity is not a valid City"));
+        }
+        
+        //sets new value of city
+        $this->groupCity = $newGroupCity;
+    }
     
     /**
      * gets value of description of group
      **/
     public function getGroupDescription(){
         return($this->groupDescription);
+    }
+    
+    /**
+     * sets value of description of group
+     *
+     * @param mixed value of description with allowing null if not set
+     * @throws UnexpectedValueException if value is not a string
+     **/
+    public function setGroupDescription($newGroupDescription){
+        if($newGroupDescription === null){
+            $this->groupDescription = null;
+            return;
+        }
+        
+        //sanitize for special characters
+        $newGroupDescription = filter_var($newGroupDescription, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        
+        //validate that value is string
+        if(gettype($newGroupDescription) !== "string"){
+            throw(new UnexpectedValueException("This group description is invalid"));
+        }
+        
+        //set value of group description
+        $this->groupDescription = $newGroupDescription;
     }
     
     /**
@@ -394,6 +435,13 @@ class Group {
     }
     
     /**
+     * sets value of pictures associated with group
+     *
+     **/
+    public function setGroupGallery($newGroupGallery){
+        
+    }
+    /**
      * gets value of name of group
      **/
     public function getGroupName(){
@@ -401,10 +449,69 @@ class Group {
     }
     
     /**
+     * sets value of name of group
+     *
+     * @param mixed value of name for group allowing null for new group
+     * @throws UnexpectedValueException if name is not string
+     * @throws RangeException if name is too long
+     **/
+    public function setGroupName($newGroupName){
+        //allow null
+        if($newGroupName === null){
+            $this->groupName = null;
+            return;
+        }
+        
+        //sanitizes input for special characters
+        $newGroupName = filtre_var($newGroupName, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        
+        //checks if value is string
+        if(gettype($newGroupName) !== "string"){
+            throw(new UnexpectedValueException("Group Name is Invalid"));
+        }
+        
+        //checks length of string
+        if(count($newGroupName) > 31){
+            throw(new RangeException("Group name must be under 30 characters"));
+        }
+        
+        //sets value of group name
+        $this->groupName = $newGroupName;
+    }
+    
+    /**
      * gets value of skill level of group
      **/
     public function getGroupSkill(){
         return($this->groupSkill);
+    }
+    
+    /*
+     * sets value of skill level of group
+     *
+     * @param mixed value of skill level of group allows null if new group
+     * @throws UnexpectedValueException if value is not an integer
+     * @throws RangeException if value is larger that 5 or less than 0
+     **/
+    public function setGroupSkill($newGroupSkill){
+        //allows null
+        if($newGroupSkill === null){
+            $this->groupSkill = null;
+            return;
+        }
+        
+        //validates input is an integer
+        if(filter_var($newGroupSkill, FILTER_VALIDATE_INT) === false){
+            throw(new UnexpectedValueException("Skill level is invalid"));
+        }
+        
+        //checks if input is within range
+        if($newGroupSkill > 5 || $newGroupSkill < 0){
+            throw(new RangeException("The maximum skill level is 5. The Minumum is 0"));
+        }
+        
+        //set value
+        $this->groupSkill = $newGroupSkill;
     }
     
     /**
@@ -415,10 +522,59 @@ class Group {
     }
     
     /**
+     * sets value of zip code of group
+     *
+     * @param mixed value of zip code of group, allows null if new group or not set
+     * @throws UnexpectedValueExcepton if value(s) are not integers
+     * */
+    public function setGroupZip($newGroupZip){
+        //allows null
+        if($newGroupZip === null){
+            $this->groupZip = null;
+            return;
+        }
+        
+        //validates value is Integer
+        if(filter_var_array($newGroupZip, FILTER_VALIDATE_INT) === false){
+            throw(new UnexpectedValueException("The Zip Code you entered is Invalid"));
+        }
+        
+        //sets value
+        $this->groupZip = $newGroupZip;
+    }
+    
+    /**
      * gets value of privacy level of group
      **/
     public function getPrivacyLevel(){
         return($this->privacyLevel);
+    }
+    
+    /**
+     * sets value of privacy for group
+     *
+     * @param mixed value of privacy level, default maximum privacy if null
+     * @throws if value is not an integer
+     **/
+    public function setPrivacyLevel($newPrivacyLevel){
+        //sets default privacy level of new group
+        if($newPrivacyLevel === null){
+            $this->privacyLevel = 3;
+            return;
+        }
+        
+        //validates value is Integer
+        if(filter_var($newPrivacyLevel, FILTER_VALIDATE_INT) === false){
+            throw(new UnexpectedValueException("The privacy level was invalid"));
+        }
+        
+        //checks if value is within range
+        if($newPrivacyLevel > 3 || $newPrivacyLevel <= 0){
+            throw(new UnexpectedValueException("The privacy level set is out of range"));
+        }
+        
+        //sets value
+        $this->privacyLevel = $newPrivacyLevel;
     }
 }
 ?>
