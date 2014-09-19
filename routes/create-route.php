@@ -7,10 +7,45 @@
      <title>Group Out</title>
           <!--custom css and javascript-->
       <link href="../css/style.css" rel="stylesheet">
-      <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBy-_PKHdZOkY8jGVZlOFN7hbXVflQ-4us"></script>
+      <script type="text/javascript"
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB2aOD4S27kgQRMsngL2OLy_nKGYJ6YUO8&libraries=drawing">
+    </script>
+      <script type = "text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+      <script type="text/javascript">
+      function initialize() {
+        var mapOptions = {
+          center: { lat: 35.1107, lng: -106.61},
+          zoom: 12
+        };
+        var map = new google.maps.Map(document.getElementById('map-canvas'),mapOptions);
+        var drawingManager = new google.maps.drawing.DrawingManager({
+            drawingMode: google.maps.drawing.OverlayType.MARKER,
+            drawingControl: true,
+            drawingControlOptions: {
+              position: google.maps.ControlPosition.TOP_CENTER,
+              drawingModes: [
+                google.maps.drawing.OverlayType.MARKER,
+                google.maps.drawing.OverlayType.POLYLINE
+              ]
+            },
+            markerOptions: {
+              icon: 'http://www.example.com/icon.png'
+            },
+            circleOptions: {
+              fillColor: '#ffff00',
+              fillOpacity: 1,
+              strokeWeight: 5,
+              clickable: false,
+              zIndex: 1,
+              editable: true
+            }
+          });
+          drawingManager.setMap(map);
+      }
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
             <!-- Bootstrap -->
       <link href="../css/bootstrap.min.css" rel="stylesheet">
-      <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
       <script src="../js/bootstrap.min.js"></script>
           <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
           <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -21,23 +56,36 @@
       <script src="../js/group-out.js"></script>
   </head>
   <body>
-    
+  <script type = "text/javscript" src = "../js/maptest.js"></script> 
     <?php require_once('../php/nav.html');?>
     <div id = "container-fluid">
     <div class = "row">
       <article class = "col-lg-9">
         <div class = "page_info">
-          <div id = "map-canvas" class = "createRoute">
+          <div id = "map-canvas">
           </div>
           <form class = "basicForm">
             <label for = "routeName">Route Name:</label>
             <input name = "routeName" type = "text" placeholder = "Route Name"><br>
             <label for = "routeType">Route Type:</label>
-            <input name = "routeType" type = "text"><br>
+            <select name = "routeType">
+              <option>--</option>
+              <option>Hike</option>
+              <option>Jog</option>
+              <option>Bike</option>
+            </select><br>
             <label for = "skill">Route Skill Level:</label>
-            <input name = "skill" max = "5" min = "0" type = "number"><br>
+            <select name = "skill">
+              <option>--</option>
+              <option>Professional</option>
+              <option>Enthusiast</option>
+              <option>Normal</option>
+              <option>Intermediate</option>
+              <option autofocus>Starter</option>
+            </select><br>
             <label for = "routeInfo">Route Description:</label>
-            <input type = "text">
+            <textarea rows = "5 " class = "description" cols = "80" max = "500" type = "text"></textarea><br>
+            <button type = "submit">Create</button>
           </form>
         </div>
       </article>

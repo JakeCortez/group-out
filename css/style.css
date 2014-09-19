@@ -204,7 +204,11 @@ aside {
   text-align: center;
 }
 
-.basicForm input, .basicForm button, .basicForm label{
+.description{
+    text-align: left !important;
+}
+
+.basicForm input, .basicForm button, .basicForm label, .basicForm textarea, .basicForm select{
   display: block;
   margin: 0 auto;
   margin-top: 0.25em;
@@ -278,9 +282,10 @@ footer {
 }
 
 #map-canvas{
-    height:1000px;
-    width:1000px;
-    background-color: aliceblue;
+    height:40em;;
+    width:100%;
+    margin: 0 auto;
+    padding: 1em;;
 }
 
 /***** SIGNUP FORM VALIDATION  ***/
