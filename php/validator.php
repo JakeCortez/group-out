@@ -1,9 +1,9 @@
-<?php
+<?phpt
 //sanitize function so we can format errors
 //if the email has no @ character, throw an exception
 try {
         if(filter_input(INPUT_POST, "email", FILTER_VALIDATE_EMAIL) === false){ 
-            throw(new Exception("Please enter a proper e-mail address"));
+            throw(new Exception("Please enter a PROPER e-mail address"));
         }
         //if filter-input passed the email, we need to sanitize the characters
         $safeEmail = filter_input(INPUT_POST, "email", FILTER_SANITIZE_EMAIL);
@@ -16,7 +16,7 @@ try {
         
         //ensure the passwords match
         if($safePassword !== $safeConfirm) {
-            throw(new Exception("Passwords do not match"));
+            throw(new Exception("Passwords DON'T match"));
         }
         
         //passwords are safe and match  (good code)
