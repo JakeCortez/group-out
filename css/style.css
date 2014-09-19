@@ -2,6 +2,11 @@ html {
   padding: 0;
 }
 
+/** Map for create a route **/
+.createRoute{
+    height:20em;
+    width:20em;
+}
 
 /*** TOP NAV ***/
 .page-header {
@@ -199,11 +204,12 @@ aside {
   text-align: center;
 }
 
-.basicForm input, .basicForm button {
+.basicForm input, .basicForm button, .basicForm label{
   display: block;
   margin: 0 auto;
   margin-top: 0.25em;
   margin-bottom: 0.25em;
+  text-align: center;
 }
 
 #new-user-index input, #new-user-index button {
@@ -272,7 +278,8 @@ footer {
 }
 
 #map-canvas{
-    height:100%;
+    height:1000px;
+    width:1000px;
     background-color: aliceblue;
 }
 

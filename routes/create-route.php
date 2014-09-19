@@ -26,16 +26,20 @@
     <div id = "container-fluid">
     <div class = "row">
       <article class = "col-lg-9">
-        <div id = "map-canvas">
+        <div class = "page_info">
+          <div id = "map-canvas" class = "createRoute">
+          </div>
+          <form class = "basicForm">
+            <label for = "routeName">Route Name:</label>
+            <input name = "routeName" type = "text" placeholder = "Route Name"><br>
+            <label for = "routeType">Route Type:</label>
+            <input name = "routeType" type = "text"><br>
+            <label for = "skill">Route Skill Level:</label>
+            <input name = "skill" max = "5" min = "0" type = "number"><br>
+            <label for = "routeInfo">Route Description:</label>
+            <input type = "text">
+          </form>
         </div>
-        <form>
-          <input type = "text" placeholder = "Route Name"><br>
-          Route Type: <br>
-          Run<input type = "checkbox"><br>
-          Hike<input type = "checkbox"><br>
-          Bike<input type = "checkbox"><br>
-           <input type = "" > <br>
-        </form>
       </article>
       <aside class = "col-lg-3">
       <?php require_once('../php/sidebarplaceholder.html');?>
