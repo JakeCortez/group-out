@@ -55,14 +55,14 @@ $(document).ready(
                 required:  "Please let us know when your event is being held!"
             },
             email: {
-                required:  "Please enter your e-dress"
+                required:  "Please enter your E-DRESS"
             },
             password: {
                minlength: "Please enter a password of at least 8 characters",
-               required: "Please submit a valid password"
+               required: "Please submit a valid PASSWORD"
             },
             confirmPassword:  {
-               required: "Please re-enter your password"
+               required: "Please re-enter your PASSWORD"
             }
         },
       //set up AJAX call 
