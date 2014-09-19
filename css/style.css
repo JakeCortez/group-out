@@ -293,7 +293,7 @@ input:valid {
  outline: 1px solid green;
 }
 input:required {
-    border: 2px solid blue;
+    border: 2px solid aliceblue;
 }
 
 .badForm,
@@ -313,7 +313,7 @@ input:required {
     text-align: center;
     color: black;
     font-family: Verdana, Arial, Sans-Serif;
-    opacity: 0.5;
+    opacity: 0.9;
 }
 
 
