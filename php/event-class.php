@@ -13,7 +13,7 @@ class Event {
    */
   private $routeID;
   /**
-   * foreign key, originates from UserProfiles
+   * foreign key, originates from userID of current session
    */
   private $userID;
   /**
@@ -21,40 +21,39 @@ class Event {
    */
   private $eventDateCreated;
   /**
-   *
+   * string, user types in the city name
    */
   private $eventCity;
   /**
-   *
+   * integer, user enters this via drop down menus
    */
   private $eventDate;
   /**
-   *
+   * string, user types text into a field with a character limit
    */
   private $eventDescription;
   /**
-   *
+   * integer, 0=easy | 1=moderate | 3=hard | 4=expert
    */
   private $eventDifficulty;
   /**
-   *
+   * string, user enters text into field with character limit of 20
    */
   private $eventName;
   /**
-   *
+   * integer, 0=public | 2=group | 3=private
    */
   private $eventPrivacy;
   /**
-   *
+   * string, user selects state from dropdown
    */
   private $eventState;
   /**
-   *
+   * integer, user types numbers with a character limit of 10
    */
   private $eventZip;
 
 // ACCESSORS
-
   public function getEventID() {
       return $this->eventID;
   }
