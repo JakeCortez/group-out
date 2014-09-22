@@ -57,29 +57,129 @@ class Event {
   public function getEventID() {
       return $this->eventID;
   }
-  public function setEventID($eventID) {
-      $this->eventID = $eventID;
+  /**
+   * mutator method for eventID
+   *
+   * @param integer new value of eventID or null if a new object
+   * @throws UnexpectedValueException if the eventID is not an integer
+   * @throws RangeException if the eventID is not positive
+   * */
+  public function setEventID($newEventID) {
+    // zeroth, allow a null if this is a new object
+    if($newEventID === null) {
+        $this->eventID = null;
+        return;
+    }
+
+    // first, trim the input of excess whitespace
+    $newEventID = trim($newEventID);
+
+    // second, verify this is an integer
+    if((filter_var($newEventID, FILTER_VALIDATE_INT)) === false) {
+        throw(new UnexpectedValueException("user id $eventID is not an integer"));
+    }
+
+    // third, convert the id to an integer and ensure its positive
+    $newEventID = intval($newEventID);
+    if($newEventID <= 0) {
+        throw(new RangeException("eventID $newEventID is not positive"));
+    }
+
+    //finally, the user id is clean and can be taken out to quarantine
+    $this->eventID = $newEventID;
   }
 
   public function getRouteID() {
       return $this->routeID;
   }
-  public function setRouteID($routeID) {
-      $this->routeID = $routeID;
+  /**
+   * mutator method for routeID
+   *
+   * @param integer new value of routeID or null if a new object
+   * @throws UnexpectedValueException if the routeID is not an integer
+   * @throws RangeException if the routeID is not positive
+   * */
+  public function setRouteID($newRouteID) {
+    // zeroth, allow a null if this is a new object
+    if($newRouteID === null) {
+        $this->routeID = null;
+        return;
+    }
+
+    // first, trim the input of excess whitespace
+    $newRouteID = trim($newRouteID);
+
+    // second, verify this is an integer
+    if((filter_var($newRouteID, FILTER_VALIDATE_INT)) === false) {
+        throw(new UnexpectedValueException("user id $routeID is not an integer"));
+    }
+
+    // third, convert the id to an integer and ensure its positive
+    $newRouteID = intval($newRouteID);
+    if($newRouteID <= 0) {
+        throw(new RangeException("routeID $newRouteID is not positive"));
+    }
+
+    //finally, the user id is clean and can be taken out to quarantine
+    $this->routeID = $newRouteID;
   }
 
   public function getUserID() {
       return $this->userID;
   }
-  public function setUserID($userID) {
-      $this->userID = $userID;
+  /**
+   * mutator method for userID
+   *
+   * @param integer new value of userID or null if a new object
+   * @throws UnexpectedValueException if the userID is not an integer
+   * @throws RangeException if the userID is not positive
+   * */
+  public function setUserID($newUserID) {
+    // zeroth, allow a null if this is a new object
+    if($newUserID === null) {
+        $this->userID = null;
+        return;
+    }
+
+    // first, trim the input of excess whitespace
+    $newUserID = trim($newUserID);
+
+    // second, verify this is an integer
+    if((filter_var($newUserID, FILTER_VALIDATE_INT)) === false) {
+        throw(new UnexpectedValueException("user id $userID is not an integer"));
+    }
+
+    // third, convert the id to an integer and ensure its positive
+    $newUserID = intval($newUserID);
+    if($newUserID <= 0) {
+        throw(new RangeException("userID $newUserID is not positive"));
+    }
+
+    //finally, the user id is clean and can be taken out to quarantine
+    $this->userID = $newUserID;
   }
 
   public function getEventDateCreated() {
       return $this->eventDateCreated;
   }
-  public function setEventDateCreated($eventDateCreated) {
-      $this->eventDateCreated = $eventDateCreated;
+  /**
+   * mutator method for eventDateCreated
+   * */
+  public function setEventDateCreated($newEventDateCreated) {
+    // zeroth, allow a null if this is a new object
+    if($newEventDateCreated === null) {
+        $this->eventDateCreated = null;
+        return;
+    }
+
+    // first, verify date
+    $newEventDateCreated = DateTime::createFromFormat("n/j/y h:i:s a", $newEventDateCreated);
+    if($newEventDateCreated === false) {
+        throw(new RangeExcaption("Unable to create date from $newEventDateCreated"));
+    }
+
+    // finally, comment date created
+    $this->eventDateCreated = $newEventDateCreated;
   }
 
   public function getEventCity() {
