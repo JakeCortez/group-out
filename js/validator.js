@@ -55,7 +55,8 @@ $(document).ready(
                 required:  "Please let us know when your event is being held!"
             },
             email: {
-                required:  "Please enter your E-DRESS"
+                required:  "Please enter your E-DRESS",
+                email: "PLEASE"
             },
             password: {
                minlength: "Please enter a password of at least 8 characters",
