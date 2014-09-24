@@ -14,7 +14,7 @@ class Group {
     /**
      * Foreign Key for activities group participate in
      **/
-    private $activity;
+    private $activityType;
     /**
      * Foreign Key for members of group
      **/
@@ -120,7 +120,7 @@ class Group {
     }
     
     /**
-     * sets value of group ID
+     * sets value of group Id
      *
      * @param mixed new value of group ID's from server or null if new ID
      * @throws UnexpectedValueException if ID is not an integer
@@ -175,31 +175,31 @@ class Group {
      *@throws RangeException if not all values are integers
      *@throws RangeException if too many elements in Array
      **/
-    public function setActivity($newActivity){
+    public function setActivityType($newActivityType){
         //allow null
-        if($newActivity === null){
-            $this->activity = null;
+        if($newActivityType === null){
+            $this->activityType = null;
             return;
         }
         
         //check if Activities are in an array
-        if(gettype($newActivity !== "array")){
-            throw(new UnexpectedValueException("$newActivity is not an array!"));
+        if(gettype($newActivityType !== "array")){
+            throw(new UnexpectedValueException("$newActivityType is not an array!"));
         }
         
         //make sure not an associative array, indexed array
-        $newActivity = array_values($newActivity);
+        $newActivityType = array_values($newActivityType);
         
         //check all array elements for special characters
-        filter_var_array($newActivity, FILTER_SANITIZE_SPECIAL_CHARS);
+        filter_var_array($newActivityType, FILTER_SANITIZE_SPECIAL_CHARS);
         
         //check amount of elements in array
-        if(count($newActivity) > count($mySQLserver)){
+        if(count($newActivityType) > count($mySQLserver)){
             throw(new RangeException("There are too many elements in the array."));
         }
         
         //set values of array
-        $this->activity = $newActivity;
+        $this->activityType = $newActivityType;
     }
     
     /**
