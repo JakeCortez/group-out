@@ -1,5 +1,4 @@
-$(document).ready(
-    function () {
+$(document).ready(function () {
      $("#signUpForm").validate( {
         // error class: formatting of messages
         errorClass: "badForm",
@@ -30,7 +29,7 @@ $(document).ready(
               required: true
             },
             password: {
-                minlength: 8,
+                rangelength: [8,16],
                 required: true
              },
             confirmPassword: {
@@ -59,11 +58,11 @@ $(document).ready(
                 email: "PLEASE"
             },
             password: {
-               minlength: "Please enter a password of at least 8 characters",
+               rangelength: "The password must be between 8 and 16 characters",
                required: "Please submit a valid PASSWORD"
             },
             confirmPassword:  {
-               required: "Please re-enter your PASSWORD"
+               equalTo: "The Passwords don't match; please to re-enter..."
             }
         },
       //set up AJAX call 
