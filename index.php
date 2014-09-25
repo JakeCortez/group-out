@@ -79,9 +79,9 @@
         <div class = "col-lg-12" id = "new-user-index">
           <p>Make an account today with just your email!</p>
           <form id="signUpForm" method="post" action="index.php">
-            <input type = "text" id = "email" placeholder = "your-email@email.com" name = "email" required>
-            <input type = "text" id = "password" name ="password" minlength = 8 placeholder = "password" required>
-            <input type = "text" id = "confirmPassword" name = "confirmPassword" placeholder = "confirm password" required>
+            <input type = "text" id = "email" placeholder = "your-email@email.com" name = "email" class="required">
+            <input type = "text" id = "password" name ="password" placeholder = "password" class="required">
+            <input type = "text" id = "confirmPassword" name = "confirmPassword" placeholder = "confirm password" class = "required">
             <button class = "btn btn-default" type="submit">Sign Up!</button>
           </form>
             <div><p id="outputArea"></p></div>
