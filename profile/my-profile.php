@@ -39,7 +39,7 @@
 
         <!-- Lists of routes, events and groups-->
         <div class="bar">Events</div>
-        <?php require_once('../php/list-create-oo.php');?>
+        <?php require_once('../php/list-create.php');?>
       </article>
 
       <!-- Aside (sidebar) Area -->
