@@ -61,11 +61,11 @@
                   <div class="modal-content">
                     <div class = "basicModal">
                       <div class = "modalLogIn">
-                        <h2>Sign Up</h2>
-                        <form class = "basicForm">
-                          <input type = "email" placeholder = "email"><br>
-                          <input type = "password" placeholder = "password"><br>
-                          <input type = "password" placeholder = "confirm password"><br>
+                        <h2>Register Today</h2>
+                        <form class = "basicForm" >
+                          <input type = "email" placeholder = "your-email@email.com" class = "required" aria-required = "true"><br>
+                          <input type = "password" placeholder = "password" class = "required" aria-required = "true"><br>
+                          <input type = "password" placeholder = "confirm password" class = "required" aria-required = "true"><br>
                           <button class = "btn btn-default" type = "submit">Sign Up</button>
                         </form>
                       </div>
@@ -81,7 +81,7 @@
                     <div class = "basicModal">
                       <div class = "modalLogIn">
                         <h2>Sign into your account</h2>
-                        <form class = "basicForm">
+                        <form class = "basicForm" action="php/sign-in.php">
                           <input type = "email" placeholder = "email"><br>
                           <input type = "password" placeholder = "password"><br>
                           <button class = "btn btn-default" type = "submit">Sign In</button>
