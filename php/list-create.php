@@ -7,7 +7,7 @@ try {
   $mysqli = Pointer::getPointer();
 
   // call the class static method for querying/getting 3 event results
-  $eventArray = Event::getEventsByCreatorUserID($mysqli, 1);
+  $eventArray = Event::getEventsByUserID($mysqli, 1);
 
   // loop through the result set
   foreach($eventArray as $event) {
