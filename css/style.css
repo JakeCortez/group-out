@@ -33,7 +33,7 @@ html {
   margin: 0 auto;
 }
 
-.sign_in {
+.register {
   margin-left: 3em;
 }
 
@@ -309,7 +309,7 @@ input:required {
     font-weight: normal;
 }
 
-#signUpForm {
+#registerForm {
     margin-left: auto;
     margin-right: auto;
     height: 200px;
