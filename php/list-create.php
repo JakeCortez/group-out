@@ -1,5 +1,5 @@
 <?php
-include "../../config/Pointer.php";
+include "../config/Pointer.php";
 include "event-class.php";
 
 try {
