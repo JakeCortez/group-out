@@ -49,7 +49,6 @@ html {
 }
 
 
-
 /*** ARTICLE AREA ***/
 
 article {
@@ -88,7 +87,6 @@ article {
   font-size: 2em;
   font-weight: bold;
 }
-
 
 
 /*** LISTS (INSIDE ARTICLE AREA) ***/
@@ -315,11 +313,11 @@ input:required {
     height: 200px;
     width: 450px;
     border-radius: 5px 5px 5px 5px;
-    background-color: white;
+    background-color: black;
     text-align: center;
-    color: black;
+    color: white;
     font-family: Verdana, Arial, Sans-Serif;
-    opacity: 0.9;
+    opacity: 0.8;
 }
 
 
