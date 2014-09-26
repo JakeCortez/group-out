@@ -36,9 +36,10 @@
           <p>Praesent accumsan lacus massa, sed aliquam lorem dapibus vitae. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Sed a gravida leo, vel blandit dolor. Praesent vulputate purus justo, sed ornare tortor aliquet id. Vivamus commodo fringilla nisl non eleifend.</p>
         </div>
         <div class="userLinks">my website / facebook / twitter / instagram</div>
+
         <!-- Lists of routes, events and groups-->
         <div class="bar">Events</div>
-        <?php require_once('../php/list-create.php');?>
+        <?php require_once('../php/list-create-oo.php');?>
       </article>
 
       <!-- Aside (sidebar) Area -->

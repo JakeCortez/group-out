@@ -5,10 +5,10 @@ try {
   mysqli_report(MYSQLI_REPORT_STRICT);
 
   // connect!
-  $mysqli = new mysqli("localhost", "root", "", "groupOut");
+  $mysqli = new mysqli("localhost", "root", "", "group_out");
 
   // create & prepare a query template
-  $query = "SELECT eventActivity, eventCity, eventDateCreated, eventDifficulty, eventJoined, eventName, eventState FROM events WHERE userID = ? LIMIT 3";
+  $query = "SELECT eventCity, eventDate, eventDifficulty, eventMemberCount, eventName, eventState FROM Events WHERE creatorUserID = ? AND eventPrivacy = 2 LIMIT 3";
 
   // prepare the statement
   if(($statement = $mysqli->prepare($query)) === false) {
@@ -37,7 +37,7 @@ try {
 
 
     // reformat the date
-    $dateTime = DateTime::createFromFormat("Y-m-d H:i:s", $row["eventDateCreated"]);
+    $dateTime = DateTime::createFromFormat("Y-m-d H:i:s", $row["eventDate"]);
     $niceDate = $dateTime->format("F j, Y");
 
     // echo the result
@@ -46,14 +46,14 @@ try {
       <div class="listThumb"></div>
 
       <div class="listDetails">
-        <div class="listHead">$row[eventName] | $row[eventActivity]</div>
+        <div class="listHead">$row[eventName] | bike</div>
         <div class="listInfo">$row[eventCity], $row[eventState] | $niceDate</div>
         <div class="listDifficulty">difficulty / $row[eventDifficulty]</div>
       </div>
 
       <div class="listJoin">
         <div class="numberJoined">
-          <p class="number">$row[eventJoined]</p>
+          <p class="number">$row[eventMemberCount]</p>
           <p>joined</p>
         </div>
       </div>

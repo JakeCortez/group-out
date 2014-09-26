@@ -1,4 +1,7 @@
 <?php
+/**
+* @author Jim Wittwer (wittwerjim@hotmail.com)
+*/
 
 class Event {
 
@@ -15,7 +18,7 @@ class Event {
   /**
    * FOREIGN KEY, originates from userID of current session
    */
-  private $userID;
+  private $creatorUserID;
   /**
    * TIMESTAMP, auto inserted upon creating an event
    */
@@ -49,7 +52,7 @@ class Event {
    */
   private $eventState;
   /**
-   * string, user types numbers with a character limit of 10
+   * string, user selects from drop-down that inputs CHARS(2)
    */
   private $eventZip;
 
@@ -58,7 +61,7 @@ class Event {
    *
    * @param $newEventID integer, auto inserted upon creating an event
    * @param $newRouteID FOREIGN KEY, integer, originates from Routes
-   * @param $newUserID FOREIGN KEY, integer, originates from userID of current session
+   * @param $newCreatorUserID FOREIGN KEY, integer, originates from userID of current session
    * @param $newEventDateCreated CURRENT_TIMESTAMP auto inserted upon creating an event
    * @param $newEventCity string, user types in the city name
    * @param $newEventDate DATETIME, user enters this via drop down menus
@@ -66,17 +69,18 @@ class Event {
    * @param $newEventDifficulty integer, 0=easy | 1=moderate | 3=hard | 4=expert
    * @param $newEventName string, user enters text into field with character limit
    * @param $newEventPrivacy integer, 0=public | 2=group | 3=private
-   * @param $newEventState integer, user selects state from dropdown
+   * @param $newEventState CHAR(2), user selects state from dropdown
    * @param $newEventZip string, user types numbers with a character limit of 10
+   * @param $newEventMemberCount integer, the number of members who joined the event
    * @throws UnexpectedValueException when a parameter is of the wrong type
    * @throws RangeException when a parameter is invalid
    **/
-  public function __construct($newEventID, $newRouteID, $newUserID, $newEventDateCreated, $newEventCity, $newEventDate, $newEventDescription, $newEventDifficulty, $newEventName, $newEventPrivacy, $newEventState, $newEventZip) {
+  public function __construct($newEventID, $newRouteID, $newCreatorUserID, $newEventDateCreated, $newEventCity, $newEventDate, $newEventDescription, $newEventDifficulty, $newEventName, $newEventPrivacy, $newEventState, $newEventZip, $newEventMemberCount) {
       try {
         $this->setEventID($newEventID);
         $this->setRouteID($newRouteID); // FOREIGN KEY
-        $this->setUserID($newUserID); // FOREIGN KEY
-        $this->setEventDateCreated($newEventDateCreated)
+        $this->setCreatorUserID($newCreatorUserID); // FOREIGN KEY
+        $this->setEventDateCreated($newEventDateCreated);
         $this->setEventCity($newEventCity);
         $this->setEventDate($newEventDate);
         $this->setEventDescription($newEventDescription);
@@ -85,6 +89,7 @@ class Event {
         $this->setEventPrivacy($newEventPrivacy);
         $this->setEventState($newEventState);
         $this->setEventZip($newEventZip);
+        $this->setEventMemberCount($newEventMemberCount);
       } catch(UnexpectedValueException $unexpectedValue) {
           // rethrow to the caller
           throw(new UnexpectedValueException("Unable to construct Event", 0, $unexpectedValue));
@@ -174,43 +179,43 @@ class Event {
     $this->routeID = $newRouteID;
   }
 
-///// GET & SET FOR userID !!FOREIGN KEY!!
+///// GET & SET FOR creatorUserID !!FOREIGN KEY!!
   /**
-   * gets the value of userID
+   * gets the value of creatorUserID
    *
-   * @return mixed userID (or null if new object)
+   * @return mixed creatorUserID (or null if new object)
    **/
-  public function getUserID() {
-      return($this->userID);
+  public function getCreatorUserID() {
+      return($this->creatorUserID);
   }
 
   /**
-   * sets the value of userID
+   * sets the value of creatorUserID
    *
-   * @param mixed $newUserID userID (or null if new object)
+   * @param mixed $newCreatorUserID creatorUserID (or null if new object)
    * @throws UnexpectedValueException if not an integer or null
-   * @throws RangeException if userID isn't positive
+   * @throws RangeException if creatorUserID isn't positive
    **/
-  public function setUserID($newUserID) {
-    // zeroth, set allow the userID to be null if a new object
-    if($newUserID === null) {
-        $this->userID = null;
+  public function setCreatorUserID($newCreatorUserID) {
+    // zeroth, set allow the CreatoruserID to be null if a new object
+    if($newCreatorUserID === null) {
+        $this->creatorUserID = null;
         return;
     }
 
-    // first, ensure the userID is an integer
-    if(filter_var($newUserID, FILTER_VALIDATE_INT) === false) {
-        throw(new UnexpectedValueException("userID $newUserID is not numeric"));
+    // first, ensure the creatorUserID is an integer
+    if(filter_var($newCreatorUserID, FILTER_VALIDATE_INT) === false) {
+        throw(new UnexpectedValueException("creatorUserID $newCreatorUserID is not numeric"));
     }
 
-    // second, convert the userID to an integer and enforce it's positive
-    $newUserID = intval($newUserID);
-    if($newUserID <= 0) {
-        throw(new RangeException("userID $newUserID is not positive"));
+    // second, convert the creatorUserID to an integer and enforce it's positive
+    $newCreatorUserID = intval($newCreatorUserID);
+    if($newCreatorUserID <= 0) {
+        throw(new RangeException("creatorUserID $newCreatorUserID is not positive"));
     }
 
-    // finally, take the userID out of quarantine and assign it
-    $this->userID = $newUserID;
+    // finally, take the creatorUserID out of quarantine and assign it
+    $this->creatorUserID = $newCreatorUserID;
 }
 
 ///// GET & SET FOR eventDateCreated
@@ -488,20 +493,11 @@ class Event {
         return;
     }
 
-    // first, ensure the eventState is an integer
-    if(filter_var($newEventState, FILTER_VALIDATE_INT) === false) {
-        throw(new UnexpectedValueException("Event State $newEventState is not numeric"));
-    }
-
-    // second, convert the eventState to an integer and enforce it's positive
-    $newEventState = intval($newEventState);
-    if($newEventState <= 0) {
-        throw(new RangeException("Event State $newEventState is not positive"));
-    }
+    // validate for CHAR(2)
 
     // finally, take the eventState out of quarantine and assign it
     $this->eventState = $newEventState;
-
+  }
 
 ///// GET & SET FOR eventZip
   /**
@@ -510,7 +506,7 @@ class Event {
    * @return string eventZip
    **/
   public function getEventZip() {
-      return($this->eventZip);
+    return($this->eventZip);
   }
 
   /**
@@ -520,20 +516,59 @@ class Event {
    * @throws RangeException when input doesn't conform to USPS standards
    **/
   public function setEventZip($newEventZip) {
-      // verify the eventZip is in valid form
-      $newEventZip    = trim($newEventZip);
-      $filterOptions = array("options" => array("regexp" => "/^\d{5}(-\d{4})?$/"));
-      if(filter_var($newEventZip, FILTER_VALIDATE_REGEXP, $filterOptions) === false) {
-          throw(new RangeException("zip $newEventZip is not a ZIP code"));
-      }
+    // verify the eventZip is in valid form
+    $newEventZip    = trim($newEventZip);
+    $filterOptions = array("options" => array("regexp" => "/^\d{5}(-\d{4})?$/"));
+    if(filter_var($newEventZip, FILTER_VALIDATE_REGEXP, $filterOptions) === false) {
+        throw(new RangeException("zip $newEventZip is not a ZIP code"));
+    }
 
-      // finally, take the eventZip out of quarantine
-      $this->eventZip = $newEventZip;
+    // finally, take the eventZip out of quarantine
+    $this->eventZip = $newEventZip;
+  }
+
+///// GET & SET FOR EventMemberCount
+  /**
+   * gets the value of eventMemberCount
+   *
+   * @return mixed eventMemberCount (or null if new object)
+   **/
+  public function getEventMemberCount() {
+    return($this->eventMemberCount);
+  }
+  /**
+   * sets the value of eventMemberCount
+   *
+   * @param mixed $newEventMemberCount eventMemberCount (or null if new object)
+   * @throws UnexpectedValueException if not an integer or null
+   * @throws RangeException if eventMemberCount isn't positive
+   **/
+  public function setEventMemberCount($newEventMemberCount) {
+    // zeroth, set allow the eventMemberCount to be null if a new object
+    if($newEventMemberCount === null) {
+        $this->eventMemberCount = null;
+        return;
+    }
+
+    // first, ensure the eventMemberCount is an integer
+    if(filter_var($newEventMemberCount, FILTER_VALIDATE_INT) === false) {
+        throw(new UnexpectedValueException("EventMemberCount $newEventMemberCount is not numeric"));
+    }
+
+    // second, convert the eventMemberCount to an integer and enforce it's positive
+    $newEventMemberCount = intval($newEventMemberCount);
+    if($newEventMemberCount <= 0) {
+        throw(new RangeException("EventMemberCount $newEventMemberCount is not positive"));
+    }
+
+    // finally, take the eventMemberCount out of quarantine and assign it
+    $this->eventMemberCount = $newEventMemberCount;
   }
 
 
+
 ///// METHOD TO INSERT EVENT INTO MYSQL
-///// !! DOESN'T TAKE INTO ACCOUNT FOREIGN KEYS FOR routeID, userID!!
+///// !! DOESN'T TAKE INTO ACCOUNT FOREIGN KEYS FOR routeID, creatorUserID!!
   /**
    * inserts this Event to mysql
    *
@@ -552,7 +587,7 @@ class Event {
     }
 
     // create query template
-    $query = "INSERT INTO Event(routeID, userID, eventDateCreated, eventCity, eventDate, eventDescription, eventDifficulty, eventName, eventPrivacy, eventState, eventZip) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $query = "INSERT INTO Event(routeID, creatorUserID, eventDateCreated, eventCity, eventDate, eventDescription, eventDifficulty, eventName, eventPrivacy, eventState, eventZip) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     $statement = $mysqli->prepare($query);
     if($statement === false) {
       throw(new mysqli_sql_exception("Unable to prepare statement"));
@@ -560,7 +595,7 @@ class Event {
 
     // bind the member variables to the place holders in the template
     // for bind_param s=string i=integer d=double
-    $wasClean = $statement->bind_param("iissssisiis", $this->routeID, $this->userID, $this->eventDateCreated, $this->eventCity, $this->eventDate, $this->eventDescription, $this->eventDifficulty, $this->eventName, $this->eventPrivacy, $this->eventState, $this->eventZip);
+    $wasClean = $statement->bind_param("iissssisiis", $this->routeID, $this->creatorUserID, $this->eventDateCreated, $this->eventCity, $this->eventDate, $this->eventDescription, $this->eventDifficulty, $this->eventName, $this->eventPrivacy, $this->eventState, $this->eventZip);
     if($wasClean === false) {
       throw(new mysqli_sql_exception("Unable to bind parameters"));
     }
@@ -600,7 +635,7 @@ class Event {
     }
 
     // bind the member variables to the pace holder in the template
-    $wasClean = $statement->bind_param("i", this->eventID);
+    $wasClean = $statement->bind_param("i", $this->eventID);
     if($wasClean === false) {
       throw(new mysqli_sql_exception("unable to bind parameters"));
     }
@@ -613,7 +648,7 @@ class Event {
   }
 
 ///// METHOD TO UPDATE EVENT INTO MYSQL
-///// !! DOESN'T TAKE INTO ACCOUNT FOREIGN KEYS FOR routeID, userID!!
+///// !! DOESN'T TAKE INTO ACCOUNT FOREIGN KEYS FOR routeID, creatorUserID!!
   /**
    * updates this Event in mysql
    *
@@ -632,7 +667,7 @@ class Event {
     }
 
     // create query template
-    $query = "UPDATE Event SET routeID = ?, userID = ?, eventDateCreated = ?, eventCity = ?, eventDate = ?, eventDescription = ?, eventDifficulty = ?, eventName = ?, eventPrivacy = ?, eventState = ?, eventZip = ? WHERE eventID = ?";
+    $query = "UPDATE Event SET routeID = ?, creatorUserID = ?, eventDateCreated = ?, eventCity = ?, eventDate = ?, eventDescription = ?, eventDifficulty = ?, eventName = ?, eventPrivacy = ?, eventState = ?, eventZip = ? WHERE eventID = ?";
     $statement = $mysqli->prepare($query);
     if($statement === false) {
       throw(new mysqli_sql_exception("Unable to prepare statement"));
@@ -640,7 +675,7 @@ class Event {
 
     // bind the member variables to the place holders in the template
     // for bind_param s=string i=integer d=double
-    $wasClean = $statement->bind_param("iissssisiisi", $this->routeID, $this->userID, $this->eventDateCreated, $this->eventCity, $this->eventDate, $this->eventDescription, $this->eventDifficulty, $this->eventName, $this->eventPrivacy, $this->eventState, $this->eventZip, $this->eventID);
+    $wasClean = $statement->bind_param("iissssisiisi", $this->routeID, $this->creatorUserID, $this->eventDateCreated, $this->eventCity, $this->eventDate, $this->eventDescription, $this->eventDifficulty, $this->eventName, $this->eventPrivacy, $this->eventState, $this->eventZip, $this->eventID);
     if($wasClean === false) {
       throw(new mysqli_sql_exception("Unable to bind parameters"));
     }
@@ -652,15 +687,46 @@ class Event {
 
   }
 
-///// STATIC METHOD FOR FINDING userID FROM CURRENT SESSION
+///// STATIC METHOD to get public events by the userID of the event creator/author
   /**
    *
-   *
-   *
+   * @param makes a query on the Events table to grab results for a list of Events
+   * @return creates multiple $eventArry objects that can be looped through
    *
    **/
+  public static function getEventsByCreatorUserID(&$mysqli, $creatorUserID) {
+    // create & prepare a query template
+    $query = "SELECT eventID, routeID, creatorUserID, eventDate, eventCity, eventDate, eventDescription, eventDifficulty, eventName, eventPrivacy, eventState, eventZip, eventMemberCount FROM Events WHERE creatorUserID = ? AND eventPrivacy = 2 LIMIT 3";
 
+    // prepare the statement
+    if(($statement = $mysqli->prepare($query)) === false) {
+      throw(new mysqli_sql_exception("Unable to prepare query $query"));
+    }
+
+    // bind parameters to the template
+    if(($statement->bind_param("i", $creatorUserID)) === false) {
+      throw(new mysqli_sql_exception("Unable to bind parameters"));
+    }
+
+    // execute the query
+    if(($statement->execute()) === false) {
+      throw(new mysqli_sql_exception("Unable to execute statement"));
+    }
+
+    // be demanding and get results! *pounds fist*
+    if(($result = $statement->get_result()) === false) {
+      throw(new mysqli_sql_exception("Unable to get results"));
+    }
+
+    // create the $eventArray that can be looped through
+    $eventArray = array();
+
+    while(($row = $result->fetch_assoc()) !== null) {
+      $eventArray[] = new Event($row["eventID"], $row["routeID"], $row["creatorUserID"], $row["eventDate"], $row["eventCity"], $row["eventDate"], $row["eventDescription"], $row["eventDifficulty"], $row["eventName"], $row["eventPrivacy"], $row["eventState"], $row["eventZip"], $row["eventMemberCount"]);
+    }
+
+    return $eventArray;
+  }
 
 }
-
 ?>
