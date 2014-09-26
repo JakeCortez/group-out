@@ -16,10 +16,6 @@ class Group {
      **/
     private $activityType;
     /**
-     * Foreign Key for members of group
-     **/
-    private $groupMembers;
-    /**
      * Foreign Key for group creator/owner
      **/
     private $userID;
@@ -70,7 +66,6 @@ class Group {
      *
      *@param integer for group ID
      *@param array for activitie types associated with group
-     *@param array for members of groups
      *@param array for state group is based in
      *@param integer for user ID that created group
      *@param value for date group was created
@@ -85,14 +80,12 @@ class Group {
      *@throws UnexpectedValueException if fails to construct group
      *@throws RangeException if fails to construct group
      **/
-    public function __construct($newGroupID, $newActivityType, $newGroupMembers, $newUserID, $newDateCreated, $newGroupAvatar, $newGroupCity,
+    public function __construct($newGroupID, $newActivityType, $newUserID, $newDateCreated, $newGroupAvatar, $newGroupCity,
                                 $newGroupDescription, $newGroupGallery, $newGroupName, $newGroupSkill, $newGroupState, $newGroupZip, $newPrivacyLevel){
         try{
             //validate and sanitize inputs
             $this->setGroupID($newgroupID);
             $this->setActivityType($newActivityType);
-            $this->setGroupMembers($newGroupMembers);
-            $this->setGroupState($newGroupState);
             $this->setUserID($newUserID);
             $this->setDateCreated($newDateCreated);
             $this->setGroupAvatar($newGroupAvatar);
@@ -100,6 +93,7 @@ class Group {
             $this->setGroupDescription($newGroupDescription);
             $this->setGroupGallery($newGroupGallery);
             $this->setGroupName($newGroupName);
+            $this->setGroupState($newGroupState);
             $this->setGroupSkill($newGroupSkill);
             $this->setGroupZip($newGroupZip);
             $this->setPrivacyLevel($newPrivacyLevel);
@@ -134,7 +128,7 @@ class Group {
             return;
         }
         
-        //first, trim input of excess whitespace
+        //first, trim excess whitespace
         $newGroupID = trim($newGroupID);
         
         //check if ID is an Integer
@@ -146,14 +140,6 @@ class Group {
         $newGroupID = intval($newGroupID);
         if($newGroupID <= 0) {
             throw(new RangeException("$newGroupID is not positive"));
-        }
-        
-        //check that ID is in Database, placeholder for now
-        try{
-            $newGroupID->setGroupID($newGroupID);
-        }
-        catch(mysqli_sql_exception $error) {
-            
         }
         
         //set value of ID
@@ -203,41 +189,6 @@ class Group {
     }
     
     /**
-     * gets value of Group members
-     **/
-    public function getGroupMembers(){
-        return($this->groupMembers);
-    }
-    
-    /**
-     * sets value of Group members 
-     * 
-     * @param mixed group members allows null if no group members
-     * @throws UnexpectedValueException if value is not an array
-     * @throws RangeException if all values in array are not integers
-     **/
-    public function setGroupMembers($newGroupMembers){
-        //allow null 
-        if($newGroupMembers === null){
-            $this->groupMembers = null;
-            return;
-        }
-        
-        //check if group members are an array
-        if(gettype($newGroupMembers !== "array")){
-            throw(new UnexpectedValueException("This is not an Array!"));
-        }
-        
-        //confirm all array elements are integers
-        if(filter_var_array($newGroupMembers, FILTER_VALIDATE_INT)){
-            throw(new RangeException("There is a variable inside the array besides an integer"));
-        }
-        
-        //set value of group members
-        $this->groupMembers = $newGroupMembers;
-    }
-    
-    /**
      * gets value of state group is based in
      **/
     public function getGroupState(){
@@ -264,14 +215,6 @@ class Group {
         
         //clear out white space
         $newGroupState = trim($newGroupState);
-        
-        //verifys that all values are on server
-        try{
-            $newGroupState->setGroupState($newGroupState);
-        }
-        catch(mysqli_sql_exception $error) {
-            throw(new RangeException("This state doesn't exist"));
-        }
         
         //set value of state
         $this->groupState = $newGroupState;
@@ -309,14 +252,6 @@ class Group {
         $newUserID = int_val($newUserID);
         if($newUserID <= 0){
             throw(new RangeException("Invalid User ID detected"));
-        }
-        
-        //check if UserID is in Database
-        try{
-            $newUserID->setUserID($newUserID);
-        }
-        catch(mysqli_sql_exception $error){
-            throw(new RangeException("Unrecognized User ID detected"));
         }
         
         //set value of owner's User ID
@@ -506,7 +441,7 @@ class Group {
         }
         
         //checks if input is within range
-        if($newGroupSkill > 5 || $newGroupSkill < 0){
+        if($newGroupSkill > 5 || $newGroupSkill < 1){
             throw(new RangeException("The maximum skill level is 5. The Minumum is 0"));
         }
         
@@ -575,6 +510,149 @@ class Group {
         
         //sets value
         $this->privacyLevel = $newPrivacyLevel;
+    }
+    
+    /**
+     * inserts group into mySQL
+     *
+     * @param resource $mysqli pointer to mySQL connection, by reference
+     * @throws mysqli_sql_exception when mySQL related errors occur
+     **/
+    public function insert(&$mysqli){
+        //handle degenerate cases
+        if(gettype($mysqli) !== "object" || get_class !== "mysqli"){
+            throw(new mysqli_sql_exception("input is not a mysqli object"));
+        }
+        
+        //enforce that the group ID doesn't already exist
+        if($this->groupID !== null){
+            throw(new mysqli_sql_exception("not a new group"));
+        }
+        
+        //query template
+        $query     = "INSERT INTO group(activityType, userID, dateCreated, groupAvatar, groupCity, groupDescription,
+                                         groupGallery, groupName, groupSkill, groupState, groupZip, privacyLevel
+                                         VALUES = ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,)";
+        $statement = $mysqli->prepare($query);
+        if($statement === false){
+            throw(new mysqli_sql_exception("Unable to prepare statement"));
+        }
+        
+        //bind variables to place holders in query
+        $clean = $statement->bind_param("iissssssisi", $this->activityType, $this->userID, $this->dateCreated, $this->groupAvatar,
+                                            $this->groupCity, $this->groupDescription, $this->groupGallery, $this->groupName,
+                                            $this->groupSkill, $this->groupState, $this->groupZip);
+        if($clean ===false){
+            throw(new mysqli_sql_exception("Unable to bind variables"));
+        }
+        
+        //execute
+        if($statement->execute() === false){
+            throw(new mysqli_sql_exception("Unable to Execute mySQL statement"));
+        }
+        
+        //update the null Group Id
+        $this->groupID = $mysqli->insert_id;
+    }
+    
+    /**
+     * deletes group from mySQL
+     *
+     * @param resource $mysqli pointer to mySQL connection, by reference
+     * @throws mysqli_sql_exception when mySQL related errors occur
+     **/
+    public function delete(&$mysqli){
+        //handle degenerate cases
+        if(gettype($mysqli) !== "object" || get_class !== "mysqli"){
+            throw(new mysqli_sql_exception("input is not a mysqli object"));
+        }
+        
+        //enforce that the group ID exists
+        if($this->groupID === null){
+            throw(new mysqli_sql_exception("unable to delete a group that does not exist"));
+        }
+        
+        //query template
+        $query     = "DELETE FROM group WHERE groupID = ?";
+        $statement = $mysqli->prepare($query);
+        if($statement === false){
+            throw(new mysqli_sql_exception("Unable to prepare statement"));
+        }
+        
+        //bind member variables to the place holders in the template
+        $clean = $statement->bind_param("i", $this->groupID);
+        if($clean === false){
+            throw(new mysqli_sql_exception("Unable to bind parameters"));
+        }
+        
+        //execute
+        if($statement->execute() === false) {
+            throw(new mysqli_sql_exception("Unable to execute mySQL statement"));
+        }
+    }
+    
+    /**
+     * updates this group in mySQL
+     *
+     * @param resource $mysqli pointer to mySQL connection, by reference
+     * @throws mysqli_sql_exception when mySQL related errors occur
+     **/
+    public function update(&$mysqli){
+        //handle degenerate cases
+        if(gettype($mysqli) !== "object" || get_class !== "mysqli"){
+            throw(new mysqli_sql_exception("input is not a mysqli object"));
+        }
+        
+        //enforce that the group exists
+        if($this->groupID === null){
+            throw(new mysqli_sql_exception("unable to update group that does not exist"));
+        }
+        
+        //query template
+        $query     = "UPDATE group SET activityType = ?, userID =?, dateCreated = ?, groupAvatar = ?,
+                                       groupCity = ?, groupDescription = ?, groupGallery = ?,
+                                       groupName = ?, groupSkill = ?, groupState = ?, groupZip = ?,
+                                       privacyLevel = ? WHERE groupID = ?";
+        $statement = $mysqli->prepare($query);
+        if($statement === false){
+            throw(new mysqli_sql_exception("Unable to prepare statement"));
+        }
+        
+        //bind variables to place holders in query
+        $clean = $statement->bind_param("iissssssisii", $this->activityType, $this->userID, $this->dateCreated, $this->groupAvatar,
+                                            $this->groupCity, $this->groupDescription, $this->groupGallery, $this->groupName,
+                                            $this->groupSkill, $this->groupState, $this->groupZip, $this->groupID);
+        if($clean ===false){
+            throw(new mysqli_sql_exception("Unable to bind variables"));
+        }
+        
+        //execute
+        if($statement->execute() === false){
+            throw(new mysqli_sql_exception("Unable to Execute mySQL statement"));
+        }
+    }
+    
+    /**
+     * gets group by name
+     *
+     * @param resource $mysqli pointer to mySQL connection by reference
+     * @param string $name to search for
+     * @return mixed group or groups found or null if not found
+     * @throws mysqli_sql_exception when mySQL related errors occur
+     **/
+    public static function getGroupByName(&$mysqli, $name){
+        //handle degenerate cases
+        if(gettype($mysqli) !== "object" || get_class($mysqli) !== "mysqli"){
+            throw(new mysqli_sql_exception("input is not a mysqli object"));
+        }
+        
+        //sanitize email before searching
+        $name = trim($name);
+        $name = filter_var($name, FILTER_SANITIZE_STRING);
+        
+        //query template
+        $query     = "SELECT groupID, activityType, userID, dateCreated, groupAvatar, groupCity, groupDescription,
+                                         groupGallery, groupName, groupSkill, groupState, groupZip, privacyLevel";
     }
 }
 ?>
