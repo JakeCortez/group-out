@@ -45,8 +45,8 @@ class UserLoginSource {
      * *
      * @return integer value of user LogIN source id
      * */
-    public function getUserLogInSourceID() {
-        return($this->userLogInSourceID);
+    public function getUserLogInSourceId() {
+        return($this->userLogInSourceId);
     }
     /**
      *mutator method for user Log In Source id
@@ -55,30 +55,30 @@ class UserLoginSource {
      *@throws Unexpected ValueException if the input is not an integer
      *@throws RangeException if the user id is not positive
      **/
-    public function setUserLogInSourceID($newUserLogInSourceID) {
+    public function setUserLogInSourceId($newUserLogInSourceId) {
         //zero (special case) allow a null if this is a NEW object
-        if($newUserLogInSourceID === null) {
-            $this->userLogInSourceID = null;
+        if($newUserLogInSourceId === null) {
+            $this->userLogInSourceId = null;
             return;
         }
         
         //first, trim the input of any excess white space
-        $newUserLogInSourceID = trim($newUserLogInSourceID);
+        $newUserLogInSourceId = trim($newUserLogInSourceId);
         
         //second, verify this is an integer
-        if(filter_var($newUserLogInSourceID, FILTER_VALIDATE_INT)) === false)  {
-            throw(new UnexpectedValueException("user id $newUserLogInSourceID is not an integer"));
+        if(filter_var($newUserLogInSourceId, FILTER_VALIDATE_INT)) === false)  {
+            throw(new UnexpectedValueException("user id $newUserLogInSourceId is not an integer"));
         }
         
         //third, convert the id to an integer and ensure it's positive
-        $newUserLogInSourceID = intval($newUserLogInSourceID);
-        if($newUserLogInSourceID <= 0) {
-            throw(new RangeException("user id $newUserLogInSourceID is not positive"));
+        $newUserLogInSourceId = intval($newUserLogInSourceId);
+        if($newUserLogInSourceId <= 0) {
+            throw(new RangeException("user id $newUserLogInSourceId is not positive"));
         }
         
         //finally, the user LogInSourceid is clean and can be taken out of quarantine
         // we want to use it now
-        $this->userLogInSourceID = $newUserLogInSourceID;      
+        $this->userLogInSourceId = $newUserLogInSourceId;      
     }
 
     /**

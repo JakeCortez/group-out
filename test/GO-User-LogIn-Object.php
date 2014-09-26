@@ -13,7 +13,7 @@ class User {
     /**
      *primary key of the user, auto incremented
      **/
-    private $userId;
+    private $userID;
     /**
      * foreign key of user's LogInSource, auto incremented in UserLogInSource table
      * @see UserLogInSource
@@ -60,11 +60,11 @@ class User {
      * @throws UnexpectedValueException if a parameter is of the incorrect type
      * @throws RangeException if a parameter is out of range
      * **/
-    public function __construct($newUserId, $newUserLogInSourceId, $newUserAuthToken, $newUserConfirmation,
+    public function __construct($newUserID, $newUserLogInSourceId, $newUserAuthToken, $newUserConfirmation,
                                 $newUserEmail, $newUserPassword, $newUserRole, $newUserSalt) {
         //user mutator methods to populate the user
         try {
-            $this->setUserId($newUserId);
+            $this->setUserID($newUserID);
             $this->setUserLogInSourceId($newUserLogInSourceId);
             $this->setAuthToken($newAuthToken);
             $this->setUserConfirmation($newUserConfirmation);
@@ -86,50 +86,50 @@ class User {
      * *
      * @return integer value of user id
      * */
-    public function getUserId() {
-        return($this->userId);
+    public function getUserID() {
+        return($this->userID);
     }
     /**
-     *mutator method for user id
+     *mutator method for userId
      *
-     *@param mixed new value of user id or null if a new object
+     *@param mixed new value of userId or null if a new object
      *@throws Unexpected ValueException if the input is not an integer
      *@throws RangeException if the user id is not positive
      **/
-    public function setUserId($newUserId) {
+    public function setUserID($newUserID) {
         //zero (special case) allow a null if this is a NEW object
-        if($newUserId === null) {
-            $this->userId = null;
+        if($newUserID === null) {
+            $this->userID = null;
             return;
         }
         
         //first, trim the input of any excess white space
-        $newUserId = trim($newUserId);
+        $newUserID = trim($newUserID);
         
         //second, verify this is an integer
-        if(filter_var($newUserId, FILTER_VALIDATE_INT)) === false)  {
-            throw(new UnexpectedValueException("user id $newUserId is not an integer"));
+        if(filter_var($newUserID, FILTER_VALIDATE_INT)) === false)  {
+            throw(new UnexpectedValueException("userID $newUserID is not an integer"));
         }
         
         //third, convert the id to an integer and ensure it's positive
-        $newUserId = intval($newUserId);
-        if($newUserId <= 0) {
-            throw(new RangeException("user id $newUserId is not positive"));
+        $newUserID = intval($newUserID);
+        if($newUserID <= 0) {
+            throw(new RangeException("userId $newUserID is not positive"));
         }
         
         //finally, the user id is clean and can be taken out of quarantine
         // we want to use it now
-        $this->userId = $newUserId;      
+        $this->userID = $newUserID;      
     }
     
     /**
-     *Treat UserLogInSourceID same as User ID; here
-     *accessor method for UserLogInSourceId
+     *Treat UserLogInSourceId same as User ID; here
+     *accessor method for UserLogInSourceId ("GET")
      *
      *@return integer value of UserLogInSourceId
      **/
     
-    public function getUserLogInSourceId) {
+    public function getUserLogInSourceId() {
         return($this->userLogInSourceId);
     }
     
@@ -203,7 +203,7 @@ class User {
       *
       *@return string value of UserConfirmation
       **/
-     public function getUserConfirmationl() {
+     public function getUserConfirmation() {
         return($this->userConfirmation);
      }
      
