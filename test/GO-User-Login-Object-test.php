@@ -132,7 +132,7 @@ class UserTest extends UnitTestCase {
         //finally, compare the fields -- all the fields
         $this->assertNotNull($staticUserID ->getUserLoginId());
         $this->assertTrue($staticUserID ->getUserLoginId() > 0);        
-        $this->assertIdentical($staticUserID ->getUserLoginId(),                $this->user->getUserId());
+        $this->assertIdentical($staticUserID ->getUserLoginId(),           $this->user->getUserId());
         $this->assertIdentical($staticUserID ->getEmail(),                 $this->EMAIL);
         $this->assertIdentical($staticUserID ->getPassword(),              $this->HASH);
         $this->assertIdentical($staticUserID ->getSalt(),                  $this->SALT);
