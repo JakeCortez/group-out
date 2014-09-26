@@ -307,6 +307,18 @@ input:required {
     font-weight: normal;
 }
 
+#signinForm {
+    margin-left: auto;
+    margin-right: auto;
+    height: 200px;
+    width: 450px;
+    border-radius: 5px 5px 5px 5px;
+    background-color: black;
+    text-align: center;
+    color: white;
+    font-family: Verdana, Arial, Sans-Serif;
+    opacity: 0.8;
+}
 #registerForm {
     margin-left: auto;
     margin-right: auto;
