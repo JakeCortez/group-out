@@ -30,7 +30,7 @@
       <h1>group<strong>out</strong><small> Event creator for outdoor enthusiasts.</small></h1>
     </div>
 
-    <?php require_once('php/nav.html');?>
+    <?php require_once('php/nav-index.html');?>
 
      <div class = "container-fluid">
       <div class = "row">
