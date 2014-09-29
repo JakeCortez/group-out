@@ -78,6 +78,7 @@ class Event {
    * @param $newEventState CHAR(2), user selects state from dropdown
    * @param $newEventZip string, user types numbers with a character limit of 10
    * @param $newEventMemberCount integer, the number of members who joined the event
+   * @param $newEventActivityList string, one or more 
    * @throws UnexpectedValueException when a parameter is of the wrong type
    * @throws RangeException when a parameter is invalid
    **/
