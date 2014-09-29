@@ -21,6 +21,7 @@ try {
     $eventState = $event->getEventState();
     $eventDifficulty = $event->getEventDifficulty();
     $eventMemberCount = $event->getEventMemberCount();
+    $eventActivityList = $event->getEventActivityList();
 
     // echo the result
     echo <<<EOD
@@ -28,7 +29,7 @@ try {
       <div class="listThumb"></div>
 
       <div class="listDetails">
-        <div class="listHead">$eventName | bike</div>
+        <div class="listHead">$eventName | $eventActivityList</div>
         <div class="listInfo">$eventCity, $eventState | $niceDate</div>
         <div class="listDifficulty">difficulty / $eventDifficulty</div>
       </div>

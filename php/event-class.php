@@ -565,7 +565,29 @@ class Event {
     $this->eventMemberCount = $newEventMemberCount;
   }
 
+///// GET & SET FOR EventActivityList
+  /**
+   * gets the value of EventActivityList
+   *
+   * @return string EventActivityList
+   **/
+  public function getEventActivityList() {
+      return($this->eventActivityList);
+  }
 
+  /**
+   * sets the value of EventActivityList
+   *
+   * @param string $newEventActivityList EventActivityList
+   **/
+  public function setEventActivityList($newEventActivityList) {
+      // filter the city as a generic string
+      $newEventActivityList = trim($newEventActivityList);
+      $newEventActivityList = filter_var($newEventActivityList, FILTER_SANITIZE_STRING);
+
+      // then just take the city out of quarantine
+      $this->eventActivityList = $newEventActivityList;
+  }
 
 ///// METHOD TO INSERT EVENT INTO MYSQL
 ///// !! DOESN'T TAKE INTO ACCOUNT FOREIGN KEYS FOR routeID, UserID!!
@@ -696,7 +718,13 @@ class Event {
    **/
   public static function getEventsByUserID(&$mysqli, $userID) {
     // create & prepare a query template
-    $query = "SELECT eventID, routeID, userID, eventDate, eventCity, eventDate, eventDescription, eventDifficulty, eventName, eventPrivacy, eventState, eventZip, eventMemberCount FROM Events WHERE userID = ? AND eventPrivacy = 2 LIMIT 3";
+    // $query = "SELECT eventID, routeID, userID, eventDate, eventCity, eventDate, eventDescription, eventDifficulty, eventName, eventPrivacy, eventState, eventZip, eventMemberCount FROM events WHERE userID = ? AND eventPrivacy = 2 LIMIT 3";
+    $query = "SELECT events.eventID, events.routeID, events.userID, events.eventDate, events.eventCity, events.eventDate, events.eventDescription, events.eventDifficulty, events.eventName, events.eventPrivacy, events.eventState, events.eventZip, events.eventMemberCount, eventToActivity.eventActivityList
+              FROM events
+              INNER JOIN (SELECT DISTINCT eventID, GROUP_CONCAT(DISTINCT activityTypeID ORDER BY activityTypeID) AS eventActivityList FROM eventToActivity GROUP BY eventID) eventToActivity
+              ON events.eventID=eventToActivity.eventID
+              WHERE events.userID=? AND events.eventPrivacy=2
+              LIMIT 3";
 
     // prepare the statement
     if(($statement = $mysqli->prepare($query)) === false) {
@@ -722,7 +750,7 @@ class Event {
     $eventArray = array();
 
     while(($row = $result->fetch_assoc()) !== null) {
-      $eventArray[] = new Event($row["eventID"], $row["routeID"], $row["userID"], $row["eventDate"], $row["eventCity"], $row["eventDate"], $row["eventDescription"], $row["eventDifficulty"], $row["eventName"], $row["eventPrivacy"], $row["eventState"], $row["eventZip"], $row["eventMemberCount"]);
+      $eventArray[] = new Event($row["eventID"], $row["routeID"], $row["userID"], $row["eventDate"], $row["eventCity"], $row["eventDate"], $row["eventDescription"], $row["eventDifficulty"], $row["eventName"], $row["eventPrivacy"], $row["eventState"], $row["eventZip"], $row["eventMemberCount"], $row["eventActivityList"]);
     }
 
     return $eventArray;
