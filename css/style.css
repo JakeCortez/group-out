@@ -310,6 +310,8 @@ input:required {
 #signinForm {
     margin-left: auto;
     margin-right: auto;
+    margin: 15px;
+    padding: 25px;
     height: 200px;
     width: 450px;
     border-radius: 5px 5px 5px 5px;
@@ -317,11 +319,13 @@ input:required {
     text-align: center;
     color: white;
     font-family: Verdana, Arial, Sans-Serif;
-    opacity: 0.8;
+    opacity: 0.75;
 }
 #registerForm {
     margin-left: auto;
     margin-right: auto;
+    margin: 15px;
+    padding: 15px;
     height: 200px;
     width: 450px;
     border-radius: 5px 5px 5px 5px;
@@ -329,7 +333,7 @@ input:required {
     text-align: center;
     color: white;
     font-family: Verdana, Arial, Sans-Serif;
-    opacity: 0.8;
+    opacity: 0.75;
 }
 
 
