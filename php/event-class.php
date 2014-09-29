@@ -55,6 +55,12 @@ class Event {
    * string, user selects from drop-down that inputs CHARS(2)
    */
   private $eventZip;
+  /**
+   * string, user selects from drop-down that inputs CHARS(2)
+   */
+  private $eventActivityList;
+
+
 
   /**
    * constructor for Event
@@ -75,7 +81,7 @@ class Event {
    * @throws UnexpectedValueException when a parameter is of the wrong type
    * @throws RangeException when a parameter is invalid
    **/
-  public function __construct($newEventID, $newRouteID, $newUserID, $newEventDateCreated, $newEventCity, $newEventDate, $newEventDescription, $newEventDifficulty, $newEventName, $newEventPrivacy, $newEventState, $newEventZip, $newEventMemberCount) {
+  public function __construct($newEventID, $newRouteID, $newUserID, $newEventDateCreated, $newEventCity, $newEventDate, $newEventDescription, $newEventDifficulty, $newEventName, $newEventPrivacy, $newEventState, $newEventZip, $newEventMemberCount, $newEventActivityList) {
       try {
         $this->setEventID($newEventID);
         $this->setRouteID($newRouteID); // FOREIGN KEY
@@ -90,6 +96,7 @@ class Event {
         $this->setEventState($newEventState);
         $this->setEventZip($newEventZip);
         $this->setEventMemberCount($newEventMemberCount);
+        $this->setEventActivityList($newEventActivityList);
       } catch(UnexpectedValueException $unexpectedValue) {
           // rethrow to the caller
           throw(new UnexpectedValueException("Unable to construct Event", 0, $unexpectedValue));
@@ -721,7 +728,7 @@ class Event {
     // $query = "SELECT eventID, routeID, userID, eventDate, eventCity, eventDate, eventDescription, eventDifficulty, eventName, eventPrivacy, eventState, eventZip, eventMemberCount FROM events WHERE userID = ? AND eventPrivacy = 2 LIMIT 3";
     $query = "SELECT events.eventID, events.routeID, events.userID, events.eventDate, events.eventCity, events.eventDate, events.eventDescription, events.eventDifficulty, events.eventName, events.eventPrivacy, events.eventState, events.eventZip, events.eventMemberCount, eventToActivity.eventActivityList
               FROM events
-              INNER JOIN (SELECT DISTINCT eventID, GROUP_CONCAT(DISTINCT activityTypeID ORDER BY activityTypeID) AS eventActivityList FROM eventToActivity GROUP BY eventID) eventToActivity
+              INNER JOIN (SELECT DISTINCT eventID, GROUP_CONCAT(DISTINCT activityTypeID ORDER BY activityTypeID SEPARATOR ', ') AS eventActivityList FROM eventToActivity GROUP BY eventID) eventToActivity
               ON events.eventID=eventToActivity.eventID
               WHERE events.userID=? AND events.eventPrivacy=2
               LIMIT 3";
