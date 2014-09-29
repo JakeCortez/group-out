@@ -24,20 +24,42 @@
     <?php require_once('../php/nav.html');?>
     <div class = "container-fluid">
       <article class = "col-lg-9">
-       
-        <form id="nameGroup" method="post"<h1>Create a group</h1><form action="jquery-form.php">
-            <label for="groupName">Group Name</label>
-            <input type="text" id="groupName" name="email" placeholder="The Wicked Lobos"/><br />
-            <label for="">Password</label>
-            <input type="password" id="password" name="password" placeholder="abc123" /><br />
-            <label for="confirmPassword">Confirm Password</label>
-            <input type="password" id="confirmPassword" name="confirmPassword" placeholder="abc123" /> <br />
-            <label for="member">Member Number</label>
-            <input type="number" id="member" name="member" placeholder="abc123"/><br />
-            <label type="napHours">Nap Hours</label>
-            <input type="number" min="0" step="1.75" id="napHours" name="napHours" placeholder="Sleep Well!" /> <br />
-            <button type="submit">Nap Time!</button>
-        </form>  
+      <div class = "page_content">
+        <h1>Create A Group</h1>
+        <form class = "basicForm">
+          <label for = "groupName">Group Name:</label>
+          <input type = "text" name = "groupName"><br>
+          <label for = "groupAvatar">Group Avatar:</label>
+          <input type = "file" name = "groupAvatar"><br>
+          <label for = "groupSkill">Skill Level of Group:</label>
+          <select name = "groupSkill">
+            <option value = "null">--</option>
+            <option value = "5">Professional</option>
+            <option value = "4">Enthusiast</option>
+            <option value = "3">Normal</option>
+            <option value = "2">Intermediate</option>
+            <option value = "1">Starter</option>
+          </select><br>
+          <label for = "activityType">Activities:</label>
+          <input name = "activityType" type = "checkbox" value = "1">Hike<br>
+          <input name = "activityType" type = "checkbox" value = "2">Bike<br>
+          <input name = "activityType" type = "checkbox" value = "3">Jog<br>
+          <label fot = "groupDescription">Group Description:</label>
+          <textarea rows = "5" cols = "80" max = "500" type = "text" name = "groupDescription"></textarea><br>
+          <label for = "groupState">State:</label>
+          <input name = "groupState" type = "text" max = "2"><br>
+          <label for = "groupZip">Postal Code:</label>
+          <input name = "groupZip" type = "number"><br>
+          <label for = "groupCity">City:</label>
+          <input name = "groupCity" type = "text"><br>
+          <label for = "privacyLevel">Privacy:</label>
+          <select name = "privacyLevel">
+            <option value = "1">Private - Only group members have access</option>
+            <option value = "0">Public - Anybody can see this group</option>
+          </select><br>
+          <button type = "submit">Create Group</button>
+        </form>
+      </div>
       </article>
     
       <aside class = "col-lg-3">

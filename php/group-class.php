@@ -294,9 +294,13 @@ class Group {
     /**
      * sets value of group avatar
      *
+     * @param mixed value of img associated with group allowing null if not set 
      **/
     public function setGroupAvatar($newGroupAvatar){
-        
+        // if null set default avatar
+        if($newGroupAvatar === null){
+            $this->groupAvatar = "default";
+        }
     }
     
     /**
@@ -372,9 +376,12 @@ class Group {
     /**
      * sets value of pictures associated with group
      *
+     * @param mixed value of files associated with group
+     * 
      **/
     public function setGroupGallery($newGroupGallery){
-        
+       //see if group gallery is null
+       
     }
     /**
      * gets value of name of group

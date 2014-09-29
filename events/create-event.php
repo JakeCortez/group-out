@@ -24,35 +24,43 @@
     <?php require_once('../php/nav.html');?>
     <div class = "container-fluid">
       <article class = "col-lg-9">
-        <h1>Create an Event</h1>
-        <form id="eventName" method="post" action="">
-            <label for="eventName"><h4>Event Name</h4></label>
-            <input type="text" id="eventName" required name="eventName" placeholder="myEvent!"/><br />
-            <label for="eventCity"><h4>Event City</h4></label>
-            <input type="text" id="eventCity" required name="eventCity" placeholder="Albuquerque?"/><br />
-            <label for="eventState"><h4>Event State</h4></label>
-            <input type="text" size=2 id="eventState" required name="eventState" placeholder="NM"/><br />
-            <label for="eventZipCode"><h4>Event Zip Code</h4></label>
-            <input type="text" max="10" id="eventZipCode" required name="eventZipCode" placeholder="zip!" /> <br />
-            <label for="eventDescription"><h4>Event Description</h4></label>
-            <input type="text" max="300" id="eventDescription" required name="eventDescription" placeholder="abc123" /> <br />
-            <label for="date"><h4>Event Time and Date</h4<label><br />
-            <input type="datetime-local" value="2014-09-04T21:00" id="datetime-local" required name="datetime-local"><br /><br/>
-            <form action="">
-            <h4>Choose one or more activities</h4>
+        <div class = "page_content">
+          <h1>Create an Event</h1>
+          <form class = "basicForm" id="eventName" method="post" action="">
+            <label for="eventName">Event Name</label>
+            <input type="text" id="eventName" required name="eventName" placeholder="myEvent!"/><br>
+            <label for="eventCity">Event City</label>
+            <input type="text" id="eventCity" required name="eventCity" placeholder="Albuquerque?"/><br>
+            <label for="eventState">Event State</label>
+            <input type="text" maxlength = "2" id="eventState" required name="eventState" placeholder="NM"/><br>
+            <label for="eventZipCode">Event Zip Code</label>
+            <input type="text" maxlength ="10" id="eventZipCode" required name="eventZipCode" placeholder="zip!" /> <br>
+            <label for="eventDescription">Event Description</label>
+            <textarea name="eventDescription" rows="5" class="description" cols="80" max="500" type="text"></textarea> <br>
+            <label for="date">Event Time and Date</label>
+            <input type="datetime-local" value="2014-09-04T21:00" id="datetime-local" required name="datetime-local"><br>
+            <label for="activity">Choose one or more activities</label>
             <input name="activity" type="checkbox" value="hike">Hike<br>
             <input type="checkbox" value="bike">Bike<br>
             <input type="checkbox" value="run">Run<br>
             <input type="checkbox" value="other">Other<br><br>
-            <h4>Choose Group Skill Level</h4>
-            <input name="skillLevel"  type="checkbox" value="low">Lo<br>
-            <input type="checkbox" value="medium">Med<br>
-            <input type="checkbox" value="hi">Hi<br><br>
-            <h4>Privacy Setting</h4>
-            <input name="privacy" type="checkbox" value="private">Private / only people you invite can join<br /><input type="checkbox" value="public">Public / anyone can request to join<br />
-        </form>
-            <br />
-        <button type="submit">Click to Create Event</button>
+            <label for="skillLevel">Choose Event Skill Level</label>
+            <select name = "skillLevel">
+              <option value = "null">--</option>
+              <option value = "5">Professional</option>
+              <option value = "4">Enthusiast</option>
+              <option value = "3">Normal</option>
+              <option value = "2">Intermediate</option>
+              <option value = "1">Starter</option>
+            </select><br>
+            <label for = "privacy">Privacy Setting</label>
+            <select name = "privacy">
+              <option value = "1">Private</option>
+              <option value = "0">Public</option>
+            </select><br>
+            <button type="submit">Click to Create Event</button>
+          </form>
+        </div>
       </article>
     
       <aside class = "col-lg-3">

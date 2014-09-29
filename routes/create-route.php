@@ -61,7 +61,7 @@
     <div id = "container-fluid">
     <div class = "row">
       <article class = "col-lg-9">
-        <div class = "page_info">
+        <div class = "page_content">
           <div id = "map-canvas">
           </div>
           <form class = "basicForm">
@@ -85,6 +85,11 @@
             </select><br>
             <label for = "routeInfo">Route Description:</label>
             <textarea rows = "5 " class = "description" cols = "80" max = "500" type = "text"></textarea><br>
+            <label for = "privacyLevel">Privacy</label>
+            <select for = "privacyLevel">
+              <option value = "1">Private - Only you can see this route</option>
+              <option value = "0">Public - Anybody can see this route</option>
+            </select><br>
             <button type = "submit">Create</button>
           </form>
         </div>
