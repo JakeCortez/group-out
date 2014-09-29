@@ -76,6 +76,6 @@
         </article>
       </div>
     </div>
-    <?php require_once('php/footer.html');?>
+    <?php require_once('php/footer-index.html');?>
   </body>
 </html>
