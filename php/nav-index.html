@@ -17,56 +17,56 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
               <ul class="nav navbar-nav">
                 <li class="dropdown">
-                  <a href="../routes/routes.php" class="dropdown-hover" data-hover="dropdown">Routes<span class="caret"></span></a>
+                  <a href="/routes/routes.php" class="dropdown-hover" data-hover="dropdown">Routes<span class="caret"></span></a>
                   <ul class="dropdown-menu dropdown-hover" data-hover="dropdown" role="menu">
-                    <li><a href="../routes/create-route.php">Create a Route</a></li>
-                    <li><a href="../routes/route-map.php">Route Map</a></li>
+                    <li><a href="/routes/create-route.php">Create a Route</a></li>
+                    <li><a href="/routes/route-map.php">Route Map</a></li>
                   </ul>
                 </li>
                 <li class="dropdown">
-                  <a href="../events/events.php"class="dropdown-hover" data-hover="dropdown">Events<span class="caret"></span></a>
+                  <a href="/events/events.php"class="dropdown-hover" data-hover="dropdown">Events<span class="caret"></span></a>
                   <ul class="dropdown-menu dropdown-hover" data-hover="dropdown" role="menu">
-                    <li><a href="../events/create-event.php">Create an Event</a></li>
-                    <li><a href="../events/group-events.php">Group Events</a></li>
+                    <li><a href="/events/create-event.php">Create an Event</a></li>
+                    <li><a href="/events/group-events.php">Group Events</a></li>
                   </ul>
                 </li>
                 <li class="dropdown">
                   <a href="../groups/groups.php" class="dropdown-hover" data-hover="dropdown">Groups<span class="caret"></span></a>
                   <ul class="dropdown-menu dropdown-hover" data-hover="dropdown" role="menu">
-                    <li><a href="../groups/create-group.php">Create a Group</a></li>
-                    <li><a href="../groups/group-manage.php">Groups Management</a></li>
+                    <li><a href="/groups/create-group.php">Create a Group</a></li>
+                    <li><a href="/groups/group-manage.php">Groups Management</a></li>
                   </ul>
                 </li>
                 <li class="dropdown">
-                  <a href="../community/community.php"class="dropdown-hover" data-hover="dropdown">Community<span class="caret"></span></a>
+                  <a href="/community/community.php"class="dropdown-hover" data-hover="dropdown">Community<span class="caret"></span></a>
                   <ul class="dropdown-menu dropdown-hover" data-hover="dropdown" role="menu">
-                    <li><a href="../community/people.php">Find People</a></li>
-                    <li><a href="../community/forums.php">Forums</a></li>
-                    <li><a href="../community/about.php">About Us</a></li>
+                    <li><a href="/community/people.php">Find People</a></li>
+                    <li><a href="/community/forums.php">Forums</a></li>
+                    <li><a href="/community/about.php">About Us</a></li>
                   </ul>
                 </li>
                 <li class="dropdown">
-                  <a href="../profile/my-profile.php" class="dropdown-hover" data-hover="dropdown">Profile<span class="caret"></span></a>
+                  <a href="/profile/my-profile.php" class="dropdown-hover" data-hover="dropdown">Profile<span class="caret"></span></a>
                   <ul class="dropdown-menu dropdown-hover" data-hover="dropdown" role="menu">
-                    <li><a href="../profile/my-routes.php">My Routes</a></li>
-                    <li><a href="../profile/my-groups.php">My Groups</a></li>
-                    <li><a href="../profile/my-events.php">My Events</a></li>
+                    <li><a href="/profile/my-routes.php">My Routes</a></li>
+                    <li><a href="/profile/my-groups.php">My Groups</a></li>
+                    <li><a href="/profile/my-events.php">My Events</a></li>
                   </ul>
                 </li>
               </ul>
               
-                <button type="button" class="register_now btn btn-default navbar-right navbar-btn" data-toggle = "modal" data-target = "#registerModal">Register</button>
-              <div class="modal fade registerModal" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="Register" aria-hidden="true">
+                <button type="button" class="sign_in btn btn-default navbar-right navbar-btn" data-toggle = "modal" data-target = "#signUpModal">Register</button>
+              <div class="modal fade signInModal" id="signUpModal" tabindex="-1" role="dialog" aria-labelledby="Sign In" aria-hidden="true">
                 <div class="modal-dialog">
                   <div class="modal-content">
                     <div class = "basicModal">
                       <div class = "modalLogIn">
-                        <h2>Register Today</h2>
-                        <form class = "basicForm" >
-                          <input type = "email" placeholder = "your-email@email.com" class = "required" aria-required = "true"><br>
-                          <input type = "password" placeholder = "password" "your-email@email.com" class = "required" aria-required = "true"><br>
-                          <input type = "password" placeholder = "confirm password" class = "required" aria-required = "true"><br>
-                          <button class = "btn btn-default" type = "submit">Register</button>
+                        <h2>Sign Up</h2>
+                        <form class = "basicForm">
+                          <input type = "email" placeholder = "email"><br>
+                          <input type = "password" placeholder = "password"><br>
+                          <input type = "password" placeholder = "confirm password"><br>
+                          <button class = "btn btn-default" type = "submit">Sign Up</button>
                         </form>
                       </div>
                     </div>
@@ -81,9 +81,9 @@
                     <div class = "basicModal">
                       <div class = "modalLogIn">
                         <h2>Sign into your account</h2>
-                        <form class = "basicForm" action="php/sign-in.php">
-                          <input type = "email" placeholder = "your-email@email.com" class = "required" aria-required = "true"><br>
-                          <input type = "password" placeholder = "password" "your-email@email.com" class = "required" aria-required = "true"><br>
+                        <form class = "basicForm">
+                          <input type = "email" placeholder = "email"><br>
+                          <input type = "password" placeholder = "password"><br>
                           <button class = "btn btn-default" type = "submit">Sign In</button>
                         </form>
                       </div>

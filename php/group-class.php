@@ -650,9 +650,11 @@ class Group {
         $name = trim($name);
         $name = filter_var($name, FILTER_SANITIZE_STRING);
         
-        //query template
+        //query template 
         $query     = "SELECT groupID, activityType, userID, dateCreated, groupAvatar, groupCity, groupDescription,
                                          groupGallery, groupName, groupSkill, groupState, groupZip, privacyLevel";
+                                         
+        
     }
 }
 ?>
