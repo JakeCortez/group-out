@@ -39,7 +39,7 @@ html {
 
 /*** HOME PAGE ***/
 #carousel-example-generic {
-  height: 70%;
+  height: 80%;
 }
 
 #carousel-example-generic img {
@@ -287,7 +287,7 @@ footer {
     padding: 1em;;
 }
 
-/***** SIGNUP FORM VALIDATION  ***/
+/***** LOGIN/REGISTER FORM VALIDATION  ***/
 
 input:focus:invalid {
   background-color: #CCCCCC;
@@ -307,13 +307,13 @@ input:required {
     font-weight: normal;
 }
 
-#signinForm {
+#logInForm {
     margin-left: auto;
     margin-right: auto;
     margin: 15px;
     padding: 25px;
     height: 200px;
-    width: 450px;
+    width: 250px;
     border-radius: 5px 5px 5px 5px;
     background-color: black;
     text-align: center;
@@ -327,7 +327,7 @@ input:required {
     margin: 15px;
     padding: 15px;
     height: 200px;
-    width: 450px;
+    width: 250px;
     border-radius: 5px 5px 5px 5px;
     background-color: black;
     text-align: center;
