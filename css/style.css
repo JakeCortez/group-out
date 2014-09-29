@@ -321,7 +321,35 @@ input:required {
     font-family: Verdana, Arial, Sans-Serif;
     opacity: 0.75;
 }
+#logInModal{
+    margin-left: auto;
+    margin-right: auto;
+    margin: 15px;
+    padding: 25px;
+    height: 200px;
+    width: 250px;
+    border-radius: 5px 5px 5px 5px;
+    background-color: black;
+    text-align: center;
+    color: white;
+    font-family: Verdana, Arial, Sans-Serif;
+    opacity: 0.75;
+}
 #registerForm {
+    margin-left: auto;
+    margin-right: auto;
+    margin: 15px;
+    padding: 15px;
+    height: 200px;
+    width: 250px;
+    border-radius: 5px 5px 5px 5px;
+    background-color: black;
+    text-align: center;
+    color: white;
+    font-family: Verdana, Arial, Sans-Serif;
+    opacity: 0.75;
+}
+#registerModal {
     margin-left: auto;
     margin-right: auto;
     margin: 15px;
