@@ -55,27 +55,26 @@
                 </li>
               </ul>
               
-                <button type="button" class="sign_in btn btn-default navbar-right navbar-btn" data-toggle = "modal" data-target = "#signUpModal">Register</button>
-              <div class="modal fade signInModal" id="signUpModal" tabindex="-1" role="dialog" aria-labelledby="Sign In" aria-hidden="true">
+                <button type="button" class="register btn btn-default navbar-right navbar-btn" data-toggle = "modal" data-target = "#registerModal">Register</button>
+              <div class="modal fade registerModal" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="Sign In" aria-hidden="true">
                 <div class="modal-dialog">
                   <div class="modal-content">
                     <div class = "basicModal">
-                      <div class = "modalLogIn">
+                      <div class = "modalRegister">
                         <h2>Sign Up</h2>
                         <form class = "basicForm">
                           <input type = "email" placeholder = "email"><br>
                           <input type = "password" placeholder = "password"><br>
                           <input type = "password" placeholder = "confirm password"><br>
-                          <button class = "btn btn-default" type = "submit">Sign Up</button>
+                          <button class = "btn btn-default" type = "submit">Register</button>
                         </form>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-              
-              <button type="button" class="sign_in btn btn-default navbar-right navbar-btn" data-toggle = "modal" data-target = "#signInModal">Sign in</button>
-              <div class="modal fade signInModal" id="signInModal" tabindex="-1" role="dialog" aria-labelledby="Sign In" aria-hidden="true">
+              <button type="button" class="log_in btn btn-default navbar-right navbar-btn" data-toggle = "modal" data-target = "#logInModal">Log in</button>
+              <!--<div class="modal fade signInModal" id="signInModal" tabindex="-1" role="dialog" aria-labelledby="Sign In" aria-hidden="true">
                 <div class="modal-dialog">
                   <div class="modal-content">
                     <div class = "basicModal">
@@ -91,6 +90,43 @@
                   </div>
                 </div>
               </div>
+              -->
+<div class="page">
+<div class="pageContent">
+<div class="message page-status-message" style="display:none;">Loading …</div>
+<div class="registration-panel">
+<h1 class="clearfix">
+Log In
+</h1>
+
+<form accept-charset="UTF-8" action="/session" class="website" id="login_form" method="post">
+  <div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="✓">
+<input name="authenticity_token" type="hidden" value="o+KdX8Ft2Bv0iBYOpIJWyDNJ/p14HgOxTynun68dIZ4=">
+  </div>
+<div class="facebook">
+<a class="button fb-button" href="https://graph.facebook.com/oauth/authorize?response_type=code&amp;client_id=284597785309&amp;redirect_uri=https%3A%2F%2Fwww.strava.com%2Fo_auth%2Ffacebook&amp;scope=user_birthday%2Cuser_location%2Cemail">
+Log in using Facebook
+</a>
+</div>
+<h3>Or log in with email</h3>
+<input id="plan" name="plan" type="hidden">
+<fieldset>
+<input autofocus="autofocus" id="email" name="email" placeholder="Your Email" type="email" value="">
+<br>
+<input id="password" name="password" placeholder="Password" type="password" value="">
+</fieldset>
+<label>
+<input id="remember_me" name="remember_me" type="checkbox" value="on">
+<span>Remember me</span>
+</label>
+<br>
+<button class="btn-primary" id="logIn-button" type="submit">Log In</button>
+<div class="reset-password"><a href="/account/recover">Forgot your password?</a></div>
+</form>
+              
+              
+              
+              
               
               <form class="navbar-form navbar-right" role="search">
                 <div class="form-group">
