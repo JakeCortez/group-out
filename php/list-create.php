@@ -1,6 +1,9 @@
 <?php
-include "../config/Pointer.php";
-include "event-class.php";
+require_once("../config/Pointer.php");
+require_once("event-class.php");
+
+// require_once("/etc/apache2/capstone-mysql/group-out.php");
+// require_once("event-class.php");
 
 try {
   // call the Pointer static method to connect to mySQL

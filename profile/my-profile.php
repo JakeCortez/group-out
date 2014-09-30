@@ -44,6 +44,10 @@ session_start();
         <div class="bar">Events</div>
         <?php require_once('../php/list-create.php');?>
 
+        <!-- Lists comments by this user-->
+        <div class="bar">Comments</div>
+        <?php require_once('../php/comment-list-create-userid.php');?>
+
         <!-- testing -->
         <pre>
           <?php
