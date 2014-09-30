@@ -1,9 +1,11 @@
 SET FOREIGN_KEY_CHECKS=0;
 
-DROP TABLE IF EXISTS UserLogin CASCADE
-;
-DROP TABLE IF EXISTS UserLoginSources CASCADE
-;
+-- start by making sure Tables flow into a clean space
+
+DROP TABLE IF EXISTS UserLogin CASCADE;
+DROP TABLE IF EXISTS UserLoginSources CASCADE;
+
+-- call tables into existence
 
 CREATE TABLE UserLogin (
 	userID INT UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -18,20 +20,17 @@ CREATE TABLE UserLogin (
 	INDEX IXFK_UserLogin_UserProfiles (userID ASC),
 	INDEX IXFK_UserLogin_UserLoginSources (userLoginSourceID ASC)
 
-) 
-;
+);
 
 CREATE TABLE UserLoginSources  (
 	userLoginSourceType VARCHAR(64) NOT NULL,
 	userLoginSourceID INT UNSIGNED NOT NULL AUTO_INCREMENT,
 	PRIMARY KEY (userLoginSourceID)
 
-) 
-;
+);
 
 SET FOREIGN_KEY_CHECKS=1;
 
 ALTER TABLE UserLogin ADD CONSTRAINT FK_UserLogin_UserLoginSources 
 	FOREIGN KEY (userLoginSourceID) REFERENCES UserLoginSources (userLoginSourceID)
-	ON DELETE NO ACTION ON UPDATE NO ACTION
-;
+	ON DELETE NO ACTION ON UPDATE NO ACTION;
