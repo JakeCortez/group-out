@@ -67,7 +67,7 @@
                           <input type = "email" placeholder = "your-email@email.com" class = "required" aria-required = "true"><br>
                           <input type = "password" placeholder = "password" "your-email@email.com" class = "required" aria-required = "true"><br>
                           <input type = "password" placeholder = "confirm password" class = "required" aria-required = "true"><br>
-                          <button class = "btn btn-default" type = "submit">Register</button>
+                          <button class = "btn btn-default" type = "submit" name = "submit" value="send">Register</button>
                         </form>
                       </div>
                     </div>
@@ -75,24 +75,56 @@
                 </div>
               </div>
               
-              <button type="button" class="log_in btn btn-default navbar-right navbar-btn" data-toggle = "modal" data-target = "#logInModal">Log in</button>
-              <div class="modal fade logInModal" id="logInModal" tabindex="-1" role="dialog" aria-labelledby="Log In" aria-hidden="true">
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class = "basicModal">
-                      <div class = "modalLogIn">
-                        <h2>Sign into your account</h2>
-                        <form class = "basicForm">                          
-                          <form method="post" action = "php/log-in.php">
-                          <input type = "email" placeholder = "your-email@email.com" class = "required" aria-required = "true"><br>
-                          <input type = "password" placeholder = "password" "your-email@email.com" class = "required" aria-required = "true"><br>
-                          <button class = "btn btn-default" type = "submit">Log In</button>
-                        </form>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <div class="page">
+<div class="pageContent">
+<div class="message page-status-message" style="display:none;">Loading …</div>
+<div class="registration-panel">
+<h1 class="clearfix">
+Log In
+</h1>
+
+<form accept-charset="UTF-8" action="/session" class="website" id="login_form" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="✓"><input name="authenticity_token" type="hidden" value="o+KdX8Ft2Bv0iBYOpIJWyDNJ/p14HgOxTynun68dIZ4="></div>
+<div class="facebook">
+<a class="button fb-button" href="https://graph.facebook.com/oauth/authorize?response_type=code&amp;client_id=284597785309&amp;redirect_uri=https%3A%2F%2Fwww.strava.com%2Fo_auth%2Ffacebook&amp;scope=user_birthday%2Cuser_location%2Cemail">
+Log in using Facebook
+</a>
+</div>
+<h3>Or log in with email</h3>
+<input id="plan" name="plan" type="hidden">
+<fieldset>
+<input autofocus="autofocus" id="email" name="email" placeholder="Your Email" type="email" value="">
+<br>
+<input id="password" name="password" placeholder="Password" type="password" value="">
+</fieldset>
+<label>
+<input id="remember_me" name="remember_me" type="checkbox" value="on">
+<span>Remember me</span>
+</label>
+<br>
+<button class="btn-primary" id="login-button" type="submit">Log In</button>
+<div class="reset-password"><a href="/account/recover">Forgot your password?</a></div>
+</form>
+              
+              
+              
+            //  <button type="button" class="log_in btn btn-default navbar-right navbar-btn" data-toggle = "modal" data-target = "#logInModal">Log in</button>
+             // <div class="modal fade logInModal" id="logInModal" tabindex="-1" role="dialog" aria-labelledby="Log In" aria-hidden="true">
+              //  <div class="modal-dialog">
+             //     <div class="modal-content">
+              //      <div class = "basicModal">
+             //         <div class = "modalLogIn">
+             //           <h2>Sign into your account</h2>
+             //           <form class = "basicForm">                          
+              //            <form method="post" action = "php/log-in.php">
+              //            <input type = "email" placeholder = "your-email@email.com" class = "required" aria-required = "true"><br>
+             //             <input type = "password" placeholder = "password" "your-email@email.com" class = "required" aria-required = "true"><br>
+             //             <button class = "btn btn-default" type = "submit" name = "submit" value="send">Log In</button>
+             //           </form>
+             //         </div>
+              //      </div>
+              //    </div>
+             //   </div>
+             // </div>
               
               <form class="navbar-form navbar-right" role="search">
                 <div class="form-group">
