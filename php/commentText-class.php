@@ -395,7 +395,7 @@
    **/
   public static function getCommentsByUserID(&$mysqli, $userID) {
     // create & prepare a query template
-    $query = "SELECT commentID, commentDateCreatedID, userID, commentText, groupID, eventID, routeID WHERE userID = ? LIMIT 5";
+    $query = "SELECT commentID, commentDateCreatedID, userID, commentText, groupID, eventID, routeID FROM comments WHERE userID = ? LIMIT 5";
 
     // prepare the statement
     if(($statement = $mysqli->prepare($query)) === false) {
