@@ -20,7 +20,7 @@ class Event {
    */
   private $userID;
   /**
-   * TIMESTAMP, auto inserted upon creating an event
+   * CURRENT_TIMESTAMP, auto inserted upon creating an event
    */
   private $eventDateCreated;
   /**
@@ -727,7 +727,7 @@ class Event {
   public static function getEventsByUserID(&$mysqli, $userID) {
     // create & prepare a query template
     // old query $query = "SELECT eventID, routeID, userID, eventDate, eventCity, eventDate, eventDescription, eventDifficulty, eventName, eventPrivacy, eventState, eventZip, eventMemberCount FROM events WHERE userID = ? AND eventPrivacy = 2 LIMIT 3";
-    $query = "SELECT events.eventID, events.routeID, events.userID, events.eventDate, events.eventCity, events.eventDate, events.eventDescription, events.eventDifficulty, events.eventName, events.eventPrivacy, events.eventState, events.eventZip, events.eventMemberCount, eventToActivity.eventActivityList
+    $query = "SELECT events.eventID, events.routeID, events.userID, events.eventDate, events.eventCity, events.eventDateCreated, events.eventDescription, events.eventDifficulty, events.eventName, events.eventPrivacy, events.eventState, events.eventZip, events.eventMemberCount, eventToActivity.eventActivityList
               FROM events
               INNER JOIN (SELECT DISTINCT eventID, GROUP_CONCAT(DISTINCT activityTypeName ORDER BY activityTypeName SEPARATOR ', ') AS eventActivityList FROM eventToActivity LEFT JOIN activityType ON eventToActivity.activityTypeID = activityType.activityTypeID GROUP BY eventID) eventToActivity
               ON events.eventID = eventToActivity.eventID
@@ -758,7 +758,7 @@ class Event {
     $eventArray = array();
 
     while(($row = $result->fetch_assoc()) !== null) {
-      $eventArray[] = new Event($row["eventID"], $row["routeID"], $row["userID"], $row["eventDate"], $row["eventCity"], $row["eventDate"], $row["eventDescription"], $row["eventDifficulty"], $row["eventName"], $row["eventPrivacy"], $row["eventState"], $row["eventZip"], $row["eventMemberCount"], $row["eventActivityList"]);
+      $eventArray[] = new Event($row["eventID"], $row["routeID"], $row["userID"], $row["eventDateCreated"], $row["eventCity"], $row["eventDate"], $row["eventDescription"], $row["eventDifficulty"], $row["eventName"], $row["eventPrivacy"], $row["eventState"], $row["eventZip"], $row["eventMemberCount"], $row["eventActivityList"]);
     }
 
     return $eventArray;
