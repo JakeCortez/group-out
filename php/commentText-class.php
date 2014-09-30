@@ -46,6 +46,33 @@
      * */
     private $commentText;
     
+    
+    /**
+   * constructor for Event
+   *
+   * @param $newEventID integer, auto inserted upon creating an event
+   * @throws UnexpectedValueException when a parameter is of the wrong type
+   * @throws RangeException when a parameter is invalid
+   **/
+  public function __construct($newCommentID, $newCommentDateCreated, $newUserID, $newCommentText, $newGroupID, $newEventID, $newRouteID) {
+      try {
+        $this->setCommentID($newCommentID);
+        $this->setCommentDateCreated($newCommentDateCreated);
+        $this->setUserID($newUserID); // FOREIGN KEY
+        $this->setCommentText($newCommentText);
+        $this->setGroupID($newGroupID);
+        $this->setEventID($newEventID);
+        $this->setRouteID($newRouteID); // FOREIGN KEY
+        
+      } catch(UnexpectedValueException $unexpectedValue) {
+          // rethrow to the caller
+          throw(new UnexpectedValueException("Unable to construct Event", 0, $unexpectedValue));
+      } catch(RangeException $range) {
+          // rethrow to the caller
+          throw(new RangeException("Unable to construct Event", 0, $range));
+      }
+  }
+    
      /**
      * accessor method for comment id
      *
@@ -87,34 +114,55 @@
         $this->commentID = $newCommentID;
     }
     
-    /**
-     * accessor method for comment date created
-     * 
-     * @return date of comment date created
-     * */
-    public function getCommentDateCreated() {
-        return($this->commentdatecreated);
-    }
-    
-    /**
-     * mutator method for comment date created
-     * */
-    public function setCommentDateCreated($newCommentDateCreated) {
-        // zeroth, allow a null if this is a new object
-        if($newCommentDateCreated === null) {
-            $this->commentDateCreated = null;
-            return;
-        }
-        
-        // first, verify date
-        $newCommentDateCreated = DateTime::createFromFormat("n/j/y h:i:s a", $newCommentDateCreated);
-        if($newCommentDateCreated === false) {
-            throw(new RangeExcaption("Unable to create date from $newCommentDateCreated"));
-        }
-        
-        // finally, comment date created
+ //// GET & SET FOR eventDateCreated
+  /**
+   * gets the value of eventDateCreated
+   *
+   * @return DateTime eventDateCreated and time as a DateTime object
+   * @see http://php.net/manual/en/class.datetime.php
+   **/
+  public function getCommentDateCreated() {
+      return($this->commentDateCreated);
+  }
+
+  /**
+   * sets the value of commentDateCreated
+   *
+   * @param mixed $newCommentDateCreated commentDateCreated as a string in Y-m-d H:i:s format or as a DateTime object
+   * @throws RangeException if the input is a string and cannot be parsed
+   * @see http://php.net/manual/en/function.date.php
+   * @see http://php.net/manual/en/class.datetime.php
+   **/
+  public function setCommentDateCreated($newCommentDateCreated) {
+    // zeroth, if this is a DateTime object, assign it
+    if(gettype($newCommentDateCreated) === "object" && get_class($newCommentDateCreated) === "DateTime") {
         $this->commentDateCreated = $newCommentDateCreated;
+        return;
     }
+
+    // first, cleanse the date string
+    $newCommentDateCreated = trim($newCommentDateCreated);
+    $newCommentDateCreated = filter_var($newCommentDateCreated, FILTER_SANITIZE_STRING);
+
+    // second, use a regular expression to extract the date and verify it
+    if((preg_match("/^(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})$/", $newCommentDateCreated, $matches)) !== 1) {
+        throw(new RangeException("commentDateCreated $newCommentDateCreated is not a mySQL formatted date"));
+    }
+
+    // third, verify the date is a valid date
+    $year  = intval($matches[1]);
+    $month = intval($matches[2]);
+    $day   = intval($matches[3]);
+    if((checkdate($month, $day, $year)) === false) {
+        throw(new RangeException("commentDateCreated $newCommentDateCreated is not a Gregorian date"));
+    }
+
+    // finally, convert the date to a DateTime object
+    if(($dateTime = DateTime::createFromFormat("Y-m-d H:i:s", $newCommentDateCreated)) === false) {
+        throw(new RangeException("commentDateCreated $newCommentDateCreated cannot be converted to a DateTime object"));
+    }
+    $this->commentDateCreated = $dateTime;
+  }
     
      /**
      * accessor method for user id
@@ -421,7 +469,7 @@
     $userCommentArray = array();
 
     while(($row = $result->fetch_assoc()) !== null) {
-      $userCommentArray[] = new Event($row["commentID"], $row["commentDateCreated"], $row["userID"], $row["commentText"], $row["groupID"], $row["eventID"], $row["routeID"]);
+      $userCommentArray[] = new Comment($row["commentID"], $row["commentDateCreated"], $row["userID"], $row["commentText"], $row["groupID"], $row["eventID"], $row["routeID"]);
     }
 
     return $userCommentArray;
