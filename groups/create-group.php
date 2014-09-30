@@ -25,8 +25,9 @@
     <div class = "container-fluid">
       <article class = "col-lg-9">
       <div class = "page_content">
+        <?php require_once("../php/group-class.php")?>
         <h1>Create A Group</h1>
-        <form class = "basicForm">
+        <form method = "post" action = "Class->insert;"class = "basicForm">
           <label for = "groupName">Group Name:</label>
           <input type = "text" name = "groupName"><br>
           <label for = "groupAvatar">Group Avatar:</label>
