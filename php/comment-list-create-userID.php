@@ -1,5 +1,5 @@
 <?php
-// require_once("../config/Pointer.php");
+require_once("../config/Pointer.php");
 require_once("commentText-class.php");
 
 // require_once("/etc/apache2/capstone-mysql/group-out.php");
@@ -18,8 +18,8 @@ try {
 
     // reformat the date
     $commentID = $comment->getCommentID();
+    $dateTime = $comment->getCommentDateCreated();
     $niceDate = $dateTime->format("F j, Y");
-    // $commentDateCreated = $comment->getCommentDateCreated();
     $userID = $comment->getUserID();
     $routeID = $comment->getRouteID();
     $eventID = $comment->getEventID();

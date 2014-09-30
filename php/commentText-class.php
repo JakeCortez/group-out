@@ -334,7 +334,7 @@
      *
      */
     public function getCommentText() {
-        return($this->commentTextID);
+        return($this->commentText);
     }
     
     /**mutator method for comment
