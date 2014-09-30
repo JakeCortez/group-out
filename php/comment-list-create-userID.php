@@ -1,6 +1,6 @@
 <?php
-include "../config/Pointer.php";
-include "commentText-class.php";
+require_once("../config/Pointer.php");
+require_once("commentText-class.php");
 
 // require_once("/etc/apache2/capstone-mysql/group-out.php");
 // require_once("commentText-class.php");
