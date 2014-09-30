@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html>
   <head>
@@ -40,6 +43,15 @@
         <!-- Lists of routes, events and groups-->
         <div class="bar">Events</div>
         <?php require_once('../php/list-create.php');?>
+
+        <!-- testing -->
+        <pre>
+          <?php
+          print_r($_SESSION);
+          ?>
+        </pre>
+
+
       </article>
 
       <!-- Aside (sidebar) Area -->

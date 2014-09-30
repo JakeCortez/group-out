@@ -78,7 +78,7 @@ class Event {
    * @param $newEventState CHAR(2), user selects state from dropdown
    * @param $newEventZip string, user types numbers with a character limit of 10
    * @param $newEventMemberCount integer, the number of members who joined the event
-   * @param $newEventActivityList string, one or more 
+   * @param $newEventActivityList string, one or more
    * @throws UnexpectedValueException when a parameter is of the wrong type
    * @throws RangeException when a parameter is invalid
    **/
@@ -528,7 +528,7 @@ class Event {
     $newEventZip    = trim($newEventZip);
     $filterOptions = array("options" => array("regexp" => "/^\d{5}(-\d{4})?$/"));
     if(filter_var($newEventZip, FILTER_VALIDATE_REGEXP, $filterOptions) === false) {
-        throw(new RangeException("zip $newEventZip is not a ZIP code"));
+        throw(new RangeException("not a valid ZIP code"));
     }
 
     // finally, take the eventZip out of quarantine
@@ -726,12 +726,12 @@ class Event {
    **/
   public static function getEventsByUserID(&$mysqli, $userID) {
     // create & prepare a query template
-    // $query = "SELECT eventID, routeID, userID, eventDate, eventCity, eventDate, eventDescription, eventDifficulty, eventName, eventPrivacy, eventState, eventZip, eventMemberCount FROM events WHERE userID = ? AND eventPrivacy = 2 LIMIT 3";
+    // old query $query = "SELECT eventID, routeID, userID, eventDate, eventCity, eventDate, eventDescription, eventDifficulty, eventName, eventPrivacy, eventState, eventZip, eventMemberCount FROM events WHERE userID = ? AND eventPrivacy = 2 LIMIT 3";
     $query = "SELECT events.eventID, events.routeID, events.userID, events.eventDate, events.eventCity, events.eventDate, events.eventDescription, events.eventDifficulty, events.eventName, events.eventPrivacy, events.eventState, events.eventZip, events.eventMemberCount, eventToActivity.eventActivityList
               FROM events
-              INNER JOIN (SELECT DISTINCT eventID, GROUP_CONCAT(DISTINCT activityTypeID ORDER BY activityTypeID SEPARATOR ', ') AS eventActivityList FROM eventToActivity GROUP BY eventID) eventToActivity
-              ON events.eventID=eventToActivity.eventID
-              WHERE events.userID=? AND events.eventPrivacy=2
+              INNER JOIN (SELECT DISTINCT eventID, GROUP_CONCAT(DISTINCT activityTypeName ORDER BY activityTypeName SEPARATOR ', ') AS eventActivityList FROM eventToActivity LEFT JOIN activityType ON eventToActivity.activityTypeID = activityType.activityTypeID GROUP BY eventID) eventToActivity
+              ON events.eventID = eventToActivity.eventID
+              WHERE events.userID = ? AND events.eventPrivacy = 2
               LIMIT 3";
 
     // prepare the statement
@@ -749,7 +749,7 @@ class Event {
       throw(new mysqli_sql_exception("Unable to execute statement"));
     }
 
-    // be demanding and get results! *pounds fist*
+    // get the results
     if(($result = $statement->get_result()) === false) {
       throw(new mysqli_sql_exception("Unable to get results"));
     }
