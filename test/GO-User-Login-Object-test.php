@@ -13,11 +13,13 @@ class UserTest extends UnitTestCase {
     private $userID   = null;
     
     //a few "global" variables for creating test data
-    private $EMAIL      = "files@trash.org";
-    private $PASSWORD   = "ideletedmyfiles";
-    private $AUTH_TOKEN = null;
-    private $HASH       = null; 
-    private $SALT       = null;
+    private $EMAIL          = "files@trash.org";
+    private $PASSWORD       = "ideletedmyfiles";
+    private $AUTH_TOKEN     = null;
+    private $USER_CONFIRM   = null;
+    private $HASH           = null;
+    private $USER_ROLE      = null;
+    private $SALT           = null;
     
     //setUp() is a method run before each test
     //here, we use it to connect to mySQL, calculate the SALT, hash, and authenticationToken
