@@ -395,7 +395,7 @@
    **/
   public static function getCommentsByUserID(&$mysqli, $userID) {
     // create & prepare a query template
-    $query = "SELECT commentID, commentDateCreatedID, userID, commentText, groupID, eventID, routeID FROM comments WHERE userID = ? LIMIT 5";
+    $query = "SELECT commentID, commentDateCreated, userID, commentText, groupID, eventID, routeID FROM comments WHERE userID = ? LIMIT 5";
 
     // prepare the statement
     if(($statement = $mysqli->prepare($query)) === false) {
@@ -421,7 +421,7 @@
     $userCommentArray = array();
 
     while(($row = $result->fetch_assoc()) !== null) {
-      $userCommentArray[] = new Event($row["commentID"], $row["commentDateCreatedID"], $row["userID"], $row["commentText"], $row["groupID"], $row["eventID"], $row["routeID"]);
+      $userCommentArray[] = new Event($row["commentID"], $row["commentDateCreated"], $row["userID"], $row["commentText"], $row["groupID"], $row["eventID"], $row["routeID"]);
     }
 
     return $userCommentArray;
@@ -436,7 +436,7 @@
    **/
   public static function getCommentsByEventID(&$mysqli, $eventID) {
     // create & prepare a query template
-    $query = "SELECT commentID, commentDateCreatedID, userID, commentText, groupID, eventID, routeID WHERE eventID = ? LIMIT 5";
+    $query = "SELECT commentID, commentDateCreated, userID, commentText, groupID, eventID, routeID WHERE eventID = ? LIMIT 5";
 
     // prepare the statement
     if(($statement = $mysqli->prepare($query)) === false) {
@@ -462,7 +462,7 @@
     $eventArray = array();
 
     while(($row = $result->fetch_assoc()) !== null) {
-      $eventArray[] = new Event($row["commentID"], $row["commentDateCreatedID"], $row["userID"], $row["commentText"], $row["groupID"], $row["eventID"], $row["routeID"]);
+      $eventArray[] = new Event($row["commentID"], $row["commentDateCreated"], $row["userID"], $row["commentText"], $row["groupID"], $row["eventID"], $row["routeID"]);
     }
 
     return $eventArray;
@@ -477,7 +477,7 @@
    **/
   public static function getEventsByGroupID(&$mysqli, $groupID) {
     // create & prepare a query template
-    $query = "SELECT commentID, commentDateCreatedID, userID, commentText, groupID, eventID, routeID WHERE groupID = ? LIMIT 5";
+    $query = "SELECT commentID, commentDateCreated, userID, commentText, groupID, eventID, routeID WHERE groupID = ? LIMIT 5";
 
     // prepare the statement
     if(($statement = $mysqli->prepare($query)) === false) {
@@ -503,7 +503,7 @@
     $groupArray = array();
 
     while(($row = $result->fetch_assoc()) !== null) {
-      $groupArray[] = new Event($row["commentID"], $row["commentDateCreatedID"], $row["userID"], $row["commentText"], $row["groupID"], $row["eventID"], $row["routeID"]);
+      $groupArray[] = new Event($row["commentID"], $row["commentDateCreated"], $row["userID"], $row["commentText"], $row["groupID"], $row["eventID"], $row["routeID"]);
     }
 
     return $groupArray;
@@ -518,7 +518,7 @@
    **/
   public static function getCommentsByRouteID(&$mysqli, $routeID) {
     // create & prepare a query template
-    $query = "SELECT commentID, commentDateCreatedID, userID, commentText, groupID, eventID, routeID WHERE routeID = ? LIMIT 5";
+    $query = "SELECT commentID, commentDateCreated, userID, commentText, groupID, eventID, routeID WHERE routeID = ? LIMIT 5";
 
     // prepare the statement
     if(($statement = $mysqli->prepare($query)) === false) {
@@ -544,7 +544,7 @@
     $routeArray = array();
 
     while(($row = $result->fetch_assoc()) !== null) {
-      $routeArray[] = new Event($row["commentID"], $row["commentDateCreatedID"], $row["userID"], $row["commentText"], $row["groupID"], $row["eventID"], $row["routeID"]);
+      $routeArray[] = new Event($row["commentID"], $row["commentDateCreated"], $row["userID"], $row["commentText"], $row["groupID"], $row["eventID"], $row["routeID"]);
     }
 
     return $routeArray;
