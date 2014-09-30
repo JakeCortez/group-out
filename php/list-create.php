@@ -49,7 +49,6 @@ try {
       </div>
 EOD;
   }
-  mysql_close();
 } catch(mysqli_sql_exception $error) {
   echo 'oops';
 }
