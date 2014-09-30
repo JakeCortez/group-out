@@ -2,15 +2,21 @@
     <html>
         <head>
             <title>
-                Form registers new user
+                Form registers input from new user
             </title>
         </head>
+        <?php
+            $email = $_POST["email"];
+            $password = $_POST["password"];
+            $confirmPassword = $_POST["confirmPassword"];
+        
+        ?>
         <body>
-            <form method = "post" action = "send_RegistrationForm.php"
         
-        
-        
-        
-        
+        <p> Welcome, <?php $email; ?> </p>     
+      
+       
+        <p> Your message is:
+        <?php //echo $_POST["message"];  ?></p>       
         </body>
     </html>

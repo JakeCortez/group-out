@@ -197,14 +197,16 @@ aside {
 
 .modalLogIn {
   display: inline-block;
-  margin: 0 auto;
+  margin-left: auto;  
+  margin-right: auto;
   margin-top: 1em;
   margin-bottom: 1em;
   text-align: center;
 }
 .logInModal {
   display: inline-block;
-  margin: 0 auto;
+  margin-left: auto;  
+  margin-right: auto;
   margin-top: 1em;
   margin-bottom: 1em;
   text-align: center;
@@ -216,7 +218,8 @@ aside {
 
 .basicForm input, .basicForm button, .basicForm label, .basicForm textarea, .basicForm select{
   display: block;
-  margin: 0 auto;
+  margin-left: auto;  
+  margin-right: auto;
   margin-top: 0.25em;
   margin-bottom: 0.25em;
   text-align: center;
@@ -313,66 +316,6 @@ input:required {
     color: #cc3300;
     font-weight: normal;
 }
-
-#logInForm {
-    margin-left: auto;
-    margin-right: auto;
-    margin: 15px;
-    padding: 25px;
-    height: 200px;
-    width: 250px;
-    border-radius: 5px 5px 5px 5px;
-    background-color: black;
-    text-align: center;
-    color: white;
-    font-family: Verdana, Arial, Sans-Serif;
-    opacity: 0.75;
-}
-#logInModal{
-    margin-left: auto;
-    margin-right: auto;
-    margin: 15px;
-    padding: 25px;
-    height: 200px;
-    width: 250px;
-    border-radius: 5px 5px 5px 5px;
-    background-color: black;
-    text-align: center;
-    color: white;
-    font-family: Verdana, Arial, Sans-Serif;
-    opacity: 0.75;
-}
-#registerForm {
-    margin-left: auto;
-    margin-right: auto;
-    margin: 15px;
-    padding: 15px;
-    height: 200px;
-    width: 250px;
-    border-radius: 5px 5px 5px 5px;
-    background-color: black;
-    text-align: center;
-    color: white;
-    font-family: Verdana, Arial, Sans-Serif;
-    opacity: 0.75;
-}
-#registerModal {
-    margin-left: auto;
-    margin-right: auto;
-    margin: 15px;
-    padding: 15px;
-    height: 200px;
-    width: 250px;
-    border-radius: 5px 5px 5px 5px;
-    background-color: black;
-    text-align: center;
-    color: white;
-    font-family: Verdana, Arial, Sans-Serif;
-    opacity: 0.75;
-}
-
-
-
 
 /*** RESPONSIVE (@MEDIA) STYLES ***/
 
