@@ -3,7 +3,7 @@
 require_once("/usr/lib/php5/simpletest/autorun.php");
 
 // then require the class under scrutiny
-require_once("GO-User-Login-Object.php");
+require_once("GO_User_Login_Object.php");
 
 //the UserTest is a container for all our tests
 class UserTest extends UnitTestCase {

@@ -24,10 +24,6 @@ class User {
      **/
     private $userAuthToken;
     /**
-     *the user's confirmation, reply to e-mail
-     ***/
-    private $userConfirmation;
-    /**
      *the user's email address, this is a unique field
      ***/
     private $userEmail;
@@ -52,7 +48,6 @@ class User {
      * @param mixed user id 
      * @param mixed userLogInSource id
      * @param mixed authentication token
-     * @param mixed userConfirmation
      * @param string userEmail
      * @param string PBFKDF2 hash of user's password
      * @param integer userRole (access level)
@@ -60,14 +55,13 @@ class User {
      * @throws UnexpectedValueException if a parameter is of the incorrect type
      * @throws RangeException if a parameter is out of range
      * **/
-    public function __construct($newUserID, $newUserLogInSourceId, $newUserAuthToken, $newUserConfirmation,
+    public function __construct($newUserID, $newUserLogInSourceId, $newUserAuthToken,
                                 $newUserEmail, $newUserPassword, $newUserRole, $newUserSalt) {
         //user mutator methods to populate the user
         try {
             $this->setUserID($newUserID);
             $this->setUserLogInSourceId($newUserLogInSourceId);
             $this->setAuthToken($newAuthToken);
-            $this->setUserConfirmation($newUserConfirmation);
             $this->setUserEmail($newUserEmail);
             $this->setUserPassword($newUserPassword);
             $this->setUserRole($newUserRole);
@@ -202,26 +196,27 @@ class User {
       *accessor method for UserConfirmation
       *
       *@return string value of UserConfirmation
-      **/
-     public function getUserConfirmation() {
-        return($this->userConfirmation);
-     }
-     
-     /**
+    //
+     //public function getUserConfirmation() {
+     //   return($this->userConfirmation);
+    // }
+     //
       *mutator method for UserConfirmation
       *real verification is here, when user has re-emailed,
       *
       *@param string new value of UserConfirmation
-      **/
-     public function setUserConfirmation($newUserConfirmation) {
+
+     //public function setUserConfirmation($newUserConfirmation) {
         //First, trim the input of excess whitespace
-        $newUserConfirmation = trim($newUserConfirmation);
+     //   $newUserConfirmation = trim($newUserConfirmation);
         //second, sanitize the UserConfirmation of oddball chars
-        $newUserConfirmation = filter_var($newUserConfirmation, FILTER_SANITIZE_USERCONFIRMATION);
+     //   $newUserConfirmation = filter_var($newUserConfirmation, FILTER_SANITIZE_USERCONFIRMATION);
         //finally, bring the UserConfirmation out of quarantine
-        $this->userConfirmation = $newUserConfirmation;
-     }
-      /*
+     //   $this->userConfirmation = $newUserConfirmation;
+     //}
+     //
+     */
+     /*
       *accessor method for userEmail
       *
       *@return string value of UserEmail

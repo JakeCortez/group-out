@@ -13,7 +13,6 @@ CREATE TABLE UserLogin (
 	userSalt CHAR(64) NOT NULL,
 	userLoginSourceID INT UNSIGNED NOT NULL,
 	userAuthToken CHAR(32),
-	userConfirmed BOOL NOT NULL,
 	PRIMARY KEY (userID),
 	UNIQUE UQ_UserLogin_userEmail(userEmail),
 	INDEX IXFK_UserLogin_UserProfiles (userID ASC),
@@ -36,7 +35,3 @@ ALTER TABLE UserLogin ADD CONSTRAINT FK_UserLogin_UserLoginSources
 	FOREIGN KEY (userLoginSourceID) REFERENCES UserLoginSources (userLoginSourceID)
 	ON DELETE NO ACTION ON UPDATE NO ACTION
 ;
-
-INSERT INTO UserLogin ("userID", "userEmail", "userRole", "userPassword", "userSalt", "UserLoginSourceID", "userAuthToken", "userConfirmed")
-            VALUES (int, varchar, int, char, char, int, char, bool);
-            
