@@ -55,6 +55,7 @@
                 </li>
               </ul>
               
+                  <script src="js/validator.js"></script>
                 <button type="button" class="register_now btn btn-default navbar-right navbar-btn" data-toggle = "modal" data-target = "#registerModal">Register</button>
               <div class="modal fade registerModal" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="Sign In" aria-hidden="true">
                 <div class="modal-dialog">
@@ -63,11 +64,12 @@
                      <div class = "modalRegister">                     
                         <h2>Register Here!</h2>
                         <form class = "basicForm" method="post" action = "php/registration.php">
-                          <input type = "email" name = "userEmail" placeholder = "Your email address" class = "required" aria-required = "true"><br>
-                          <input type = "password" name = "userPassword" placeholder = "password" class = "required" aria-required = "true" minlength = 8 maxlength = 16><br>
-                          <input type = "password" name = "confirmPassword" placeholder = "confirm password" class = "required" aria-required = "true" minlength = 8 maxlength = 16><br>
+                          <input type = "email" id = "userEmail" name = "userEmail" placeholder = "Your email address" class = "required" aria-required = "true"><br>
+                          <input type = "password" id = "userPassword" name = "userPassword" placeholder = "password" class = "required" aria-required = "true" minlength = 8 maxlength = 16><br>
+                          <input type = "password" id = "confirmPassword" name = "confirmPassword" placeholder = "confirm password" class = "required" aria-required = "true" minlength = 8 maxlength = 16><br>
                           <button class = "btn btn-default" type = "submit">Register</button>
-                        </form>
+                         </form>
+                        <p id="outputArea"></p>
                       </div>
                     </div>
                   </div>

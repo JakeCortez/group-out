@@ -36,8 +36,8 @@
         //clean up
             $mysqli->close();
             
-        echo "Welcome to Group-Out.  We'll keep your email
-        address on file until you change it on your profile";
+        echo "Welcome to Group-Out.  We'll keep your email address
+        as your login until you change it on your profile";
         
         } catch(mysqli_sql_exception $sqlException) {
         echo "Exception: " . $sqlException->getMessage();

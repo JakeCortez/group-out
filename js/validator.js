@@ -1,5 +1,5 @@
 $(document).ready(function () {
-     $("#signUpForm").validate( {
+     $("#registerModal").validate( {
         // error class: formatting of messages
         errorClass: "badForm",
         
@@ -12,6 +12,7 @@ $(document).ready(function () {
                 required: true
             },
             eventState: {
+                size: 2,
                 required: true
             },
             eventZipCode: {
@@ -33,7 +34,7 @@ $(document).ready(function () {
                 required: true
              },
             confirmPassword: {
-                equalTo: "#password"
+                equalTo: "#userPassword"
             }
         },
         messages: {
@@ -54,8 +55,9 @@ $(document).ready(function () {
                 required:  "Please let us know when your event is being held!"
             },
             email: {
-                required:  "Please enter your E-DRESS",
-                email: "PLEASE"
+                email: "PRETTY PLEASE",
+                required:  "Please enter your E-DRESS"
+                
             },
             password: {
                rangelength: "The password must be between 8 and 16 characters",
