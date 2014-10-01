@@ -8,6 +8,9 @@
   
   echo $email;
   
+  $newUser = new User ("email", "password");
+  $newUser->($mysqli);
+  
   //sanitize function so we can format errors
 //if the email has no @ character, throw an exception
 try {

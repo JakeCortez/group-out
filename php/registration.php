@@ -7,7 +7,6 @@
             </title>
        
         <?php
-            $email = mysql_fix_string($_POST["email"]);
             $password = mysql_fix_string($_POST["password"]);
             $confirmPassword = mysql_fix_string($_POST["confirmPassword"]);
             
@@ -15,12 +14,14 @@
         </head>
         <body>
         
-        <p> Welcome to Group-Out! <?php echo $email; ?>
+        <p> Welcome to Group-Out! 
         
         <?php
         
-            $newUser = new User ("email", "password");
-            $newUser->($mysqli);
+            $newUser = new User ( null, .. $_POST["email"],.. );
+            $newUser->insert($mysqli);
+            
+            echo "email";
         
         ?>
         
