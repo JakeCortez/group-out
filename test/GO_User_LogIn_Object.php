@@ -101,7 +101,7 @@ class User {
         $newUserID = trim($newUserID);
         
         //second, verify this is an integer
-        if(filter_var($newUserID, FILTER_VALIDATE_INT)) === false)  {
+        if(filter_var($newUserID, FILTER_VALIDATE_INT) === false)  {
             throw(new UnexpectedValueException("userID $newUserID is not an integer"));
         }
         
@@ -146,7 +146,7 @@ class User {
         $newUserLogInSourceId = trim($newUserLogInSourceId);
         
         //second, verify this is an integer
-        if(filter_var($newUserLogInSourceId, FILTER_VALIDATE_INT)) === false)  {
+        if(filter_var($newUserLogInSourceId, FILTER_VALIDATE_INT) === false)  {
             throw(new UnexpectedValueException("Profile Id $newUserLogInSourceId is not an integer"));
         }
         
@@ -286,7 +286,7 @@ class User {
         //first, trim the input of any excess white space
         $newUserRole = trim($newUserRole);
         //second, verify this is an integer
-        if(filter_var($newUserRole, FILTER_VALIDATE_INT)) === false)  {
+        if(filter_var($newUserRole, FILTER_VALIDATE_INT) === false)  {
             throw(new UnexpectedValueException("Role $newUserRole is not an integer"));
         }
         //third, convert the id to an integer and ensure it's positive
