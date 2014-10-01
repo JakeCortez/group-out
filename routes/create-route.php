@@ -62,9 +62,10 @@
     <div class = "row">
       <div class = "col-lg-1"></div>
       <article class = "col-lg-10">
+        <h1 id = "createHeader">Create a Route</h1><br>
         <div class = "page_content">
           <div id = "map-canvas">
-          </div>
+          </div><br>
           <form class = "basicForm">
             <label for = "routeName">Route Name:</label>
             <input name = "routeName" type = "text" placeholder = "Route Name"><br>

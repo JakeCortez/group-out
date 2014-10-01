@@ -26,7 +26,7 @@
       <div class = "col-lg-1"></div>
       <article class = "col-lg-10">
         <div class = "page_content">
-          <h1>Create an Event</h1>
+          <h1 id = "createHeader">Create an Event</h1><br>
           <form class = "basicForm" id="eventName" method="post" action="">
             <label for="eventName">Event Name</label>
             <input type="text" id="eventName" required name="eventName" placeholder="myEvent!"/><br>

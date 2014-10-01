@@ -27,7 +27,7 @@
       <article class = "col-lg-10">
       <div class = "page_content">
         <?php require_once("../php/group-class.php")?>
-        <h1>Create a Group</h1>
+        <h1 id = "createHeader">Create a Group</h1><br>
         <form method = "post" action = "Class->insert;"class = "basicForm">
           <label for = "groupName">Group Name:</label>
           <input type = "text" name = "groupName"><br>

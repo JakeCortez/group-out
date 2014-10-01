@@ -2,6 +2,10 @@ html {
   padding: 0;
 }
 
+textarea{
+    resize:none;
+}
+
 /** Map for create a route **/
 .createRoute{
     height:20em;
@@ -50,6 +54,9 @@ html {
 
 
 /*** ARTICLE AREA ***/
+#createHeader{
+    text-align: center;
+}
 
 article {
   padding-bottom: 2em;
