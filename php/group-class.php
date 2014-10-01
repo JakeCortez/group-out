@@ -612,11 +612,22 @@ class Group {
             throw(new mysqli_sql_exception("Unable to get result set"));
         }
         
-        while($result){
+        //fetch result
+        $row = $result->fetch_assoc();
+        
+        if($row !==null){
+            try{
+                $group = new Group($row["groupID"], $row["userID"], $row["groupDateCreated"], $row["groupAvatar"], $row["groupCity"], $row["groupDescription"],
+                                   $row["groupName"], $row["groupSkill"], $row["groupState"], $row["groupZip"], $row["privacyLevel"]);
+            }
+            catch(Exception $exception){
+                throw(new mysqli_sql_exception("Unable to convert row to user", 0, $exception));
+            }
             
+            return($group);
+        } else {
+            return(null);
         }
-        
-        
     }
 }
 ?>
