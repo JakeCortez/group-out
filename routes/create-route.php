@@ -60,7 +60,8 @@
     <?php require_once('../php/nav.html');?>
     <div id = "container-fluid">
     <div class = "row">
-      <article class = "col-lg-9">
+      <div class = "col-lg-1"></div>
+      <article class = "col-lg-10">
         <div class = "page_content">
           <div id = "map-canvas">
           </div>
@@ -94,9 +95,7 @@
           </form>
         </div>
       </article>
-      <aside class = "col-lg-3">
-      <?php require_once('../php/sidebarplaceholder.html');?>
-      </aside>
+      <div class = "col-lg-1"></div>
     </div>
       <?php require_once('../php/footer.html');?>
     </div>

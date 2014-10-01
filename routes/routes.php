@@ -23,7 +23,8 @@
   <body>
     <?php require_once('../php/nav.html');?>
     <div class = "container-fluid">
-        <section class = "col-lg-9 col-md-9 col-sm-6">
+        <div class = "col-lg-1"></div>
+        <section class = "col-lg-10 col-md-10 col-sm-10">
           <div class = "page_info">
             <h2>find a route</h2>
             <h3><small>choose your activity and difficulty level</small></h3>
@@ -226,9 +227,7 @@
           </div> 
           </nav>
         </section>
-        <aside class = "col-lg-3 col-md-3 col-sm-6">
-        <?php require_once('../php/sidebar_routes.php');?>
-        </aside>
+      <div class = "col-lg-1"></div>
     </div>
     <?php require_once('../php/footer.html');?>
   </body>

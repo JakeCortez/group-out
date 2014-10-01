@@ -23,10 +23,11 @@
     
     <?php require_once('../php/nav.html');?>
     <div class = "container-fluid">
-      <article class = "col-lg-9">
+      <div class = "col-lg-1"></div>
+      <article class = "col-lg-10">
       <div class = "page_content">
         <?php require_once("../php/group-class.php")?>
-        <h1>Create A Group</h1>
+        <h1>Create a Group</h1>
         <form method = "post" action = "Class->insert;"class = "basicForm">
           <label for = "groupName">Group Name:</label>
           <input type = "text" name = "groupName"><br>
@@ -62,10 +63,7 @@
         </form>
       </div>
       </article>
-    
-      <aside class = "col-lg-3">
-      <?php require_once('../php/sidebarplaceholder.html');?>
-      </aside>
+      <div class = "col-lg-1"></div>
     </div>
     <?php require_once('../php/footer.html');?>
 

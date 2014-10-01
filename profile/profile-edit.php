@@ -124,10 +124,6 @@
             
         </form>
       </article>
-    
-      <aside class = "col-lg-3">
-      <?php require_once('../php/sidebarplaceholder.html');?>
-      </aside>
     </div>
     <?php require_once('../php/footer.html');?>
 

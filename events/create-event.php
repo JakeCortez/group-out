@@ -23,7 +23,8 @@
     
     <?php require_once('../php/nav.html');?>
     <div class = "container-fluid">
-      <article class = "col-lg-9">
+      <div class = "col-lg-1"></div>
+      <article class = "col-lg-10">
         <div class = "page_content">
           <h1>Create an Event</h1>
           <form class = "basicForm" id="eventName" method="post" action="">
@@ -62,10 +63,7 @@
           </form>
         </div>
       </article>
-    
-      <aside class = "col-lg-3">
-      <?php require_once('../php/sidebarplaceholder.html');?>
-      </aside>
+      <div class = "col-lg-1"></div>
     </div>
     <?php require_once('../php/footer.html');?>
 

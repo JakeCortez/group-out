@@ -23,18 +23,14 @@
 
     <?php require_once('../php/nav.html');?>
     <div class = "container-fluid">
-      <article class = "col-lg-9">
+      <div class = "col-lg-1"></div>
+      <article class = "col-lg-10">
 
         <!-- Lists comments by this user-->
         <div class="bar">Comments</div>
         <?php require_once('../php/comment-list-create-userid.php');?>
-
-
       </article>
-
-      <aside class = "col-lg-3">
-      <?php require_once('../php/sidebarplaceholder.html');?>
-      </aside>
+      <div class = "col-lg-1"></div>
     </div>
     <?php require_once('../php/footer.html');?>
 

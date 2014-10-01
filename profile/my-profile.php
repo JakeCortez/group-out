@@ -27,9 +27,9 @@ session_start();
     <?php require_once('../php/nav.html');?>
 
     <div class="container-fluid">
-
+      <div class = "col-lg-1"></div>
       <!-- Article Area -->
-      <article class="col-lg-8">
+      <article class="col-lg-10">
         <!-- User Profile Information -->
         <div class="userAvatar"></div>
         <div class="userDisplayName">Display Name</div>
@@ -54,12 +54,7 @@ session_start();
 
 
       </article>
-
-      <!-- Aside (sidebar) Area -->
-      <aside class="col-lg-4">
-        <?php require_once('../php/sidebarplaceholder.html');?>
-      </aside>
-
+      <div class = "col-lg-1"></div>
     </div>
 
     <!-- footer called from php folder -->
