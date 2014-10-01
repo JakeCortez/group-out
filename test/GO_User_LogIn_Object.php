@@ -15,11 +15,6 @@ class User {
      **/
     private $userID;
     /**
-     * foreign key of user's LogInSource, auto incremented in UserLogInSource table
-     * @see UserLogInSource
-     * */
-    private $userLogInSourceId;
-    /**
      *authentication token for creating the user and changing the user's password
      **/
     private $userAuthToken;
@@ -55,12 +50,11 @@ class User {
      * @throws UnexpectedValueException if a parameter is of the incorrect type
      * @throws RangeException if a parameter is out of range
      * **/
-    public function __construct($newUserID, $newUserLogInSourceId, $newUserAuthToken,
+    public function __construct($newUserID, $newUserAuthToken,
                                 $newUserEmail, $newUserPassword, $newUserRole, $newUserSalt) {
         //user mutator methods to populate the user
         try {
             $this->setUserID($newUserID);
-            $this->setUserLogInSourceId($newUserLogInSourceId);
             $this->setAuthToken($newAuthToken);
             $this->setUserEmail($newUserEmail);
             $this->setUserPassword($newUserPassword);
@@ -116,51 +110,6 @@ class User {
         $this->userID = $newUserID;      
     }
     
-    /**
-     *Treat UserLogInSourceId same as User ID; here
-     *accessor method for UserLogInSourceId ("GET")
-     *
-     *@return integer value of UserLogInSourceId
-     **/
-    
-    public function getUserLogInSourceId() {
-        return($this->userLogInSourceId);
-    }
-    
-    /**
-     *mutator method for UserLogInSourceId
-     *
-     *@param mixed new value of UserLogInSourceId or null if a new object
-     *@throws Unexpected ValueException if the input is not an integer
-     *@throws RangeException if the UserLogInSourceId is not positive
-     **/
-    
-    public function setUserLogInSourceId($newUserLogInSourceId) {
-        //zero (special case) allow a null if this is a NEW object
-        if($newUserLogInSourceId === null) {
-            $this->userLogInSourceId = null;
-            return;
-        }
-        
-        //first, trim the input of any excess white space
-        $newUserLogInSourceId = trim($newUserLogInSourceId);
-        
-        //second, verify this is an integer
-        if(filter_var($newUserLogInSourceId, FILTER_VALIDATE_INT) === false)  {
-            throw(new UnexpectedValueException("Profile Id $newUserLogInSourceId is not an integer"));
-        }
-        
-        //third, convert the id to an integer and ensure it's positive
-        //there's a lower bound here, but not an upper...
-        $newUserLogInSourceId = intval($newUserLogInSourceId);
-        if($newUserLogInSourceId <= 0) {
-            throw(new RangeException("UserLogInSourceId $newUserLogInSourceId is not positive"));
-        }
-        
-        //finally, UserLogInSourceId is clean and can be taken out of quarantine
-        // we want to use it now
-        $this->userLogInSourceId = $newUserLogInSourceId;      
-    }
     /**
      *accessor method for authentication token
      *
