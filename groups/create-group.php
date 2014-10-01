@@ -42,10 +42,14 @@
             <option value = "2">Intermediate</option>
             <option value = "1">Starter</option>
           </select><br>
-          <label for = "activityType">Activities:</label>
-          <input name = "activityType" type = "checkbox" value = "1">Hike<br>
-          <input name = "activityType" type = "checkbox" value = "2">Bike<br>
-          <input name = "activityType" type = "checkbox" value = "3">Jog<br>
+            <label for="activity">Choose One or More Activities</label>
+            <label for="hike">Hike</label>
+            <input name="hike" type="checkbox" value="1">
+            <label for="bike">Bike</label>
+            <input name="bike" type="checkbox" value="2">
+            <label for="run">Run</label>
+            <input name="run"  type="checkbox" value="3">
+            <br><br>
           <label fot = "groupDescription">Group Description:</label>
           <textarea rows = "5" cols = "80" max = "500" type = "text" name = "groupDescription"></textarea><br>
           <label for = "groupState">State:</label>

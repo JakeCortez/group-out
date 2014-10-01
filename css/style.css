@@ -58,6 +58,10 @@ textarea{
     text-align: center;
 }
 
+input[type=checkbox]{
+    margin: 0 auto !important;
+}
+
 article {
   padding-bottom: 2em;
 }

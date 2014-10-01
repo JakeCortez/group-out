@@ -40,11 +40,14 @@
             <textarea name="eventDescription" rows="5" class="description" cols="80" max="500" type="text"></textarea> <br>
             <label for="date">Event Time and Date</label>
             <input type="datetime-local" value="2014-09-04T21:00" id="datetime-local" required name="datetime-local"><br>
-            <label for="activity">Choose one or more activities</label>
-            <input name="activity" type="checkbox" value="hike">Hike<br>
-            <input type="checkbox" value="bike">Bike<br>
-            <input type="checkbox" value="run">Run<br>
-            <input type="checkbox" value="other">Other<br><br>
+            <label for="activity">Choose One or More Activities:</label>
+            <label for="hike">Hike</label>
+            <input name="hike" type="checkbox" value="1">
+            <label for="bike">Bike</label>
+            <input name="bike" type="checkbox" value="2">
+            <label for="run">Run</label>
+            <input name="run"  type="checkbox" value="3">
+            <br><br>
             <label for="skillLevel">Choose Event Skill Level</label>
             <select name = "skillLevel">
               <option value = "null">--</option>
