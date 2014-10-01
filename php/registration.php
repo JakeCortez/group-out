@@ -18,16 +18,17 @@
         $userSalt      = bin2hex(openssl_random_pseudo_bytes(32));
     
          //hash the user's password 2048 times (128 bytes long)
-        $userHash = hash_pbkdf2("sha512", $_POST["password"], $userSalt, 2048, 128);
+        $userHash = hash_pbkdf2("sha512", $_POST["userPassword"], $userSalt, 2048, 128);
         
         //require the class we're going to use
             require_once("../test/GO_User_LogIn_Object.php");
   
         //connect to mySQL
-            mysqli_report(MYSQLI_REPORT_STRICT);            
+            require_once("/etc/apache2/capstone-mysql/group-out.php");
+            $mysqli = Pointer::getPointer();
             
         //create user 
-            $newUser = new User (null, $userAuthToken, $_POST["email"], $userHash, 2, $userSalt);
+            $newUser = new User (null, $userAuthToken, $_POST["userEmail"], $userHash, 2, $userSalt);
             
         //insert user in DB
             $newUser->insert($mysqli);

@@ -263,7 +263,7 @@ class User {
         }
         
         // enforce the userId is null (i.e., don't insert a user that already exists)
-        if($this->userId !== null) {
+        if($this->userID !== null) {
             throw(new mysqli_sql_exception("not a new user"));
         }
         
