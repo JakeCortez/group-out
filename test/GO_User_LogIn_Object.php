@@ -49,8 +49,8 @@ class User {
      * @throws UnexpectedValueException if a parameter is of the incorrect type
      * @throws RangeException if a parameter is out of range
      * **/
-    public function __construct($newUserID, $newUserAuthToken,
-                                $newUserEmail, $newUserPassword, $newUserRole, $newUserSalt) {
+    public function __construct($newUserID, $newUserAuthToken, $newUserEmail,
+                                $newUserPassword, $newUserRole, $newUserSalt) {
         //user mutator methods to populate the user
         try {
             $this->setUserID($newUserID);
@@ -273,5 +273,186 @@ class User {
         $newUserSalt = strtolower($newUserSalt);
         $this->userSalt = $newUserSalt;
      }
+       /**
+     * inserts this User to mySQL
+     *
+     * @param resource $mysqli pointer to mySQL connection, by reference
+     * @throws mysqli_sql_exception when mySQL related errors occur
+     **/
+    public function insert(&$mysqli) {
+        // handle degenerate cases
+        if(gettype($mysqli) !== "object" || get_class($mysqli) !== "mysqli") {
+            throw(new mysqli_sql_exception("input is not a mysqli object"));
+        }
+        
+        // enforce the userId is null (i.e., don't insert a user that already exists)
+        if($this->userId !== null) {
+            throw(new mysqli_sql_exception("not a new user"));
+        }
+        
+        // create query template
+        $query     = "INSERT INTO user(userAuthToken, userEmail, userPassword, userRole, userSalt,) VALUES(?, ?, ?, ?)";
+        $statement = $mysqli->prepare($query);
+        if($statement === false) {
+            throw(new mysqli_sql_exception("Unable to prepare statement"));
+        }
+        
+        // bind the member variables to the place holders in the template
+        $wasClean = $statement->bind_param("sssss", $this->userAuthToken, $this->userEmail, $this->userPassword, 
+                                                    $this->userRole, $this->userSalt,  );
+        if($wasClean === false) {
+            throw(new mysqli_sql_exception("Unable to bind parameters"));
+        }
+        
+        // execute the statement
+        if($statement->execute() === false) {
+            throw(new mysqli_sql_exception("Unable to execute mySQL statement"));
+        }
+        
+        // update the null userId with what mySQL just gave us
+        $this->userId = $mysqli->insert_id;
+    }
+    
+    /**
+     *deletes this User from mySQL
+     *
+     *@param resource $mysqli POINTER to mySQL connection, by reference
+     *@throws mysqli_sql_exception when mySQL related errors occur
+     **/
+    public function delete(&$mysqli) {
+        //handle degenerate cases
+        if(gettype($mysqli) !== "object" || get_class($mysqli) !== "mysqli") {
+            throw(new mysqli_sql_exception("input is not a mysqli object"));
+        }
+        
+        //enforce that userId is not null (i.e.: don't delete a user hasn't been inserted)
+        if($this->userID === null) {
+            throw(new mysqli_sql_exception("Unable to delete a user that does not exist"));
+        }
+        
+        //create query template
+        $query     = "DELETE FROM user WHERE userId = ?";
+        $statement = $mysqli->prepare($query);
+        if($statement === false)  {
+            throw(new mysqli_sql_exception("Unable to prepare statement"));
+        }
+        
+        //bind member variables to the placeholder in the template
+        $wasClean = $statement->bind_param("i", $this->userId);
+        
+        if($wasClean === false) {
+            throw(new mysqli_sql_exception("Unable to bind parameters"));
+        }
+        
+        //execute the statement
+        if($statement->execute() === false) {
+            throw(new mysqli_sql_exception("Unable to prepare statement"));
+        }
+    }
+    
+    /**
+     *updates this User in mySQL
+     *
+     *@param resource $mysqli POINTER to mySQL connection, by reference
+     *@throws mysqli_sql_exception when mySQL related errors occur
+     **/
+    public function update(&$mysqli) {
+        //handle degenerate cases
+        if(gettype($mysqli) !== "object" || get_class($mysqli) !== "mysqli") {
+            throw(new mysqli_sql_exception("input is not a mysqli object"));
+        }
+        
+        //enforce that userId is not null (i.e.: don't update a user who hasn't been inserted)
+        if($this->userID === null) {
+            throw(new mysqli_sql_exception("Unable to update a user that does not exist"));
+        }
+        
+        //create query template
+        $query     = "UPDATE user SET userAuthToken = ?, userEmail = ?, userPassword = ?, userRole =?, userSalt =?  WHERE userId = ?";
+        $statement = $mysqli->prepare($query);
+        if($statement === false)  {
+            throw(new mysqli_sql_exception("Unable to prepare statement"));
+        }
+        
+        //bind member variables to the placeholder in the template (ORDER MATTERS!)
+        $wasClean = $statement->bind_param("ssssi", $this->userAuthToken, $this->userEmail, 
+                                                    $this->userPassword,  $this->userRole, 
+                                                    $this->userSalt, $this->userID);
+        
+        if($wasClean === false) {
+            throw(new mysqli_sql_exception("Unable to bind parameters"));
+        }
+        
+        //execute the statement
+        if($statement->execute() === false) {
+            throw(new mysqli_sql_exception("Unable to execute the statement"));
+        }
+    }
+    
+    /**
+     *get USER by email
+     *
+     *@param resource @mysqli pointer to mySQL connection, by reference
+     *@param string $email email to search for
+     *@return mixed User found or null if not found
+     *@throws mysqli_sql_exception when mySQL related errors occur
+     **/
+    public static function getUserByEmail(&$mysqli, $email) {
+          //handle degenerate cases
+        if(gettype($mysqli) !== "object" || get_class($mysqli) !== "mysqli") {
+            throw(new mysqli_sql_exception("input is not a mysqli object"));
+        }
+        
+        //sanitize the Email before searching
+        $email = trim($email);
+        $email = filter_var($email, FILTER_SANITIZE_EMAIL);
+        
+        //create query template
+        $query     = "SELECT userId, userAuthToken, userEmail, userPassword, userRole, userSalt FROM user WHERE email = ?";
+        $statement = $mysqli->prepare($query);
+        if($statement === false)  {
+            throw(new mysqli_sql_exception("Unable to prepare statement"));
+        }
+        
+        //bind email to the placeholder in the template
+        $wasClean = $statement->bind_param("s", $email);
+        if($wasClean === false) {
+            throw(new mysqli_sql_exception("Unable to bind parameters"));
+        }
+        
+        //execute the statement
+        if($statement->execute() === false) {
+            throw(new mysqli_sql_exception("Unable to execute mySQL statement"));
+        }
+        
+        //get result from the SELECT query
+        $result = $statement->get_result();
+        if($result === false) {
+            throw(new mysqli_sql_exception("Unable to get result set"));
+        }
+
+        // since this is a unique field, this will only return 0 or 1 results
+        // 1) if there's a result, we can make it into a User object normally
+        // 2) if there's no result, we can just return null
+        $row = $result->fetch_assoc(); // fetch_assoc() returns the row as an associative array
+        
+        //convert the associative array to a User
+        // convert the associative array to a User
+        if($row !== null) {
+            try {
+                $user = new User($row["userID"], $row["userAuthToken"], $row["userEmail"], $row["userPassword"], $row["userRole"], $row["userSalt"]);
+            }
+            catch(Exception $exception) {
+                // if the row couldn't be converted, rethrow it
+                throw(new mysqli_sql_exception("Unable to convert row to User", 0, $exception));
+            }
+            
+            //if we got here, the User is good - return it
+            return($user);
+        } else {
+            // 404 user not found - return null instead
+            return(null);
+        }
+    }
 }
 ?>

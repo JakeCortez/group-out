@@ -7,6 +7,9 @@
             </title>
        
         <?php
+        //require the class we're going to use
+            require_once("GO_User_LogIn_Object.php");       
+        //create things pertaining to the user
             $password = mysql_fix_string($_POST["password"]);
             $confirmPassword = mysql_fix_string($_POST["confirmPassword"]);
             
