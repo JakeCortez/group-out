@@ -9,8 +9,10 @@ try {
   // call the Pointer static method to connect to mySQL
   $mysqli = Pointer::getPointer();
 
+  $date = date('Y-m-d H:i:s');
+
   // call the method
-  $newComment = new Comment($_POST["userID"], $_POST["commentText"], $_POST["groupID"], $_POST["eventID"], $_POST["routeID"]);
+  $newComment = new Comment("", $date, $_POST["userID"], $_POST["commentText"], $_POST["groupID"], $_POST["eventID"], $_POST["routeID"]);
 
   //insert user in DB
   $newComment->insert($mysqli);
@@ -20,4 +22,5 @@ try {
 }
 
 mysqli_close($mysqli);
+header("location:../profile/my-groups.php");
 ?>

@@ -91,7 +91,7 @@
      * */
     public function setCommentID($newCommentID) {
         // zeroth, allow a null if this is a new object
-        if($newCommentID === null) {
+        /*if($newCommentID === null) {
             $this->commentID = null;
             return;
         }
@@ -108,7 +108,7 @@
         $newCommentID = intval($newCommentID);
         if($newCommentID <= 0) {
             throw(new RangeException("comment id $newcommentID is not positive"));
-        }
+        }*/
 
         //finally, the user id is clean and can be taken out to quarantine
         $this->commentID = $newCommentID;
@@ -373,10 +373,10 @@
       throw(new mysqli_sql_exception("input is not a mysqli object"));
     }
 
-    // enforce the commentID is null (i.e., don't insert a comment that already exists)
-    if($this->commentID !== null) {
-      throw(new mysqli_sql_exception("Comment already exists"));
-    }
+    //// enforce the commentID is null (i.e., don't insert a comment that already exists)
+    //if($this->commentID !== null) {
+    //  throw(new mysqli_sql_exception("Comment already exists"));
+    //}
 
     // create query template
     $query = "INSERT INTO comments(userID, routeID, eventID, groupID, commentText) VALUES(?, ?, ?, ?, ?)";
