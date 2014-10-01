@@ -193,7 +193,7 @@ class User {
         }
         //finally, if it passed Regular Expression, it is clean and free to move about the code
         $newUserPassword = strtolower($newUserPassword);
-        $this->userpassword = $newUserPassword;
+        $this->userPassword = $newUserPassword;
         
      }
      
@@ -221,7 +221,7 @@ class User {
         }
         //finally, the user id is clean and can be taken out of quarantine
         // we want to use it now
-        $this->userrole = $newUserRole;      
+        $this->userRole = $newUserRole;      
     }
        /*
       *accessor method for UserSALT
@@ -268,7 +268,7 @@ class User {
         }
         
         // create query template
-        $query     = "INSERT INTO user(userAuthToken, userEmail, userPassword, userRole, userSalt,) VALUES(?, ?, ?, ?, ?)";
+        $query     = "INSERT INTO userLogin(userAuthToken, userEmail, userPassword, userRole, userSalt) VALUES(?, ?, ?, ?, ?)";
         $statement = $mysqli->prepare($query);
         if($statement === false) {
             throw(new mysqli_sql_exception("Unable to prepare statement"));
@@ -283,6 +283,7 @@ class User {
         
         // execute the statement
         if($statement->execute() === false) {
+            echo ($statement->error);
             throw(new mysqli_sql_exception("Unable to execute mySQL statement"));
         }
         
