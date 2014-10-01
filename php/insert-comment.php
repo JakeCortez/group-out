@@ -9,12 +9,13 @@ try {
   // call the Pointer static method to connect to mySQL
   $mysqli = Pointer::getPointer();
 
-  // call the class static method for querying/getting 3 event results
-  $eventArray = Comment::insert($mysqli);
+  // call the method
+  $date = date('Y-m-d H:i:s');
+  $comment = new Comment(null, $date, $_POST["userID"], $_POST["commentText"], $_POST["groupID"], $_POST["eventID"], $_POST["routeID"]);
 
 } catch(mysqli_sql_exception $error) {
-  echo 'oops';
+  echo "oops";
 }
-echo '1 record added';
-mysqli_close($mysqli);
+
+// mysqli_close($mysqli);
 ?>

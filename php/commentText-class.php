@@ -373,8 +373,13 @@
       throw(new mysqli_sql_exception("input is not a mysqli object"));
     }
 
+    // enforce the commentID is null (i.e., don't insert a comment that already exists)
+    if($this->commentID !== null) {
+      throw(new mysqli_sql_exception("Comment already exists"));
+    }
+
     // create query template
-    $query = "INSERT INTO commments(commentID, commentDateCreated, userID, routeID, eventID, groupID, commentText) VALUES(?, ?, ?, ?, ?, ?, ?)";
+    $query = "INSERT INTO commments(userID, routeID, eventID, groupID, commentText) VALUES(?, ?, ?, ?, ?)";
     $statement = $mysqli->prepare($query);
     if($statement === false) {
       throw(new mysqli_sql_exception("Unable to prepare statement"));
@@ -382,7 +387,7 @@
 
     // bind the member variables to the place holders in the template
     // for bind_param s=string i=integer d=double
-    $wasClean = $statement->bind_param("isiiiis", $this->commentID, $this->commentDateCreated, $this->userID, $this->routeID, $this->eventID, $this->groupID, $this->commentText);
+    $wasClean = $statement->bind_param("iiiis", $this->userID, $this->routeID, $this->eventID, $this->groupID, $this->commentText);
     if($wasClean === false) {
       throw(new mysqli_sql_exception("Unable to bind parameters"));
     }
@@ -393,7 +398,7 @@
     }
 
     // update the null commentText with what mySQL just created via auto_increment
-    $this->eventID = $mysqli->insert_id;
+    $this->commentID = $mysqli->insert_id;
   }
 
   ///// METHOD TO DELETE COMMENT INTO MYSQL

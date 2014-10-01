@@ -36,6 +36,14 @@
             <label for="groupID">GroupID</label>
             <input type="text" class="form-control" id="groupID" name="groupID">
           </div>
+          <div class="form-group col-lg-10">
+            <label for="routeID">RouteID</label>
+            <input type="text" class="form-control" id="routeID" name="routeID">
+          </div>
+          <div class="form-group col-lg-10">
+            <label for="eventID">EventID</label>
+            <input type="text" class="form-control" id="eventID" name="eventID">
+          </div>
           <div class="form-group col-lg-10">
             <label for="commentText">Comment:</label>
             <textarea class="form-control" rows="5" id="commentText" name="commentText"></textarea>
@@ -48,7 +56,7 @@
         </form>
         <div style="clear:both;"></div>
 
-        
+
         <div class="bar">Comments</div>
         <?php require_once('../php/comment-list-create-userid.php');?>
       </article>
