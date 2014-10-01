@@ -15,7 +15,7 @@
         try {
         //create the SALT and authentication tokens
         $userAuthToken = bin2hex(openssl_random_pseudo_bytes(16));
-        $userSalt                = bin2hex(openssl_random_pseudo_bytes(32));
+        $userSalt      = bin2hex(openssl_random_pseudo_bytes(32));
     
          //hash the user's password 2048 times (128 bytes long)
         $userHash = hash_pbkdf2("sha512", $userPassword, $userSalt, 2048, 128);
