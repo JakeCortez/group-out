@@ -63,9 +63,9 @@
                      <div class = "modalRegister">                     
                         <h2>Register Here!</h2>
                         <form class = "basicForm" method="post" action = "php/registration.php">
-                          <input type = "email" name = "email" placeholder = "email"><br>
-                          <input type = "password" name = "password" placeholder = "password"><br>
-                          <input type = "password" name = "confirmPassword" placeholder = "confirm password"><br>
+                          <input type = "email" name = "email" placeholder = "email" class = "required" aria-required = "true"><br>
+                          <input type = "password" name = "password" placeholder = "password" class = "required" aria-required = "true" minlength = 8 maxlength = 16><br>
+                          <input type = "password" name = "confirmPassword" placeholder = "confirm password" class = "required" aria-required = "true" minlength = 8 maxlength = 16><br>
                           <button class = "btn btn-default" type = "submit">Register</button>
                         </form>
                       </div>
@@ -81,8 +81,8 @@
                      <div class = "modalLogIn">
                         <h2>Log into your account</h2>
                         <form class = "basicForm">
-                          <input type = "email" placeholder = "email"><br>
-                          <input type = "password" placeholder = "password"><br>
+                          <input autofocus="autofocus" id="email" name="email" placeholder="Your Email" type="email" value=" " class = "required" aria-required = "true"><br>
+                          <input type = "password" placeholder = "password" class = "required" aria-required = "true" minlength = 8 maxlength = 16><br>
                           <button class = "btn btn-default" type = "submit">Log In</button>
                         </form>
                       </div>

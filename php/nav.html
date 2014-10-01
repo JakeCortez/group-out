@@ -64,8 +64,8 @@
                         <h2>Register Today</h2>
                         <form class = "basicForm" method="post" action = "send_registration.php">
                               <input type = "email" placeholder = "your-email@email.com" class = "required" aria-required = "true"><br>
-                            <input type = "password" placeholder = "password" "your-email@email.com" class = "required" aria-required = "true"><br>
-                            <input type = "password" placeholder = "confirm password" class = "required" aria-required = "true"><br>
+                            <input type = "password" placeholder = "password" "your-email@email.com" class = "required" aria-required = "true" minlength = 8 maxlength = 16><br>
+                            <input type = "password" placeholder = "confirm password" class = "required" aria-required = "true" minlength = 8 maxlength = 16><br>
                           <button class = "btn btn-default" type = "submit" name = "submit" value="send">Register</button>
                         </form>
                       </div>
@@ -81,8 +81,8 @@
                      <div class = "modalLogIn">
                         <h2>Log into your account</h2>
                         <form class = "basicForm">
-                          <input type = "email" placeholder = "email"><br>
-                          <input type = "password" placeholder = "password"><br>
+                          <input type = "email" placeholder = "email" class = "required" aria-required = "true"><br>
+                          <input type = "password" placeholder = "password" class = "required" aria-required = "true" minlength = 8 maxlength = 16><br>
                           <button class = "btn btn-default" type = "submit">Log In</button>
                        </form>
                      </div>
