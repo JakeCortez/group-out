@@ -12,16 +12,16 @@
         //create things pertaining to the user
             $password = mysql_fix_string($_POST["password"]);
             $confirmPassword = mysql_fix_string($_POST["confirmPassword"]);
-            
+        //initialize the user, insert into database... 
             ?>
         </head>
         <body>
         
-        <p> Welcome to Group-Out! 
+        <p> Welcome to Group-Out! </p>
         
         <?php
         
-            $newUser = new User ( null, .. $_POST["email"],.. );
+            $newUser = new User (null, $_POST["userAuthToken"], $_POST["userEmail"], $_POST["userPassword"], $_POST["userRole"], $_POST["userSalt"]);
             $newUser->insert($mysqli);
             
             echo "email";

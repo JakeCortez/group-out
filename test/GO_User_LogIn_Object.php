@@ -140,30 +140,7 @@ class User {
         $newUserAuthToken = strtolower($newUserAuthToken);
         $this->authToken = $newUserAuthToken;
      }
-     /*
-      *accessor method for UserConfirmation
-      *
-      *@return string value of UserConfirmation
-    //
-     //public function getUserConfirmation() {
-     //   return($this->userConfirmation);
-    // }
-     //
-      *mutator method for UserConfirmation
-      *real verification is here, when user has re-emailed,
-      *
-      *@param string new value of UserConfirmation
 
-     //public function setUserConfirmation($newUserConfirmation) {
-        //First, trim the input of excess whitespace
-     //   $newUserConfirmation = trim($newUserConfirmation);
-        //second, sanitize the UserConfirmation of oddball chars
-     //   $newUserConfirmation = filter_var($newUserConfirmation, FILTER_SANITIZE_USERCONFIRMATION);
-        //finally, bring the UserConfirmation out of quarantine
-     //   $this->userConfirmation = $newUserConfirmation;
-     //}
-     //
-     */
      /*
       *accessor method for userEmail
       *
