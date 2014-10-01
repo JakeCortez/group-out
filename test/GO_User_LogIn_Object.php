@@ -268,7 +268,7 @@ class User {
         }
         
         // create query template
-        $query     = "INSERT INTO user(userAuthToken, userEmail, userPassword, userRole, userSalt,) VALUES(?, ?, ?, ?)";
+        $query     = "INSERT INTO user(userAuthToken, userEmail, userPassword, userRole, userSalt,) VALUES(?, ?, ?, ?, ?)";
         $statement = $mysqli->prepare($query);
         if($statement === false) {
             throw(new mysqli_sql_exception("Unable to prepare statement"));
@@ -276,7 +276,7 @@ class User {
         
         // bind the member variables to the place holders in the template
         $wasClean = $statement->bind_param("sssss", $this->userAuthToken, $this->userEmail, $this->userPassword, 
-                                                    $this->userRole, $this->userSalt,  );
+                                                    $this->userRole, $this->userSalt);
         if($wasClean === false) {
             throw(new mysqli_sql_exception("Unable to bind parameters"));
         }

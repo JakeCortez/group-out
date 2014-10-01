@@ -1,6 +1,6 @@
 <?php
     //require the class we're going to use
-    require_once("GO_User_LogIn_Object.php");
+    require_once("../test/GO_User_LogIn_Object.php");
 ?>
 <!DOCTYPE html>
     <html>
@@ -18,31 +18,25 @@
         $userSalt      = bin2hex(openssl_random_pseudo_bytes(32));
     
          //hash the user's password 2048 times (128 bytes long)
-        $userHash = hash_pbkdf2("sha512", $userPassword, $userSalt, 2048, 128);
+        $userHash = hash_pbkdf2("sha512", $_POST["password"], $userSalt, 2048, 128);
         
         //require the class we're going to use
-            require_once("GO_User_LogIn_Object.php");
+            require_once("../test/GO_User_LogIn_Object.php");
   
         //connect to mySQL
             mysqli_report(MYSQLI_REPORT_STRICT);            
             
         //create user 
-            $newUser = new User (null, $_POST["userAuthToken"], $_POST["userEmail"], $_POST["userPassword"], $_POST["userRole"], $_POST["userSalt"]);
+            $newUser = new User (null, $userAuthToken, $_POST["email"], $userHash, 2, $userSalt);
             
         //insert user in DB
             $newUser->insert($mysqli);
             
         //clean up
-            $mysquli->close();
+            $mysqli->close();
             
-        echo <<<EOF
-        <p> Welcome to Group-Out!</p>
-        <ul>
-        <li>We'll keep your email address as: </li> 
-        <li>$userEmail</li>
-        <li>unless you change it on your profile.</li>
-        </ul>
-        EOF;
+        echo "Welcome to Group-Out.  We'll keep your email address
+        as $userEmail unless you change it on your profile";
         
         } catch(mysqli_sql_exception $sqlException) {
         echo "Exception: " . $sqlException->getMessage();
