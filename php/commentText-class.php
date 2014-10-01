@@ -45,8 +45,8 @@
      * @see Comment
      * */
     private $commentText;
-    
-    
+
+
     /**
    * constructor for Event
    *
@@ -63,7 +63,7 @@
         $this->setGroupID($newGroupID);
         $this->setEventID($newEventID);
         $this->setRouteID($newRouteID); // FOREIGN KEY
-        
+
       } catch(UnexpectedValueException $unexpectedValue) {
           // rethrow to the caller
           throw(new UnexpectedValueException("Unable to construct Event", 0, $unexpectedValue));
@@ -72,7 +72,7 @@
           throw(new RangeException("Unable to construct Event", 0, $range));
       }
   }
-    
+
      /**
      * accessor method for comment id
      *
@@ -81,11 +81,11 @@
     public function getCommentID() {
         return($this->commentID);
     }
-    
+
     /**
      * mutator method for comment id
      *
-     * @param integer new value of comment id or null if a new object 
+     * @param integer new value of comment id or null if a new object
      * @throws UnexpectedValueException if the comment id is not an integer
      * @throws RangeException if the comment id is not positive
      * */
@@ -95,25 +95,25 @@
             $this->commentID = null;
             return;
         }
-        
+
         // first, trim the input of excess whitespace
         $newCommentID = trim($newCommentID);
-        
+
         // second, verify this is an integer
         if((filter_var($newCommentID, FILTER_VALIDATE_INT)) === false) {
             throw(new UnexpectedValueException("user id $commentID is not an integer"));
         }
-        
+
         // third, convert the id to an integer and ensure its positive
         $newCommentID = intval($newCommentID);
         if($newCommentID <= 0) {
             throw(new RangeException("comment id $newcommentID is not positive"));
         }
-        
+
         //finally, the user id is clean and can be taken out to quarantine
         $this->commentID = $newCommentID;
     }
-    
+
  //// GET & SET FOR eventDateCreated
   /**
    * gets the value of eventDateCreated
@@ -163,7 +163,7 @@
     }
     $this->commentDateCreated = $dateTime;
   }
-    
+
      /**
      * accessor method for user id
      *
@@ -171,13 +171,13 @@
      * */
     public function getUserID() {
         return($this->userID);
-        
+
     }
-    
+
     /**
      * mutator method for user id
      *
-     * @param integer new value of user id or null if a new object 
+     * @param integer new value of user id or null if a new object
      * @throws UnexpectedValueException if the iser id is not an integer
      * @throws RangeException if the user id is not positive
      * */
@@ -187,25 +187,25 @@
             $this->userID = null;
             return;
         }
-        
+
         // first, trim the input of excess whitespace
         $newUserID = trim($newUserID);
-        
+
         // second, verify this is an integer
         if((filter_var($newUserID, FILTER_VALIDATE_INT)) === false) {
             throw(new UnexpectedValueException("user id $userID is not an integer"));
         }
-        
+
         // third, convert the id to an integer and ensure its positive
         $newUserID = intval($newUserID);
         if($newUserID <= 0) {
             throw(new RangeException("user id $newuserID is not positive"));
         }
-        
+
         //finally, the user id is clean and can be taken out to quarantine
         $this->userID = $newUserID;
     }
-        
+
      /**
      * accessor method for route id
      *
@@ -214,11 +214,11 @@
     public function getRouteID() {
         return($this->routeID);
     }
-    
+
     /**
      * mutator method for user id
      *
-     * @param integer new value of route id or null if a new object 
+     * @param integer new value of route id or null if a new object
      * @throws UnexpectedValueException if the route id is not an integer
      * @throws RangeException if the route id is not positive
      * */
@@ -228,25 +228,25 @@
             $this->routeID = null;
             return;
         }
-        
+
         // first, trim the input of excess whitespace
         $newRouteID = trim($newRouteID);
-        
+
         // second, verify this is an integer
         if((filter_var($newRouteID, FILTER_VALIDATE_INT)) === false) {
             throw(new UnexpectedValueException("route id $routeID is not an integer"));
         }
-        
+
         // third, convert the id to an integer and ensure its positive
         $newRouteID = intval($newRouteID);
         if($newRouteID <= 0) {
             throw(new RangeException("user id $newrouteID is not positive"));
         }
-        
+
         //finally, the route id is clean and can be taken out to quarantine
         $this->userID = $newRouteID;
     }
-    
+
      /**
      * accessor method for event id
      *
@@ -255,11 +255,11 @@
     public function getEventID() {
         return($this->eventID);
     }
-    
+
     /**
      * mutator method for event id
      *
-     * @param integer new value of event id or null if a new object 
+     * @param integer new value of event id or null if a new object
      * @throws UnexpectedValueException if the event id is not an integer
      * @throws RangeException if the event id is not positive
      * */
@@ -269,25 +269,25 @@
             $this->eventID = null;
             return;
         }
-        
+
         // first, trim the input of excess whitespace
         $newEventID = trim($newEventID);
-        
+
         // second, verify this is an integer
         if((filter_var($newEventID, FILTER_VALIDATE_INT)) === false) {
             throw(new UnexpectedValueException("event id $eventID is not an integer"));
         }
-        
+
         // third, convert the id to an integer and ensure its positive
         $newEventID = intval($newEventID);
         if($newEventID <= 0) {
             throw(new RangeException("event id $neweventID is not positive"));
         }
-        
+
         //finally, the event id is clean and can be taken out to quarantine
         $this->eventID = $newEventID;
     }
-    
+
      /**
      * accessor method for group id
      *
@@ -296,11 +296,11 @@
     public function getGroupID() {
         return($this->groupID);
     }
-    
+
     /**
      * mutator method for group id
      *
-     * @param integer new value of group id or null if a new object 
+     * @param integer new value of group id or null if a new object
      * @throws UnexpectedValueException if the group id is not an integer
      * @throws RangeException if the group id is not positive
      * */
@@ -310,25 +310,25 @@
             $this->groupID = null;
             return;
         }
-        
+
         // first, trim the input of excess whitespace
         $newGroupID = trim($newGroupID);
-        
+
         // second, verify this is an integer
         if((filter_var($newGroupID, FILTER_VALIDATE_INT)) === false) {
             throw(new UnexpectedValueException("group id $groupID is not an integer"));
         }
-        
+
         // third, convert the id to an integer and ensure its positive
         $newGroupID = intval($newGroupID);
         if($newGroupID <= 0) {
             throw(new RangeException("group id $newgroupID is not positive"));
         }
-        
+
         //finally, the group id is clean and can be taken out to quarantine
         $this->groupID = $newGroupID;
     }
-    
+
     /**
      *accessor method for user comment
      *
@@ -336,7 +336,7 @@
     public function getCommentText() {
         return($this->commentText);
     }
-    
+
     /**mutator method for comment
      *
      **/
@@ -349,17 +349,17 @@
         }
         //first, trim comment
         $newCommentText = trim($newCommentText);
-        
+
         // second, filter comment
         $newCommentText=(filter_var($newCommentText, FILTER_SANITIZE_STRING));
         if(strlen($newCommentText) >=500){
             throw(new UnexpectedValueException("comment is greater than 500 characters"));
         }
-        
+
         // finally, set new user comment
         $this->commentText = $newCommentText;
     }
-    
+
     ///// METHOD TO INSERT COMMENT INTO MYSQL
   /**
    * inserts this commentText to mysql
@@ -374,19 +374,19 @@
     }
 
     // create query template
-    $query = "INSERT INTO commmentText(commentID, commentDateCreated, userID, routeID, eventID, groupID, commentText) VALUES(?, ?, ?, ?, ?, ?, ?)";
+    $query = "INSERT INTO commments(commentID, commentDateCreated, userID, routeID, eventID, groupID, commentText) VALUES(?, ?, ?, ?, ?, ?, ?)";
     $statement = $mysqli->prepare($query);
     if($statement === false) {
       throw(new mysqli_sql_exception("Unable to prepare statement"));
     }
-    
+
     // bind the member variables to the place holders in the template
     // for bind_param s=string i=integer d=double
-    $wasClean = $statement->bind_param("isiiiis", $this->userID, $this->commentDateCreated, $this->userID, $this->routeID, $this->eventID, $this->groupID, $this->commentText);
+    $wasClean = $statement->bind_param("isiiiis", $this->commentID, $this->commentDateCreated, $this->userID, $this->routeID, $this->eventID, $this->groupID, $this->commentText);
     if($wasClean === false) {
       throw(new mysqli_sql_exception("Unable to bind parameters"));
     }
-    
+
      // execute the statement
     if($statement->execute() === false) {
       throw(new mysqli_sql_exception("Unable to execute mySQL statement"));
@@ -395,7 +395,7 @@
     // update the null commentText with what mySQL just created via auto_increment
     $this->eventID = $mysqli->insert_id;
   }
-  
+
   ///// METHOD TO DELETE COMMENT INTO MYSQL
   /**
    * deletes this Comment from mysql
@@ -474,7 +474,7 @@
 
     return $userCommentArray;
   }
-  
+
      //// STATIC METHOD to get public comments by the RouteID of the event author
   /**
    *
@@ -515,7 +515,7 @@
 
     return $routeCommentArray;
   }
-  
+
      //// STATIC METHOD to get public comments by the EventID of the event author
   /**
    *
@@ -556,7 +556,7 @@
 
     return $eventCommentArray;
   }
-  
+
      //// STATIC METHOD to get public comments by the GroupID of the event author
   /**
    *
@@ -598,5 +598,5 @@
     return $groupCommentArray;
   }
 }
-  
+
 ?>

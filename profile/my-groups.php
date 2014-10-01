@@ -26,7 +26,29 @@
       <div class = "col-lg-1"></div>
       <article class = "col-lg-10">
 
-        <!-- Lists comments by this user-->
+        <!-- comment entry form-->
+        <form class="form-horizontal" role="form" action="../php/insert-comment.php" method="post">
+          <div class="form-group col-lg-10">
+            <label for="userID">UserID</label>
+            <input type="text" class="form-control" id="userID" name="userID">
+          </div>
+          <div class="form-group col-lg-10">
+            <label for="groupID">GroupID</label>
+            <input type="text" class="form-control" id="groupID" name="groupID">
+          </div>
+          <div class="form-group col-lg-10">
+            <label for="commentText">Comment:</label>
+            <textarea class="form-control" rows="5" id="commentText" name="commentText"></textarea>
+          </div>
+          <div class="form-group col-lg-10">
+            <div class="col-sm-10">
+              <button type="submit" class="btn btn-default">Submit</button>
+            </div>
+          </div>
+        </form>
+        <div style="clear:both;"></div>
+
+        
         <div class="bar">Comments</div>
         <?php require_once('../php/comment-list-create-userid.php');?>
       </article>
