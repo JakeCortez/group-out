@@ -379,7 +379,7 @@
     }
 
     // create query template
-    $query = "INSERT INTO commments(userID, routeID, eventID, groupID, commentText) VALUES(?, ?, ?, ?, ?)";
+    $query = "INSERT INTO comments(userID, routeID, eventID, groupID, commentText) VALUES(?, ?, ?, ?, ?)";
     $statement = $mysqli->prepare($query);
     if($statement === false) {
       throw(new mysqli_sql_exception("Unable to prepare statement"));

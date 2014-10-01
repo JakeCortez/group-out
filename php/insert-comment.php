@@ -10,12 +10,14 @@ try {
   $mysqli = Pointer::getPointer();
 
   // call the method
-  $date = date('Y-m-d H:i:s');
-  $comment = new Comment(null, $date, $_POST["userID"], $_POST["commentText"], $_POST["groupID"], $_POST["eventID"], $_POST["routeID"]);
+  $newComment = new Comment($_POST["userID"], $_POST["commentText"], $_POST["groupID"], $_POST["eventID"], $_POST["routeID"]);
 
-} catch(mysqli_sql_exception $error) {
-  echo "oops";
+  //insert user in DB
+  $newComment->insert($mysqli);
+
+} catch(Exception $error) {
+  echo $error;
 }
 
-// mysqli_close($mysqli);
+mysqli_close($mysqli);
 ?>
