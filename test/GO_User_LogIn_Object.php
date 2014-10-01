@@ -41,7 +41,6 @@ class User {
      * constructor for a user
      *
      * @param mixed user id 
-     * @param mixed userLogInSource id
      * @param mixed authentication token
      * @param string userEmail
      * @param string PBFKDF2 hash of user's password
@@ -185,7 +184,7 @@ class User {
         //First, trim the input of excess whitespace
         $newUserEmail = trim($newUserEmail);
         //second, sanitize the email of oddball chars
-        $newUserEmail = filter_var($newUserEmail, FILTER_SANITIZE_USEREMAIL);
+        $newUserEmail = filter_var($newUserEmail, FILTER_SANITIZE_EMAIL);
         //finally, bring UserEmail out of quarantine
         $this->userEmail = $newUserEmail;
      }
