@@ -42,8 +42,8 @@
         <li>$userEmail</li>
         <li>unless you change it on your profile.</li>
         </ul>
-        
         EOF;
+        
         } catch(mysqli_sql_exception $sqlException) {
         echo "Exception: " . $sqlException->getMessage();
         }
