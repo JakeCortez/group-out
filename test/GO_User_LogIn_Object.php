@@ -55,7 +55,7 @@ class User {
         //user mutator methods to populate the user
         try {
             $this->setUserID($newUserID);
-            $this->setAuthToken($newAuthToken);
+            $this->setUserAuthToken($newUserAuthToken);
             $this->setUserEmail($newUserEmail);
             $this->setUserPassword($newUserPassword);
             $this->setUserRole($newUserRole);
@@ -115,8 +115,8 @@ class User {
      *
      *@return string value of authentication token
      **/
-    public function getAuthToken() {
-        return($this->authToken);
+    public function getUserAuthToken() {
+        return($this->userAuthToken);
     }
     /**
      *mutator method for Authentication Token
@@ -124,22 +124,22 @@ class User {
      *@param mixed new value of Authentication Token or null if a user is activated
      *@throws Unexpected ValueException if the authentication token is not a hexadecimal string
      **/
-    public function setAuthToken($newAuthToken) {
-        if($newAuthToken === null) {
+    public function setUserAuthToken($newUserAuthToken) {
+        if($newUserAuthToken === null) {
             $this->authToken = null;
             return;
         }
         //first, trim the input of any excess white space
-        $newAuthToken = trim($newAuthToken);
+        $newUserAuthToken = trim($newUserAuthToken);
      
         //second, verify this is a stringn of 32 hexadecimal characters
         $filterOptions = array("options" => array("regexp" =>"/^[0-9a-f]{32}$/i"));
-        if((filter_var($newAuthToken, FILTER_VALIDATE_REGEXP, $filterOptions)) === false) {
-            throw(new UnexpectedValueException("$newAuthToken is not hexadecimal"));
+        if((filter_var($newUserAuthToken, FILTER_VALIDATE_REGEXP, $filterOptions)) === false) {
+            throw(new UnexpectedValueException("$newUserAuthToken is not hexadecimal"));
         }
         //finally, if it passed Regular Expression, it is clean and free to move about the code
-        $newAuthToken = strtolower($newAuthToken);
-        $this->authToken = $newAuthToken;
+        $newUserAuthToken = strtolower($newUserAuthToken);
+        $this->authToken = $newUserAuthToken;
      }
      /*
       *accessor method for UserConfirmation
