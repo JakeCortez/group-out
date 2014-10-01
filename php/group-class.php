@@ -18,7 +18,7 @@ class Group {
     /**
      * string of day group was created
      **/
-    private $groupdateCreated;
+    private $groupDateCreated;
     /**
      * image of group avatar
      **/
@@ -74,22 +74,24 @@ class Group {
                                 $newGroupDescription, $newGroupName, $newGroupSkill, $newGroupState, $newGroupZip, $newPrivacyLevel){
         try{
             //validate and sanitize inputs
-            $this->setGroupID($newgroupID);
+            $this->setGroupID($newGroupID);
             $this->setUserID($newUserID);
             $this->setGroupDateCreated($newGroupDateCreated);
             $this->setGroupAvatar($newGroupAvatar);
             $this->setGroupCity($newGroupCity);
             $this->setGroupDescription($newGroupDescription);
             $this->setGroupName($newGroupName);
-            $this->setGroupState($newGroupState);
             $this->setGroupSkill($newGroupSkill);
+            $this->setGroupState($newGroupState);
             $this->setGroupZip($newGroupZip);
             $this->setPrivacyLevel($newPrivacyLevel);
         }
         catch(UnexpectedValueException $error){
+            var_dump($error);
             throw(new UnexpectedValueException("Sorry Something went wrong when creating your group.", 0, $error));
         }
         catch(RangeException $error){
+            var_dump($error);
             throw(new RangeException("Sorry Something went wrong when creating your group", 0, $error));
         }
     }
@@ -155,9 +157,7 @@ class Group {
         }
         
         //check if group state
-        if(filter_var($newGroupState, FILTER_SANITIZE_STRING)){
-            throw(new UnexpectedValueException("There are some unknown characters in the state abbreviation."));
-        }
+        $newGroupState = filter_var($newGroupState, FILTER_SANITIZE_STRING);
         
         //clear out white space
         $newGroupState = trim($newGroupState);
@@ -221,9 +221,15 @@ class Group {
     public function setGroupDateCreated($newGroupDateCreated){
         //check for null
         if($newGroupDateCreated === null){
-            $this->groupDateCreated = DateTime::setDate("servertime");
+           $this->groupdateCreated = null;
+           return;
+        }
+        
+        //sanitize string
+        $newGroupDateCreated = filter_var($newGroupDateCreated, FILTER_SANITIZE_STRING);
+        
         //check if date is in correct format
-        } elseif(DateTime::createFromFormat("Y-m-d H:i:s", $newGroupDateCreated)){
+        if(DateTime::createFromFormat("Y-m-d H:i:s", $newGroupDateCreated)){
             $this->groupDateCreated = $newGroupDateCreated;
         } else {
             throw(new UnexpectedValueException("Date created not found"));
@@ -334,7 +340,7 @@ class Group {
         }
         
         //sanitizes input for special characters
-        $newGroupName = filtre_var($newGroupName, FILTER_SANITIZE_STRING);
+        $newGroupName = filter_var($newGroupName, FILTER_SANITIZE_STRING);
         
         //checks if value is string
         if(gettype($newGroupName) !== "string"){
@@ -378,7 +384,7 @@ class Group {
         
         //checks if input is within range
         if($newGroupSkill > 5 || $newGroupSkill < 1){
-            throw(new RangeException("The maximum skill level is 5. The Minumum is 0"));
+            throw(new RangeException("The maximum skill level is 5. The Minumum is 1 $newGroupSkill is out of range"));
         }
         
         //set value
@@ -406,7 +412,7 @@ class Group {
         }
         
         //validates value is Integer
-        if(filter_var_array($newGroupZip, FILTER_VALIDATE_INT) === false){
+        if(filter_var($newGroupZip, FILTER_VALIDATE_INT) === false){
             throw(new UnexpectedValueException("The Zip Code you entered is Invalid"));
         }
         
@@ -456,7 +462,7 @@ class Group {
      **/
     public function insert(&$mysqli){
         //handle degenerate cases
-        if(gettype($mysqli) !== "object" || get_class !== "mysqli"){
+        if(gettype($mysqli) !== "object" || get_class($mysqli) !== "mysqli"){
             throw(new mysqli_sql_exception("input is not a mysqli object"));
         }
         
@@ -468,16 +474,18 @@ class Group {
         //query template
         $query     = "INSERT INTO groups(userID, groupDateCreated, groupAvatar, groupCity, groupDescription,
                                          groupName, groupSkill, groupState, groupZip, privacyLevel
-                                         VALUES = ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,)";
+                                         VALUES = ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        var_dump($query);
         $statement = $mysqli->prepare($query);
         if($statement === false){
+            var_dump($statement);
             throw(new mysqli_sql_exception("Unable to prepare statement"));
         }
         
         //bind variables to place holders in query
-        $clean = $statement->bind_param("issssssisi", $this->userID, $this->groupDateCreated, $this->groupAvatar,
+        $clean = $statement->bind_param("isssssissi", $this->userID, $this->groupDateCreated, $this->groupAvatar,
                                             $this->groupCity, $this->groupDescription, $this->groupName,
-                                            $this->groupSkill, $this->groupState, $this->groupZip);
+                                            $this->groupSkill, $this->groupState, $this->groupZip, $this->privacyLevel);
         if($clean ===false){
             throw(new mysqli_sql_exception("Unable to bind variables"));
         }
@@ -499,7 +507,7 @@ class Group {
      **/
     public function delete(&$mysqli){
         //handle degenerate cases
-        if(gettype($mysqli) !== "object" || get_class !== "mysqli"){
+        if(gettype($mysqli) !== "object" || get_class($mysqli) !== "mysqli"){
             throw(new mysqli_sql_exception("input is not a mysqli object"));
         }
         
