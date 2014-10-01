@@ -443,7 +443,7 @@
    **/
   public static function getCommentsByUserID(&$mysqli, $userID) {
     // create & prepare a query template
-    $query = "SELECT commentID, commentDateCreated, userID, commentText, groupID, eventID, routeID FROM comments WHERE userID = ? LIMIT 5";
+    $query = "SELECT commentID, commentDateCreated, userID, commentText, groupID, eventID, routeID FROM comments WHERE userID = ? LIMIT 10";
 
     // prepare the statement
     if(($statement = $mysqli->prepare($query)) === false) {
