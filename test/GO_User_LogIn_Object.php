@@ -423,7 +423,6 @@ class User {
                 // if the row couldn't be converted, rethrow it
                 throw(new mysqli_sql_exception("Unable to convert row to User", 0, $exception));
             }
-            
             //if we got here, the User is good - return it
             return($user);
         } else {
