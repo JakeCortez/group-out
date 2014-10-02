@@ -1,6 +1,6 @@
 <?php
     //require the class we're going to use
-    require_once("../test/GO_User_LogIn_Object.php");
+    require_once("../php/user-login.php");
 ?>
 <!DOCTYPE html>
     <html>
@@ -21,7 +21,7 @@
         $userHash = hash_pbkdf2("sha512", $_POST["userPassword"], $userSalt, 2048, 128);
         
         //require the class we're going to use
-            require_once("../test/GO_User_LogIn_Object.php");
+            require_once("../php/user-login.php");
   
         //connect to mySQL
             require_once("/etc/apache2/capstone-mysql/group-out.php");

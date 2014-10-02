@@ -14,7 +14,8 @@ $(document).ready(function () {
                 required: true
              },
             confirmPassword: {
-                equalTo: "#password"
+                equalTo: "#password",
+                required: true
             }
         },
         
