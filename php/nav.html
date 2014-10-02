@@ -54,13 +54,14 @@
                   </ul>
                 </li>
               </ul>
-              
-                <button type="button" class="register_now btn btn-default navbar-right navbar-btn" data-toggle = "modal" data-target = "#registerModal">Register</button>
-              <div class="modal fade registerModal" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="Register" aria-hidden="true">
+              <div></div>
+              <div></div>
+                <button type="button" class="register btn btn-default navbar-right navbar-btn" data-toggle = "modal" data-target = "#registerModal">Log in</button>
+              <div class="modal fade registerModal" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="Log In Here" aria-hidden="true">
                 <div class="modal-dialog">
                   <div class="modal-content">
                     <div class = "basicModal">
-                      <div class = "modalRegister">
+                     <div class = "modalRegister">
                         <h2>Register Today</h2>
                         <form class = "basicForm" method="post" action = "send_registration.php">
                               <input type = "email" placeholder = "your-email@email.com" class = "required" aria-required = "true"><br>
@@ -81,10 +82,11 @@
                      <div class = "modalLogIn">
                         <h2>Log into your account</h2>
                         <form class = "basicForm">
-                          <input type = "email" placeholder = "email" class = "required" aria-required = "true"><br>
+                          <input autofocus="autofocus" id="userEmail" name="userEmail" placeholder="Your Email" type="email" value=" " class = "required" aria-required = "true"><br>
                           <input type = "password" placeholder = "password" class = "required" aria-required = "true" minlength = 8 maxlength = 16><br>
                           <button class = "btn btn-default" type = "submit">Log In</button>
-                       </form>
+                          <div class="reset-password"><a href="/account/recover">Forgot your password?</a></div>
+                        </form>
                      </div>
                   </div>
                 </div>

@@ -328,6 +328,10 @@ input:required {
     font-weight: normal;
 }
 
+.modalRegister h2 {
+    text-align: center;
+}
+
 /*** RESPONSIVE (@MEDIA) STYLES ***/
 
 @media (min-width: 768px) {

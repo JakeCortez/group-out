@@ -1,5 +1,5 @@
 $(document).ready(function () {
-     $("#registerModal").validate( {
+     $("#registerModalForm").validate( {
         // error class: formatting of messages
         errorClass: "badForm",
         
