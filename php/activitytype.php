@@ -8,9 +8,8 @@ class ActivityType {
 
 private $activityTypeId;
 
-}
+
 private $activityTypeName;
-}
 
 private $activityTypeDescription;
 
@@ -36,7 +35,7 @@ private $activityTypeDescription;
         //use the mutator methods to populate the user
         try {
             $this->setActivityTypeId($newActivityTypeId);
-            $this->dateActivityTypeName($newActivityTypeName);
+            $this->setActivityTypeName($newActivityTypeName);
             $this->setActivityTypeDescription($newActivityTypeDescription);
             
         }catch (UnexpectedValueException $unexpectedValue) {
@@ -53,6 +52,7 @@ private $activityTypeDescription;
      *
      * @return integer value of user id
     */
+    }
     public function getActivityTypeId() {
         return($this->activityTypeId);        
     }
@@ -76,10 +76,10 @@ private $activityTypeDescription;
         $newActivityTypeId = trim($newActivityTypeId);
         //second, verify this is an integer
         if((filter_var($newActivityTypeId, FILTER_VALIDATE_INT)) === false) {
-            throw(new UnexpectedValueException("user id $activityTypeId is not an integer"));
+            throw(new UnexpectedValueException("activityTypeId is not an integer"));
         }
         //third, convdert the activity type id to an integer and ensure it's positive
-        $newActivityTypeId =intval(newActivityTypeId);
+        $newActivityTypeId =intval($newActivityTypeId);
         if($newActivityTypeId <=0) {
             throw(new RangeException("Please make sure that  $userId is a positive number"));
         
@@ -102,15 +102,18 @@ private $activityTypeDescription;
      * mutator method for activity type name name format match or null
      *@throws UnexpectedValueException if first name is not a special character format or string
     */
-    }
+    
     public function setActivityTypeName($newActivityTypeName) {
         //first trim the input of excess whitespace
         
-        $newActivityTypeName = trim($newActivityTypeName);
+        
         if($newActivityTypeName === null) {
             $this->activityTypeName = null;
             return;
         }
+        // trim white spaces
+        $newActivityTypeName = trim($newActivityTypeName);
+        
         //sanitize for special characters
         $newActivityTypeName = filter_var($newAtivityTypeName, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         
@@ -127,7 +130,7 @@ private $activityTypeDescription;
      * accessor method for activity type description
      **/
     public function getActivityTypeDescription(){
-        return($this->activityTypeDescription();
+        return($this->activityTypeDescription());
     }
     
     /**
@@ -137,12 +140,13 @@ private $activityTypeDescription;
      * @throws UnexpectedValueException if value is not a string
      **/
     public function setActivityTypeDescription($newActivityTypeDescription){
-         //clear out white space
-        $newActivityTypeDescription = trim($newActivityTypeDescription);
+         // testing for null value
         if($newActivityTypeDescription === null){
             $this->activityTypeDescription = null;
             return;
         }
+        //clear out white space
+        $newActivityTypeDescription = trim($newActivityTypeDescription);
         
         //sanitize for special characters
         $newActivityTypeDescription = filter_var($newActivityTypeDescription, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
@@ -161,23 +165,23 @@ private $activityTypeDescription;
 //////
 //////
 
-public static function selectActivityByTypeId (&$mysqli, $newActivityId) {
+public static function selectActivityByTypeId (&$mysqli, $newActivityTypeId) {
     // handle degenerate cases
-    if(gettype($newActivityId) !== "string") {
+    if(gettype($newActivityTypeId) !== "string") {
     throw (new UnexpectedValueExceptioon("The input format is invalid, please insert string"));
     }   
    //trim whitespace
-    $newActivityId = trim ($newActivityId);
-    if($newActivityId === null) {
-            $thisActivityId = null;
+    $newActivityTypeId = trim ($newActivityTypeId);
+    if($newActivityTypeId === null) {
+            $thisActivityTypeId = null;
             return;
     }
     if((filter_var($newActivityTypeId, FILTER_VALIDATE_INT)) === false) {
-            throw(new UnexpectedValueException("user id $newProfileId is not an integer"));
+            throw(new UnexpectedValueException("user id $newAtivityTypeId is not an integer"));
         }
         //third, convdert the user id to an integer and ensure it's positive
-        $newActivtyId =intval($newActivityId);
-        if($newActivityId <=0) {
+        $newActivtyTypeId =intval($newActivityTypeId);
+        if($newActivityTypeId <=0) {
             throw(new RangeException("Please make sure that  $userId is a positive number"));
         
         }
@@ -189,7 +193,7 @@ public static function selectActivityByTypeId (&$mysqli, $newActivityId) {
 
     // enforce the ProfileId is not null (i.e., don't update a resource that hasn't been inserted)
 
-    if($this->activityId === null) {
+    if($this->activityTypeId === null) {
         throw(new mysqli_sql_exception("Unable to update a resource that does not exist"));
     
     }       
@@ -198,7 +202,7 @@ public static function selectActivityByTypeId (&$mysqli, $newActivityId) {
 
 
 
-    $query = "SELECT ActivityID, activityTypeId, activityName, activityDescription FROM activityTypes WHERE activityId = ?";
+    $query = "SELECT activityTypeID, activityTypeName, activityTypeDescription FROM activityType WHERE activityTypeID = ?";
 
     $statement = $mysqli->prepare($query);  
 
@@ -210,7 +214,7 @@ public static function selectActivityByTypeId (&$mysqli, $newActivityId) {
 
     // bind the member variables to the place holders in the template
 
-    $wasClean = $statement->bind_param("i", $this->ActivityId);                  
+    $wasClean = $statement->bind_param("i", $this->activityTypeId);                  
 
     if($wasClean === false) {
 
@@ -243,7 +247,7 @@ public static function selectActivityByTypeId (&$mysqli, $newActivityId) {
 
     // enforce the resoureId is null (i.e., don't insert a resource that already exists)
 
-    if($this->activityId !== null) {
+    if($this->activityTypeId !== null) {
 
     throw(new mysqli_sql_exception("not a new activity Id"));
 
@@ -251,7 +255,7 @@ public static function selectActivityByTypeId (&$mysqli, $newActivityId) {
 
     // create query template
 
-    $query = "INSERT INTO activityType(activityTypeId, activityName, activityDescription) VALUES(?, ?, ? )";  
+    $query = "INSERT INTO activityType(activityTypeName, activityTypeDescription) VALUES(?, ? )";  
 
     $statement = $mysqli->prepare($query);
 
@@ -263,7 +267,7 @@ public static function selectActivityByTypeId (&$mysqli, $newActivityId) {
 
     // bind the member variables to the place holders in the template
 
-    $wasClean = $statement->bind_param("sssssssibi", $this->activityTypeId, $this->activityName, $this->activityDescription);
+    $wasClean = $statement->bind_param("ss",  $this->activityName, $this->activityTypeDescription);
 
     if($wasClean === false) {
 
@@ -281,7 +285,7 @@ throw(new mysqli_sql_exception("Unable to execute mySQL statement"));
 
 // update the null resourceId with what mySQL just gave us
 
-$this->activityTypeId = $mysqli->activityID;
+$this->activityTypeId = $mysqli->activityTypeID;
 
 }
 
@@ -309,7 +313,7 @@ throw(new mysqli_sql_exception("input is not a mysqli object"));
 
 // enforce the profileId is not null (i.e., don't delete a resource that hasn't been inserted)
 
-if($this->activityID=== null) {
+if($this->activityTypeId=== null) {
 
 throw(new mysqli_sql_exception("Unable to delete a resource that does not exist"));
 
@@ -317,7 +321,7 @@ throw(new mysqli_sql_exception("Unable to delete a resource that does not exist"
 
 // create query template
 
-$query = "DELETE FROM activityTypeId Profiles WHERE ctivityTypeId =  ?, activityName =? , activityDescription =?";
+$query = "DELETE FROM activityType Profiles WHERE activityTypeID = ?, activityTypeName = ? , activityTypeDescription = ? ";
 
 $statement = $mysqli->prepare($query);
 
@@ -329,7 +333,7 @@ throw(new mysqli_sql_exception("Unable to prepare statement"));
 
 // bind the member variables to the place holder in the template
 
-$wasClean = $statement->bind_param("i", $this->activityID);
+$wasClean = $statement->bind_param("i", $this->activityTypeID);
 
 if($wasClean === false) {
 
@@ -371,7 +375,7 @@ throw(new mysqli_sql_exception("input is not a mysqli object"));
 
 // enforce the resourceId is not null (i.e., don't update a resource that hasn't been inserted)
 
-if($this->activityID === null) {
+if($this->activityTypeID === null) {
 
 throw(new mysqli_sql_exception("Unable to update a activity type that does not exist"));
 
@@ -379,7 +383,7 @@ throw(new mysqli_sql_exception("Unable to update a activity type that does not e
 
 // create query template
 
-$query = "UPDATE activityTypes SET activityID = ?, ";
+$query = "UPDATE activityType SET activityTypeName = ?, activityTypeDescription = ? WHERE activityTypeID= ?";
 
 $statement = $mysqli->prepare($query);
 
@@ -391,7 +395,7 @@ throw(new mysqli_sql_exception("Unable to prepare statement"));
 
 // bind the member variables to the place holders in the template
 
-$wasClean = $statement->bind_param("iss", $this->activityTypeId, $this->activityName, $this->activityDescription);
+$wasClean = $statement->bind_param("ss", $this->activityTypeName, $this->activityTypeDescription);
                                    
 
 if($wasClean === false) {
