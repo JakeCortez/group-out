@@ -371,6 +371,66 @@ class User {
     }
     
     /**
+     *get USER by authToken
+     *
+     *@param resource @mysqli pointer to mySQL connection, by reference
+     *@param string $authToken authentication Token to search for
+     *@return mixed User found or null if not found
+     *@throws mysqli_sql_exception when mySQL related errors occur
+     **/
+    public static function getUserByAuthToken(&$mysqli, $authToken) {
+          //handle degenerate cases
+        if(gettype($mysqli) !== "object" || get_class($mysqli) !== "mysqli") {
+            throw(new mysqli_sql_exception("input is not a mysqli object"));
+        }
+        
+        //sanitize the authToken before searching
+        $authToken = trim($authToken);
+        $authToken = filter_var($authToken, FILTER_VALIDATE_INT, FILTER_FLAG_ALLOW_HEX);
+        
+        //create query template
+        $query     = "SELECT userID, userAuthToken, userEmail, userPassword, userRole, userSalt FROM userEmail WHERE userauthToken = ?";
+        $statement = $mysqli->prepare($query);
+        if($statement === false)  {
+            throw(new mysqli_sql_exception("Unable to prepare statement"));
+        }
+        
+        //bind authToken to the placeholder in the template
+        $wasClean = $statement->bind_param("s", $authToken);
+        if($wasClean === false) {
+            throw(new mysqli_sql_exception("Unable to bind parameters"));
+        }
+        
+        //execute the statement
+        if($statement->execute() === false) {
+            throw(new mysqli_sql_exception("Unable to execute mySQL statement"));
+        }
+        
+        //get result from the SELECT query
+        $result = $statement->get_result();
+        if($result === false) {
+            throw(new mysqli_sql_exception("Unable to get result set"));
+        }
+
+        // since this is a unique field, this will only return 0 or 1 results
+        // 1) if there's a match, the AuthToken can be discarded and User object normally formed
+        // 2) if there's no match, AuthToken remains and user will not be allowed into site
+        $row = $result->fetch_assoc(); // fetch_assoc() returns the row as an associative array
+        
+        // convert the associative array to a User
+        if($row !== null) {
+            try {
+                $user = new User($row["userID"], $row["userAuthToken"], $row["userEmail"], $row["userPassword"], $row["userRole"], $row["userSalt"]);
+            }
+            catch(Exception $exception) {
+                // if the row couldn't be converted, rethrow it
+                throw(new mysqli_sql_exception("Unable to convert row to User", 0, $exception));
+            }
+            //if we got here, the user is USER - remove AuthToken from files, user can be gotten by Email
+            return($user);
+        
+    
+    /**
      *get USER by email
      *
      *@param resource @mysqli pointer to mySQL connection, by reference
