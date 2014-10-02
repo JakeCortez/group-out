@@ -28,10 +28,23 @@
             $mysqli = Pointer::getPointer();
             
         //get user by email
+            $user = User::getUserByEmail($mysqli, $userEmail);
+            $userHash = $hash($_POST["userPassword"].$user->getUserSalt());
+        
+        //compare $userHash and $userLogin->getUserHash()
+            if($user->getUserPassword()==$userHash){
+                $_SESSION["userID"]=$user->getID(); {
+                else{
+                    $_SESSION["message"] = "Your ID doesn't match your login email"                    
+                }
+                if (isset($_SESSION["message"])) {
+                    echo $_SESSION["message"]; 
+                    }   
+                }
+            }
             
         //ensure that authToken === null
         
-        //compare $userHash and $userLogin->getUserHash()
             
         echo "Welcome back to Group-Out.";
         
