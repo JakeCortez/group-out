@@ -97,7 +97,36 @@ class GroupTest extends UnitTestCase{
         $this->assertIdentical($this->group->getGroupSkill(), 5);
         $this->assertIdentical($this->group->getGroupZip(), "87124");
         $this->assertIdentical($this->group->getPrivacyLevel(), 1);
-
+    }
+    
+    public function testGetGroupByName(){
+        //confirm connection to database
+        $this->assertNotNull($this->mysqli);
+        
+        //create group
+        $this->group = new Group(null, $this->user->getUserID(), null, "../images/default-avatar.jpg", "Albuquerque", "We are cool", "group-test", 5,"NM",  "87124", 1);
+        
+        //insert group
+        $this->group->insert($this->mysqli);
+        
+        //search database
+        $name = 'group-test';
+        Group::getGroupByName($this->mysqli, $name);
+        
+        //is the group there?
+        $this->assertNotNull($this->group->getGroupID());
+        $this->assertTrue($this->group->getGroupID() > 0);
+        $this->assertNotNull($this->group->getUserID());
+        $this->assertTrue($this->group->getUserID() > 0);
+        $this->assertNotNull($this->group->getGroupDateCreated());
+        $this->assertIdentical($this->group->getGroupAvatar(), "../images/default-avatar.jpg");
+        $this->assertIdentical($this->group->getGroupCity(), "Albuquerque");
+        $this->assertIdentical($this->group->getGroupDescription(), "We are cool");
+        $this->assertIdentical($this->group->getGroupName(), "group-test");
+        $this->assertIdentical($this->group->getGroupState(), "NM");
+        $this->assertIdentical($this->group->getGroupSkill(), 5);
+        $this->assertIdentical($this->group->getGroupZip(), "87124");
+        $this->assertIdentical($this->group->getPrivacyLevel(), 1);
     }
 }
 ?>

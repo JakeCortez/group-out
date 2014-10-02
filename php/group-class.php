@@ -615,10 +615,11 @@ class Group {
         //sanitize name before searching
         $name = trim($name);
         $name = filter_var($name, FILTER_SANITIZE_STRING);
+        $name = strval($name);
         
         //query template 
-        $query     = "SELECT groupID, activityType, userID, dateCreated, groupAvatar, groupCity, groupDescription,
-                                         groupGallery, groupName, groupSkill, groupState, groupZip, privacyLevel FROM groups WHERE name = $name";
+        $query     = "SELECT groupID, userID, groupDateCreated, groupAvatar, groupCity, groupDescription,
+                                         groupName, groupSkill, groupState, groupZip, privacyLevel FROM groups WHERE groupName = ?";
         
         $statement = $mysqli->prepare($query);
         if($statement === false){
