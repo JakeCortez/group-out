@@ -1,8 +1,8 @@
 <?php
 //first, require the class
 require_once("/usr/lib/php5/simpletest/autorun.php");
-require_once("../php/user-login.php");
-require_once("../php/group-class.php");
+require_once("../classes/user-login.php");
+require_once("../classes/group-class.php");
 require_once("/etc/apache2/capstone-mysql/group-out.php");
 
 class GroupTest extends UnitTestCase{

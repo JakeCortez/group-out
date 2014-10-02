@@ -3,7 +3,7 @@
 require_once("/usr/lib/php5/simpletest/autorun.php");
 
 // then require the class under scrutiny
-require_once("../php/user-login.php");
+require_once("../classes/user-login.php");
 
 //connection to server
 require_once("/etc/apache2/capstone-mysql/group-out.php");
@@ -137,6 +137,5 @@ class UserTest extends UnitTestCase {
         $this->assertIdentical($staticUserID ->getUserPassword(),              $this->HASH);
         $this->assertIdentical($staticUserID ->getUserSalt(),                  $this->SALT);
         $this->assertNull($staticUserID ->getUserAuthToken());
-    }
 }
 ?>
