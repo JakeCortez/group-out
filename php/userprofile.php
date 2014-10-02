@@ -540,14 +540,6 @@ private $firstName;
    //////////////////////
    /////////////////////
    
-    
-
-   
-   
-   
-   
-   
-   
    
     
 public static function selectUserByProfileId (&$mysqli, $newProfileId) {
@@ -558,8 +550,8 @@ public static function selectUserByProfileId (&$mysqli, $newProfileId) {
     }   
    //trim whitespace
     $newProfileId = trim ($newProfileId);
-    if($newLastName === null) {
-            $this->lastName = null;
+    if($newProfileId === null) {
+            $this->profileId = null;
             return;
     }
 
@@ -578,9 +570,9 @@ public static function selectUserByProfileId (&$mysqli, $newProfileId) {
 
     }
 
-    // enforce the resourceId is not null (i.e., don't update a resource that hasn't been inserted)
+    // enforce the ProfileId is not null (i.e., don't update a resource that hasn't been inserted)
 
-    if($this->resourceId === null) {
+    if($this->profileId === null) {
         throw(new mysqli_sql_exception("Unable to update a resource that does not exist"));
 
     }       
