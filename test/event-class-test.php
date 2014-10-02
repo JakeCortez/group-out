@@ -4,6 +4,8 @@ require_once("/usr/lib/php5/simpletest/autorun.php");
 
 // then require the function under scrutiny
 require_once("../php/event-class.php");
+require_once("../php/user-login.php");
+require_once("../php/....php");
 
 //require mySQL configureation
 require_once("/etc/apache2/capstone-mysql/group-out.php");
@@ -14,9 +16,20 @@ class EventTest extends UnitTestCase {
     private $mysqli = null;
     
     //variable to hold the test database row
+    private $user = null;
+    
+        //variable to hold the test database row
+    private $route = null;
+    
+    //variable to hold the test database row
     private $event = null;
     
     //a few "global" variables for creating test data
+    private $EMAIL             = "files@trash.org";
+    private $PASSWORD          = "ideletedmyfiles";
+    private $SALT              = null;
+    private $AUTH_TOKEN        = null;
+    private $HASH              = null;
     private $EVENTDATECREATED  = "2014-08-17 16:38:04";
     private $EVENTCITY         = "Albuquerque";
     private $EVENTDATE         = "2014-10-02 12:45:10";
@@ -34,6 +47,23 @@ class EventTest extends UnitTestCase {
         //connect to mySQL
         mysqli_report(MYSQLI_REPORT_STRICT);
         $this->mysqli = Pointer::getPointer();
+        
+        //randomize the salt, hash, and authentication token
+        $this->SALT       = bin2hex(openssl_random_pseudo_bytes(32));
+        $this->AUTH_TOKEN = bin2hex(openssl_random_pseudo_bytes(16));
+        $this->HASH       = hash_pbkdf2("sha512", $this->PASSWORD, $this->SALT, 2048, 128);
+        
+        //create user
+        $this->user = new User(null, $this->AUTH_TOKEN, $this->EMAIL, $this->HASH, 1, $this->SALT);
+        
+        //insert user
+        $this->user->insert($this->mysqli);
+        
+        //create route
+        $this->route = new Route(null, $this->user->getUserID, null, "a", "b", 3, 0, "c", "e");
+        
+        //insert route
+        $this->route->insert($this->mysqli);
     }
     
     //tearDown() is a method that is run after each test
@@ -45,9 +75,18 @@ class EventTest extends UnitTestCase {
             $this->event = null;
         }
         
-        //disconnect from mySQL
-        if($this->mysqli !== null) {
-            $this->mysqli->close();
+        //delete route
+        //delete the event if we can
+        if($this->route !== null) {
+            $this->route->delete($this->mysqli);
+            $this->route = null;
+        
+        
+        //delete user
+        //delete the event if we can
+        if($this->user !== null) {
+            $this->user->delete($this->mysqli);
+            $this->user = null;
         }
     }
     
