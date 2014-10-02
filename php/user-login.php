@@ -172,7 +172,7 @@ class User {
       *@return value for UserPassword
       **/
      public function getUserPassword() {
-        return($this->userpassword);
+        return($this->userPassword);
      }
 
     /**
@@ -347,14 +347,15 @@ class User {
         }
         
         //create query template
-        $query     = "UPDATE user SET userAuthToken = ?, userEmail = ?, userPassword = ?, userRole =?, userSalt =?  WHERE userId = ?";
+        $query     = "UPDATE userLogin SET userAuthToken = ?, userEmail = ?, userPassword = ?, userRole =?, userSalt =?  WHERE userID = ?";
         $statement = $mysqli->prepare($query);
+        
         if($statement === false)  {
             throw(new mysqli_sql_exception("Unable to prepare statement"));
         }
         
         //bind member variables to the placeholder in the template (ORDER MATTERS!)
-        $wasClean = $statement->bind_param("ssssi", $this->userAuthToken, $this->userEmail, 
+        $wasClean = $statement->bind_param("sssisi", $this->userAuthToken, $this->userEmail, 
                                                     $this->userPassword,  $this->userRole, 
                                                     $this->userSalt, $this->userID);
         
@@ -364,6 +365,7 @@ class User {
         
         //execute the statement
         if($statement->execute() === false) {
+            var_dump($statement->error);
             throw(new mysqli_sql_exception("Unable to execute the statement"));
         }
     }
@@ -387,7 +389,7 @@ class User {
         $email = filter_var($email, FILTER_SANITIZE_EMAIL);
         
         //create query template
-        $query     = "SELECT userId, userAuthToken, userEmail, userPassword, userRole, userSalt FROM user WHERE email = ?";
+        $query     = "SELECT userID, userAuthToken, userEmail, userPassword, userRole, userSalt FROM userLogin WHERE userEmail = ?";
         $statement = $mysqli->prepare($query);
         if($statement === false)  {
             throw(new mysqli_sql_exception("Unable to prepare statement"));
