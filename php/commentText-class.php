@@ -91,7 +91,7 @@
      * */
     public function setCommentID($newCommentID) {
         // zeroth, allow a null if this is a new object
-        /*if($newCommentID === null) {
+        if($newCommentID === null) {
             $this->commentID = null;
             return;
         }
@@ -108,7 +108,7 @@
         $newCommentID = intval($newCommentID);
         if($newCommentID <= 0) {
             throw(new RangeException("comment id $newcommentID is not positive"));
-        }*/
+        }
 
         //finally, the user id is clean and can be taken out to quarantine
         $this->commentID = $newCommentID;
@@ -134,6 +134,15 @@
    * @see http://php.net/manual/en/class.datetime.php
    **/
   public function setCommentDateCreated($newCommentDateCreated) {
+    // if null for new event
+    if($newCommentDateCreated === null) {
+      date_default_timezone_set("America/Denver");
+      $currentDate = date("Y-m-d H:i:s");
+
+      $this->commentDateCreated = $currentDate;
+      return;
+    }
+
     // zeroth, if this is a DateTime object, assign it
     if(gettype($newCommentDateCreated) === "object" && get_class($newCommentDateCreated) === "DateTime") {
         $this->commentDateCreated = $newCommentDateCreated;

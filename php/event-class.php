@@ -246,6 +246,15 @@ class Event {
    * @see http://php.net/manual/en/class.datetime.php
    **/
   public function setEventDateCreated($newEventDateCreated) {
+    // if null for new event
+    if($newEventDateCreated === null) {
+      date_default_timezone_set("America/Denver");
+      $currentDate = date("Y-m-d H:i:s");
+
+      $this->eventDateCreated = $currentDate;
+      return;
+    }
+
     // zeroth, if this is a DateTime object, assign it
     if(gettype($newEventDateCreated) === "object" && get_class($newEventDateCreated) === "DateTime") {
         $this->eventDateCreated = $newEventDateCreated;

@@ -9,10 +9,8 @@ try {
   // call the Pointer static method to connect to mySQL
   $mysqli = Pointer::getPointer();
 
-  $date = date('Y-m-d H:i:s');
-
   // call the method
-  $newComment = new Comment("", $date, $_POST["userID"], $_POST["commentText"], $_POST["groupID"], $_POST["eventID"], $_POST["routeID"]);
+  $newComment = new Comment(null, null, $_POST["userID"], $_POST["commentText"], $_POST["groupID"], $_POST["eventID"], $_POST["routeID"]);
 
   //insert user in DB
   $newComment->insert($mysqli);
