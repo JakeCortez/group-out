@@ -388,7 +388,7 @@ class User {
         $authToken = trim($authToken);
         $authToken = filter_var($authToken, FILTER_VALIDATE_INT, FILTER_FLAG_ALLOW_HEX);
         
-        //create query template
+        //create query template -- 
         $query     = "SELECT userID, userAuthToken, userEmail, userPassword, userRole, userSalt FROM userEmail WHERE userauthToken = ?";
         $statement = $mysqli->prepare($query);
         if($statement === false)  {
@@ -404,6 +404,11 @@ class User {
         //execute the statement
         if($statement->execute() === false) {
             throw(new mysqli_sql_exception("Unable to execute mySQL statement"));
+        }
+        
+        //match userAuthToken to userAuthToken
+        if($this->authToken !== $userAuthToken) {
+            throw(new mysqli_sql_exception("Unable to allow user into database"));
         }
         
         //get result from the SELECT query
