@@ -3,7 +3,10 @@
 require_once("/usr/lib/php5/simpletest/autorun.php");
 
 // then require the class under scrutiny
-require_once("GO_User_Login_Object.php");
+require_once("../php/user-login.php");
+
+//connection to server
+require_once("/etc/apache2/capstone-mysql/group-out.php");
 
 //the UserTest is a container for all our tests
 class UserTest extends UnitTestCase {
@@ -25,7 +28,7 @@ class UserTest extends UnitTestCase {
     //here, we use it to connect to mySQL, calculate the SALT, hash, and authenticationToken
     public function setUp() {
         mysqli_report(MYSQLI_REPORT_STRICT);
-        $this->mysqli = new mysqli("localhost", "store_jane", "aliceblue", "store_jane");
+        $this->mysqli = Pointer::getPointer;
         
         // randomize the salt, hash, and authentication Token
         $this->SALT        = bin2hex(openssl_random_pseudo_bytes(32));
