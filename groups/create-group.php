@@ -1,5 +1,5 @@
-
- <!DOCTYPE html>
+<?php session_start(); ?>
+<!DOCTYPE html>
 <html>
   <head>
      <meta charset="UTF-8">
@@ -21,15 +21,13 @@
       <script src="../js/group-out.js"></script>
   </head>
   <body>
-    
     <?php require_once('../php/nav.html');?>
     <div class = "container-fluid">
       <div class = "col-lg-1"></div>
       <article class = "col-lg-10">
       <div class = "page_content">
-        <?php require_once("../php/group-class.php")?>
         <h1 id = "createHeader">Create a Group</h1><br>
-        <form method = "post" action = "../php/group-creation.php" class = "basicForm">
+        <form method = "post" action = "../php/group-processor.php" class = "basicForm">
           <label for = "groupName">Group Name:</label>
           <input type = "text" name = "groupName"><br>
           <label for = "groupAvatar">Group Avatar:</label>
@@ -44,12 +42,12 @@
             <option value = "1">Starter</option>
           </select><br>
             <label for="activity">Choose One or More Activities</label>
-            <label for="hike">Hike</label>
-            <input name="hike" type="checkbox" value="1">
-            <label for="bike">Bike</label>
-            <input name="bike" type="checkbox" value="2">
-            <label for="run">Run</label>
-            <input name="run"  type="checkbox" value="3">
+            <label for="activityType">Hike</label>
+            <input name="activityType" type="checkbox" value="1">
+            <label for="activityType">Bike</label>
+            <input name="activityType" type="checkbox" value="2">
+            <label for="activityType">Run</label>
+            <input name="activityType"  type="checkbox" value="3">
             <br><br>
           <label fot = "groupDescription">Group Description:</label>
           <textarea rows = "5" cols = "80" max = "500" type = "text" name = "groupDescription"></textarea><br>
