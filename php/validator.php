@@ -8,7 +8,7 @@ try {
         //if filter-input passed the email, we need to sanitize the characters
         $safeEmail = filter_input(INPUT_POST, "email", FILTER_SANITIZE_EMAIL);
         
-        echo $safeEmail . " just signed up. <br />";
+        echo "<p>". $safeEmail . " just signed up. </p><br />";
         
         //sanitize both passwords
         $safePassword = filter_input(INPUT_POST, "password",        FILTER_SANITIZE_SPECIAL_CHARS);

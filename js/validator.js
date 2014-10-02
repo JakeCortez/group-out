@@ -73,7 +73,7 @@ $(document).ready(function () {
                   type: "POST",
                   //url to submit to:
                   // .txt is a placeholder -- looking for PHP
-                  url: "php/validator.php",
+                  url: "php/registration.php",
                   //data to be submitted
                   data: $(form).serialize(),
                   //anonymous callback function to react to a successful query
