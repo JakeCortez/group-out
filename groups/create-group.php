@@ -1,25 +1,5 @@
+
  <!DOCTYPE html>
-<?php
-  //require needed classes
-  require_once("/etc/apache2/capstone-mysql/group-out.php");
-  require_once("../php/user-login.php");
-
-  //confirm connection to database
-  mysqli_report (MYSQLI_REPORT_STRICT);
-  $this->mysqli = Pointer::getPointer();
- 
-  //start session
-  session_start();
-
-  $_SESSION['userID', 'userAuth', 'userEmail'] = $userEmail;
- 
-  $user = null;
-  $this->user = User($userID, $userAuth, $userEmail, $userPass, $userRole, $userSalt);
-  
-  //define needed variables
-  $userEmail = $this->user->getUserEmail();
-
-?>
 <html>
   <head>
      <meta charset="UTF-8">
@@ -49,7 +29,7 @@
       <div class = "page_content">
         <?php require_once("../php/group-class.php")?>
         <h1 id = "createHeader">Create a Group</h1><br>
-        <form method = "post" action = "Class->insert;"class = "basicForm">
+        <form method = "post" action = "../php/group-creation.php" class = "basicForm">
           <label for = "groupName">Group Name:</label>
           <input type = "text" name = "groupName"><br>
           <label for = "groupAvatar">Group Avatar:</label>
