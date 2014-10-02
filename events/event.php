@@ -63,6 +63,7 @@
       <div class = "col-lg-1"></div>
     </div>
     <?php require_once('../php/footer.html');?>
-
+          <script src="../js/validateReg.js"></script>
+          <script src="../js/validateLogIn.js"></script>
   </body>
 </html>
