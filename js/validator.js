@@ -34,7 +34,7 @@ $(document).ready(function () {
                 required: true
              },
             confirmPassword: {
-                equalTo: "#userPassword"
+                equalTo: "#password"
             }
         },
         messages: {

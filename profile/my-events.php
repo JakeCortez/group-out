@@ -30,6 +30,9 @@
       <div class = "col-lg-1"></div>
     </div>
     <?php require_once('../php/footer.html');?>
+                      <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+          <script src="../js/validator.js"></script>
     
   </body>
 </html>

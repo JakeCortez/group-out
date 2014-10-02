@@ -36,11 +36,11 @@
         //clean up
             $mysqli->close();
             
-        echo "Welcome to Group-Out.  We'll keep your email address
-        as your login until you change it on your profile";
+        echo "Welcome to Group-Out.  We'll keep this <br />
+        email as your login until you change it on your profile";
         
         } catch(mysqli_sql_exception $sqlException) {
-        echo "Exception: " . $sqlException->getMessage();
+        echo "<span class='badForm'> Exception: " . $sqlException->getMessage() "</span>";
         }
         
         ?>

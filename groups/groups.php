@@ -32,6 +32,9 @@
             <h5>difficulty: <a>Starter</a>  | <a>Intermediate</a> | <a>Normal</a> | <a>Enthusiast</a> | <a>Professional</a> | <a>all</a></h5>
           </div>
           <?php require_once("../php/group-list-create.php");?>
+                      <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+          <script src="../js/validator.js"></script>
       </article>
       <div class = "col-lg-1"></div>
   </body>
