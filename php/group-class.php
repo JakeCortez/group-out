@@ -87,7 +87,6 @@ class Group {
             $this->setPrivacyLevel($newPrivacyLevel);
         }
         catch(UnexpectedValueException $error){
-            var_dump($error);
             throw(new UnexpectedValueException("Sorry Something went wrong when creating your group.", 0, $error));
         }
         catch(RangeException $error){
@@ -178,15 +177,15 @@ class Group {
      * sets value of id
      *
      * @param mixed value of id that created group or null if the group is being created
+     * @throws UnexpectedValueException if userID does not exist
      * @throws UnexpectedValueException if not an integer
      * @throws RangeException if the user ID is not positive
      * @throws RangeException if userID is not in Database
      **/
     public function setUserID($newUserID){
-        //allow null
+        //check for null
         if($newUserID === null){
-            $this->userID = null;
-            return;
+            throw(UnexpectedValueException("Only registered users can create groups."));
         }
         
         //check if value is integer
@@ -195,7 +194,7 @@ class Group {
         }
         
         //check if User ID is positive
-        $newUserID = int_val($newUserID);
+        $newUserID = intval($newUserID);
         if($newUserID <= 0){
             throw(new RangeException("Invalid User ID detected"));
         }
@@ -219,21 +218,43 @@ class Group {
      * @throws UnexpectedValueException if date is not formatted correctly
      **/
     public function setGroupDateCreated($newGroupDateCreated){
-        //check for null
+        //if null for a new group
         if($newGroupDateCreated === null){
-           $this->groupdateCreated = null;
-           return;
+            date_default_timezone_set('America/Denver'); // CDT
+            
+            $current_date = date('Y-m-d H:i:s');
+            
+            $this->groupDateCreated = $current_date;
+            return;
         }
         
-        //sanitize string
+        //zeroth, if the is a DateTime object, assign it
+        if(gettype($newGroupDateCreated) === "object" && get_class($newGroupDateCreated) === "DateTime") {
+            $this->groupDateCreated = $newGroupDateCreated;
+            return;
+        }
+        
+        $newGroupDateCreated = trim($newGroupDateCreated);
         $newGroupDateCreated = filter_var($newGroupDateCreated, FILTER_SANITIZE_STRING);
         
-        //check if date is in correct format
-        if(DateTime::createFromFormat("Y-m-d H:i:s", $newGroupDateCreated)){
-            $this->groupDateCreated = $newGroupDateCreated;
-        } else {
-            throw(new UnexpectedValueException("Date created not found"));
+        //second, use a regular expression to extract the date and verify it
+        if((preg_match("/^(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})$/", $newGroupDateCreated, $matches)) !== 1) {
+            throw(new RangeException("groupDateCreated $newGroupDateCreated is not a mySQL formatted date"));
         }
+        
+        //verify the date is valid date
+        $year  = intval($matches[1]);
+        $month = intval($matches[2]);
+        $day   = intval($matches[3]);
+        if((checkdate($month, $day, $year)) === false) {
+            throw(new RangeException("groupDateCreated $newGroupDateCreated is not a gregorian date"));
+        }
+        
+        //convert the date to a DateTime Object
+        if(($dateTime = DateTime::createFromFormat("Y-m-d H:i:s", $newGroupDateCreated)) === false) {
+            throw(new RangeException("groupDateCreated $newGroupDateCreated cannot be converted to a DateTime object"));
+        }
+        $this->groupDateCreated = $dateTime;
     }
     
     /**
@@ -253,10 +274,12 @@ class Group {
         if($newGroupAvatar === null){
             $this->groupAvatar = "default";
         }
+        
+        $this->groupAvatar = $newGroupAvatar;
     }
     
     /**
-     * gets value of city of group
+     * gets value of city of group+
      **/
     public function getGroupCity(){
         return($this->groupCity);
@@ -473,12 +496,10 @@ class Group {
         
         //query template
         $query     = "INSERT INTO groups(userID, groupDateCreated, groupAvatar, groupCity, groupDescription,
-                                         groupName, groupSkill, groupState, groupZip, privacyLevel
-                                         VALUES = ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        var_dump($query);
+                                         groupName, groupSkill, groupState, groupZip, privacyLevel)
+                                         VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $statement = $mysqli->prepare($query);
         if($statement === false){
-            var_dump($statement);
             throw(new mysqli_sql_exception("Unable to prepare statement"));
         }
         
@@ -497,7 +518,8 @@ class Group {
         
         //update the null Group Id
         $this->groupID = $mysqli->insert_id;
-    }
+        
+        }
     
     /**
      * deletes group from mySQL
@@ -543,7 +565,7 @@ class Group {
      **/
     public function update(&$mysqli){
         //handle degenerate cases
-        if(gettype($mysqli) !== "object" || get_class !== "mysqli"){
+        if(gettype($mysqli) !== "object" || get_class($mysqli) !== "mysqli"){
             throw(new mysqli_sql_exception("input is not a mysqli object"));
         }
         
@@ -563,9 +585,9 @@ class Group {
         }
         
         //bind variables to place holders in query
-        $clean = $statement->bind_param("issssssisii", $this->userID, $this->groupDateCreated, $this->groupAvatar,
+        $clean = $statement->bind_param("isssssissii", $this->userID, $this->groupDateCreated, $this->groupAvatar,
                                             $this->groupCity, $this->groupDescription, $this->groupName,
-                                            $this->groupSkill, $this->groupState, $this->groupZip, $this->groupID);
+                                            $this->groupSkill, $this->groupState, $this->groupZip, $this->privacyLevel, $this->groupID);
         if($clean ===false){
             throw(new mysqli_sql_exception("Unable to bind variables"));
         }
