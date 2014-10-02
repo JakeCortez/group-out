@@ -34,11 +34,12 @@ class EventTest extends UnitTestCase {
         //connect to mySQL
         mysqli_report(MYSQLI_REPORT_STRICT);
         $this->mysqli = Pointer::getPointer();
+    }
     
     //tearDown() is a method that is run after each test
     //here, we use it to delete the test record and dissconnect from mySQL
     public function tearDown() {
-        //delete the user if we can
+        //delete the event if we can
         if($this->event !== null) {
             $this->event->delete($this->mysqli);
             $this->event = null;
