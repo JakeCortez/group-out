@@ -1,4 +1,8 @@
- <!DOCTYPE html>
+<?php
+session_start();
+$_SESSION["userID"] = 1;
+?>
+<!DOCTYPE html>
 <html>
   <head>
      <meta charset="UTF-8">
@@ -28,11 +32,8 @@
 
         <!-- comment entry form-->
         <form class="form-horizontal" role="form" action="../php/insert-comment.php" method="post">
+          <input type="hidden" value="<?php echo $_GET['eventID'];?>"
           <div class="form-group col-lg-10">
-            <label for="userID">UserID</label>
-            <input type="text" class="form-control" id="userID" name="userID">
-          </div>
-          <div class="form-group col-lg-10">
             <label for="groupID">GroupID</label>
             <input type="text" class="form-control" id="groupID" name="groupID">
           </div>
@@ -59,6 +60,14 @@
 
         <div class="bar">Comments</div>
         <?php require_once('../php/comment-list-create-userid.php');?>
+
+        <!-- testing -->
+        <pre>
+          <?php
+          print_r($_SESSION);
+          ?>
+        </pre>
+
       </article>
       <div class = "col-lg-1"></div>
     </div>

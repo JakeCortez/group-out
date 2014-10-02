@@ -1,16 +1,19 @@
 <?php
-require_once("../config/Pointer.php");
-require_once("commentText-class.php");
-
+session_start();
+$_SESSION["userID"] = 1;
 // require_once("/etc/apache2/capstone-mysql/group-out.php");
-// require_once("event-class.php");
+require_once("../config/Pointer.php");
+require_once("../php/commentText-class.php");
+
 
 try {
   // call the Pointer static method to connect to mySQL
   $mysqli = Pointer::getPointer();
 
+
+
   // call the method
-  $newComment = new Comment(null, null, $_POST["userID"], $_POST["commentText"], $_POST["groupID"], $_POST["eventID"], $_POST["routeID"]);
+  $newComment = new Comment(null, null, $_SESSION["userID"], $_POST["commentText"], $_POST["groupID"], $_POST["eventID"], $_POST["routeID"]);
 
   //insert user in DB
   $newComment->insert($mysqli);
