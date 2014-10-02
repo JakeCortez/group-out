@@ -137,5 +137,6 @@ class UserTest extends UnitTestCase {
         $this->assertIdentical($staticUserID ->getUserPassword(),              $this->HASH);
         $this->assertIdentical($staticUserID ->getUserSalt(),                  $this->SALT);
         $this->assertNull($staticUserID ->getUserAuthToken());
+    }
 }
 ?>
