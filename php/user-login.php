@@ -160,10 +160,8 @@ class User {
      public function setUserEmail($newUserEmail) {
         //First, trim the input of excess whitespace
         $newUserEmail = trim($newUserEmail);
-        
         //second, sanitize the email of oddball chars
         $newUserEmail = filter_var($newUserEmail, FILTER_SANITIZE_EMAIL);
-
         //finally, bring UserEmail out of quarantine
         $this->userEmail = $newUserEmail;
      }
@@ -273,6 +271,7 @@ class User {
         $query     = "INSERT INTO userLogin(userAuthToken, userEmail, userPassword, userRole, userSalt) VALUES(?, ?, ?, ?, ?)";
         $statement = $mysqli->prepare($query);
         if($statement === false) {
+            echo($statement->error);
             throw(new mysqli_sql_exception("Unable to prepare statement"));
         }
         
@@ -290,7 +289,7 @@ class User {
         }
         
         // update the null userId with what mySQL just gave us
-        $this->userId = $mysqli->insert_id;
+        $this->userID = $mysqli->insert_id;
     }
     
     /**
@@ -311,14 +310,14 @@ class User {
         }
         
         //create query template
-        $query     = "DELETE FROM user WHERE userId = ?";
+        $query     = "DELETE FROM userLogin WHERE userId = ?";
         $statement = $mysqli->prepare($query);
         if($statement === false)  {
             throw(new mysqli_sql_exception("Unable to prepare statement"));
         }
         
         //bind member variables to the placeholder in the template
-        $wasClean = $statement->bind_param("i", $this->userId);
+        $wasClean = $statement->bind_param("i", $this->userID);
         
         if($wasClean === false) {
             throw(new mysqli_sql_exception("Unable to bind parameters"));
@@ -377,16 +376,16 @@ class User {
      *@return mixed User found or null if not found
      *@throws mysqli_sql_exception when mySQL related errors occur
      **/
-    public static function getUserByEmail(&$mysqli, $userEmail) {
+    public static function getUserByEmail(&$mysqli, $email) {
           //handle degenerate cases
         if(gettype($mysqli) !== "object" || get_class($mysqli) !== "mysqli") {
             throw(new mysqli_sql_exception("input is not a mysqli object"));
         }
         
         //sanitize the Email before searching
-        $userEmail = trim($userEmail);
-        $userEmail = filter_var($userEmail, FILTER_SANITIZE_EMAIL);
-          
+        $email = trim($email);
+        $email = filter_var($email, FILTER_SANITIZE_EMAIL);
+        
         //create query template
         $query     = "SELECT userId, userAuthToken, userEmail, userPassword, userRole, userSalt FROM user WHERE email = ?";
         $statement = $mysqli->prepare($query);
@@ -395,7 +394,7 @@ class User {
         }
         
         //bind email to the placeholder in the template
-        $wasClean = $statement->bind_param("s", $userEmail);
+        $wasClean = $statement->bind_param("s", $email);
         if($wasClean === false) {
             throw(new mysqli_sql_exception("Unable to bind parameters"));
         }

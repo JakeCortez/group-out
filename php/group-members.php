@@ -8,19 +8,14 @@
      **/
     class GroupMembers{
         /**
-         * Primary key
-         **/
-        private $groupMembers;
-        
-        /**
          * Foreign Key for groupId
          **/
-        private $groupId;
+        private $groupID;
         
         /**
          * Foreign Key for UserId
          **/
-        private $userId;
+        private $userID;
         
         /**
          * constructor for group members
@@ -31,8 +26,15 @@
          * @throws UnexpectedValueException if fails to construct group
          * @throws RangeException if fails to construct group
          **/
-        public function __construct($groupMembers, $groupId, $userId){
-            
+        public function __construct($newGroupID, $newUserID){
+            try{
+                $this->setGroupID($newGroupID);
+                $this->setUserID($newUserID);
+            } catch(UnexpectedValueException $error) {
+                throw(new UnexpectedValueException("Unable to get number of users in group.", 0, $error));
+            } catch(RangeException $error) {
+                throw(new RangeException("Unable to get number of users in group", 0, $error));
+            }
         }
     }
 ?>
