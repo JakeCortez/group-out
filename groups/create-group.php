@@ -1,4 +1,25 @@
  <!DOCTYPE html>
+<?php
+  //require needed classes
+  require_once("/etc/apache2/capstone-mysql/group-out.php");
+  require_once("../php/user-login.php");
+
+  //confirm connection to database
+  mysqli_report (MYSQLI_REPORT_STRICT);
+  $this->mysqli = Pointer::getPointer();
+ 
+  //start session
+  session_start();
+
+  $_SESSION['userID', 'userAuth', 'userEmail'] = $userEmail;
+ 
+  $user = null;
+  $this->user = User($userID, $userAuth, $userEmail, $userPass, $userRole, $userSalt);
+  
+  //define needed variables
+  $userEmail = $this->user->getUserEmail();
+
+?>
 <html>
   <head>
      <meta charset="UTF-8">
