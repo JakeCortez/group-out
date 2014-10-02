@@ -527,7 +527,7 @@ $avatarSize = $_FILES["avatar"]["size"];
 $avatarType = $_FILES["avatar"]["type"];
 $firstName = $_POST["firstName"];
 $lastName =  $_POST["lastName"];
-echo<<<EOF
+echo<<<_EOF
 <p>Profile successfully updated</p>
 <ul>
     <li>First Name: $firstName</li>
@@ -535,7 +535,7 @@ echo<<<EOF
     <li>Avatar: $avatarName ($avatarType, $avatarSize bytes) <br />
     <img src="/upload/$avatarName" /></li>
 </ul>
-EOF;
+_EOF;
 // the file name was not sanitized, for safe
         
     //sets value for user's avatar
