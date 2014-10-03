@@ -365,7 +365,6 @@ class User {
         
         //execute the statement
         if($statement->execute() === false) {
-            var_dump($statement->error);
             throw(new mysqli_sql_exception("Unable to execute the statement"));
         }
     }
@@ -389,7 +388,7 @@ class User {
         $authToken = filter_var($authToken, FILTER_VALIDATE_INT, FILTER_FLAG_ALLOW_HEX);
         
         //create query template -- 
-        $query     = "SELECT userID, userAuthToken, userEmail, userPassword, userRole, userSalt FROM userEmail WHERE userauthToken = ?";
+        $query     = "SELECT userID, userAuthToken, userEmail, userPassword, userRole, userSalt FROM userLogin WHERE userAuthToken = ?";
         $statement = $mysqli->prepare($query);
         if($statement === false)  {
             throw(new mysqli_sql_exception("Unable to prepare statement"));
@@ -406,26 +405,21 @@ class User {
             throw(new mysqli_sql_exception("Unable to execute mySQL statement"));
         }
         
-        //match userAuthToken to userAuthToken
-        if($this->authToken !== $userAuthToken) {
-            throw(new mysqli_sql_exception("Unable to allow user into database"));
-        }
-        
         //get result from the SELECT query
         $result = $statement->get_result();
         if($result === false) {
             throw(new mysqli_sql_exception("Unable to get result set"));
         }
-
+        
         // since this is a unique field, this will only return 0 or 1 results
         // 1) if there's a match, the AuthToken can be discarded and User object normally formed
         // 2) if there's no match, AuthToken remains and user will not be allowed into site
         $row = $result->fetch_assoc(); // fetch_assoc() returns the row as an associative array
-        
         // convert the associative array to a User
         if($row !== null) {
             try {
                 $user = new User($row["userID"], $row["userAuthToken"], $row["userEmail"], $row["userPassword"], $row["userRole"], $row["userSalt"]);
+                var_dump($user);
             }
             catch(Exception $exception) {
                 // if the row couldn't be converted, rethrow it
@@ -433,8 +427,24 @@ class User {
             }
             //if we got here, the user is USER - remove AuthToken from files, user can be gotten by Email
             return($user);
+        } else {
+            return(null);
+        }
         
-    
+        //create a new query template
+        $newQuery = "UPDATE userLogin SET userAuthToken = ? WHERE userID = ?";
+        $statement = $mysqli->prepare($newQuery);
+        if($statement === false){
+            throw(new mysqli_sql_exception("Unable to prepare statement"));
+        }
+        //bind authToken match to allow new user to site
+        $wasClean = $statement->bind_param("ss", null, $this->userID);
+        
+        //execute the statement
+        if($statement->execute() === false) {
+            throw(new mysqli_sql_exception("Unable to execute mySQL statement"));
+        }
+    }
     /**
      *get USER by email
      *
@@ -481,7 +491,6 @@ class User {
         // 1) if there's a result, we can make it into a User object normally
         // 2) if there's no result, we can just return null
         $row = $result->fetch_assoc(); // fetch_assoc() returns the row as an associative array
-        
         //convert the associative array to a User
         // convert the associative array to a User
         if($row !== null) {

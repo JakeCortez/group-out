@@ -130,13 +130,36 @@ class UserTest extends UnitTestCase {
         $staticUserID = User::getUserByEmail($this->mysqli, $this->EMAIL);
         
         //finally, compare the fields -- all the fields
-        $this->assertNotNull($staticUserID ->getUserID());
-        $this->assertTrue($staticUserID ->getUserID() > 0);        
-        $this->assertIdentical($staticUserID ->getUserID(),           $this->user->getUserId());
-        $this->assertIdentical($staticUserID ->getUserEmail(),                 $this->EMAIL);
-        $this->assertIdentical($staticUserID ->getUserPassword(),              $this->HASH);
-        $this->assertIdentical($staticUserID ->getUserSalt(),                  $this->SALT);
-        $this->assertNull($staticUserID ->getUserAuthToken());
+        $this->assertNotNull($staticUserID->getUserID());
+        $this->assertTrue($staticUserID->getUserID() > 0);        
+        $this->assertIdentical($staticUserID->getUserID(),           $this->user->getUserId());
+        $this->assertIdentical($staticUserID->getUserEmail(),                 $this->EMAIL);
+        $this->assertIdentical($staticUserID->getUserPassword(),              $this->HASH);
+        $this->assertIdentical($staticUserID->getUserSalt(),                  $this->SALT);
+        $this->assertNull($staticUserID->getUserAuthToken());
+    }
+    
+    //test grabbing user auth token from mySQL
+    public function testGetUserByAuthToken(){
+        //first, verify mySQL connected OK
+        $this->assertNotNull($this->mysqli);
+        
+        //second, create a userID to post to mySQL
+        $this->user = new User(null, $this->AUTH, $this->EMAIL, $this->HASH, 1, $this->SALT);
+        
+        //third, insert the userID to mySQL
+        $this->user->insert($this->mysqli);
+        
+        $staticUserAuth = User::getUserByAuthToken($this->mysqli, $this->AUTH);
+        
+        //finally, compare the fields
+        $this->assertNotNull($this->user->getUserID());
+        $this->assertTrue($this->user->getUserID() > 0);        
+        $this->assertIdentical($this->user->getUserID(),           $this->user->getUserId());
+        $this->assertIdentical($this->user->getUserEmail(),                 $this->EMAIL);
+        $this->assertIdentical($this->user->getUserPassword(),              $this->HASH);
+        $this->assertIdentical($this->user->getUserSalt(),                  $this->SALT);
+        $this->assertNull($this->user->getUserAuthToken());
     }
 }
 ?>

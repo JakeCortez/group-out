@@ -106,8 +106,7 @@ class Group {
      *
      * @param mixed new value of group ID's from server or null if new ID
      * @throws UnexpectedValueException if ID is not an integer
-     * @throws RangeException if value is not integer again and is positive
-     * @throws RangeException if ID is not found on server
+     * @throws RangeException if value is not integer again and is not positive
      **/
     public function setGroupID($newGroupID){
         //allow null if this is a new object
