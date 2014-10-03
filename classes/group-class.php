@@ -467,7 +467,8 @@ class Group {
         }
         
         //checks if value is within range
-        if($newPrivacyLevel !== 3 || $newPrivacyLevel !== 1){
+        if($newPrivacyLevel > 3 || $newPrivacyLevel < 1){
+            echo($newPrivacyLevel);
             throw(new UnexpectedValueException("The privacy level set is out of range"));
         }
         
@@ -651,6 +652,71 @@ class Group {
             }
             catch(Exception $exception){
                 throw(new mysqli_sql_exception("Unable to convert row to user", 0, $exception));
+            }
+            
+            return($group);
+        } else {
+            return(null);
+        }
+    }
+    
+    /**
+     * static method to get group info with eventID
+     *
+     * @param object $mysqli that describes mysqli object from database
+     * @param int $groupID that represents current group being displayed on page
+     * @returns mixed value of groupID int or null if group not found
+     * @throws mysqli_sql_exception if mysqli errors occur
+     **/
+    public static function getGroupByID($mysqli, $groupID){
+        //handle degenerate cases
+        if(gettype($mysqli) !== "object" || get_class($mysqli) !== "mysqli"){
+            throw(new mysqli_sql_exception("input is not a mysqli object"));
+        }
+        
+        //cleanse input
+        $groupID = trim($groupID);
+        $groupID = intval($groupID);
+        if(filter_var($groupID, FILTER_VALIDATE_INT) === false){
+            throw(new UnexpectedValueException("groupID is invalid"));
+        }
+        
+        //query template
+        $query     = "SELECT groupID, userID, groupDateCreated, groupAvatar, groupCity, groupDescription,
+                                         groupName, groupSkill, groupState, groupZip, privacyLevel FROM groups WHERE groupID = ?";
+        
+        $statement = $mysqli->prepare($query);
+        if($statement === false){
+            throw(new mysqli_sql_exception("Unable to prepare statement"));
+        }
+        
+        //bind member variables to the place holder
+        $clean = $statement->bind_param("s", $groupID);
+        if($clean === false){
+            throw(new mysqli_sql_exception("Unable to bind parameter"));
+        }
+        
+        //execute
+        if($statement->execute() === false) {
+            throw(new mysqli_sql_exception("Unable to execute mySQL statement"));
+        }
+        
+        //get results from the SELECT query
+        $result  = $statement->get_result();
+        if($result === null){
+            throw(new mysqli_sql_exception("Unable to get result set"));
+        }
+        
+        //fetch result
+        $row = $result->fetch_assoc();
+        
+        if($row !==null){
+            try{
+                $group = new Group($row["groupID"], $row["userID"], $row["groupDateCreated"], $row["groupAvatar"], $row["groupCity"], $row["groupDescription"],
+                                   $row["groupName"], $row["groupSkill"], $row["groupState"], $row["groupZip"], $row["privacyLevel"]);
+            }
+            catch(Exception $exception){
+                throw(new mysqli_sql_exception("Unable to convert row to group", 0, $exception));
             }
             
             return($group);
