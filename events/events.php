@@ -20,12 +20,14 @@
       <script src="../js/group-out.js"></script>
   </head>
   <body>
-    
+
     <?php require_once('../php/nav.html');?>
     <div class = "container-fluid">
       <div class = "col-lg-1"></div>
       <article class = "col-lg-10">
-        
+
+        <?php require_once('../php/event-search-page-content.php');?>
+
       </article>
       <div class = "col-lg-1"></div>
     </div>

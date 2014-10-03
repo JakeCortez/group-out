@@ -530,46 +530,46 @@
     return $routeCommentArray;
   }
 
-     //// STATIC METHOD to get public comments by the EventID of the event author
+//// STATIC METHOD to get public comments by the eventID
   /**
-   *
-   * @param makes a query on the Events table to grab results for a list of Events
-   * @return creates multiple $eventArry objects that can be looped through
-   *
-   **/
+  *
+  * @param makes a query on the Events table to grab results for a list of Events
+  * @return creates multiple $eventArry objects that can be looped through
+  *
+  **/
   public static function getCommentsByEventID(&$mysqli, $eventID) {
-    // create & prepare a query template
-    $query = "SELECT commentID, commentDateCreated, userID, commentText, groupID, eventID, routeID FROM comments WHERE userID = ? LIMIT 5";
+   // create & prepare a query template
+   $query = "SELECT commentID, commentDateCreated, userID, commentText, groupID, eventID, routeID FROM comments WHERE eventID = ? LIMIT 10";
 
-    // prepare the statement
-    if(($statement = $mysqli->prepare($query)) === false) {
-      throw(new mysqli_sql_exception("Unable to prepare query $query"));
-    }
+   // prepare the statement
+   if(($statement = $mysqli->prepare($query)) === false) {
+     throw(new mysqli_sql_exception("Unable to prepare query $query"));
+   }
 
-    // bind parameters to the template
-    if(($statement->bind_param("i", $eventID)) === false) {
-      throw(new mysqli_sql_exception("Unable to bind parameters"));
-    }
+   // bind parameters to the template
+   if(($statement->bind_param("i", $eventID)) === false) {
+     throw(new mysqli_sql_exception("Unable to bind parameters"));
+   }
 
-    // execute the query
-    if(($statement->execute()) === false) {
-      throw(new mysqli_sql_exception("Unable to execute statement"));
-    }
+   // execute the query
+   if(($statement->execute()) === false) {
+     throw(new mysqli_sql_exception("Unable to execute statement"));
+   }
 
-    // be demanding and get results! *pounds fist*
-    if(($result = $statement->get_result()) === false) {
-      throw(new mysqli_sql_exception("Unable to get results"));
-    }
+   // be demanding and get results! *pounds fist*
+   if(($result = $statement->get_result()) === false) {
+     throw(new mysqli_sql_exception("Unable to get results"));
+   }
 
-    // create the $eventArray that can be looped through
-    $eventCommentArray = array();
+   // create the $eventArray that can be looped through
+   $userCommentArray = array();
 
-    while(($row = $result->fetch_assoc()) !== null) {
-      $eventCommentArray[] = new Comment($row["commentID"], $row["commentDateCreated"], $row["userID"], $row["commentText"], $row["groupID"], $row["eventID"], $row["routeID"]);
-    }
+   while(($row = $result->fetch_assoc()) !== null) {
+     $userCommentArray[] = new Comment($row["commentID"], $row["commentDateCreated"], $row["userID"], $row["commentText"], $row["groupID"], $row["eventID"], $row["routeID"]);
+   }
 
-    return $eventCommentArray;
-  }
+   return $userCommentArray;
+}
 
      //// STATIC METHOD to get public comments by the GroupID of the event author
   /**

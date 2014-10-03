@@ -28,28 +28,28 @@ $_SESSION["userID"] = 1;
     <?php require_once('../php/nav.html');?>
     <div class = "container-fluid">
       <div class = "col-lg-1"></div>
-      <article class = "col-lg-10">
+      <article class = "col-md-10">
 
         <!-- comment entry form-->
         <form class="form-horizontal" role="form" action="../php/insert-comment.php" method="post">
-          <input type="hidden" value="<?php echo $_GET['eventID'];?>"
-          <div class="form-group col-lg-10">
+          <input type="hidden" value="<?php echo $_GET['eventID'];?>" />
+          <div class="form-group col-md-10">
             <label for="groupID">GroupID</label>
             <input type="text" class="form-control" id="groupID" name="groupID">
           </div>
-          <div class="form-group col-lg-10">
+          <div class="form-group col-md-10">
             <label for="routeID">RouteID</label>
             <input type="text" class="form-control" id="routeID" name="routeID">
           </div>
-          <div class="form-group col-lg-10">
+          <div class="form-group col-md-10">
             <label for="eventID">EventID</label>
             <input type="text" class="form-control" id="eventID" name="eventID">
           </div>
-          <div class="form-group col-lg-10">
+          <div class="form-group col-md-10">
             <label for="commentText">Comment:</label>
             <textarea class="form-control" rows="5" id="commentText" name="commentText"></textarea>
           </div>
-          <div class="form-group col-lg-10">
+          <div class="form-group col-md-10  ">
             <div class="col-sm-10">
               <button type="submit" class="btn btn-default">Submit</button>
             </div>
@@ -58,7 +58,9 @@ $_SESSION["userID"] = 1;
         <div style="clear:both;"></div>
 
 
-        <div class="bar">Comments</div>
+        <div class="bar col-md-10">Comments</div>
+        <div style="clear:both;"></div>
+
         <?php require_once('../php/comment-list-create-userid.php');?>
 
         <!-- testing -->

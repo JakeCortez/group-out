@@ -9,11 +9,8 @@ require_once("../php/commentText-class.php");
 try {
   // call the Pointer static method to connect to mySQL
   $mysqli = Pointer::getPointer();
-
-
-
   // call the method
-  $newComment = new Comment(null, null, $_SESSION["userID"], $_POST["commentText"], $_POST["groupID"], $_POST["eventID"], $_POST["routeID"]);
+  $newComment = new Comment(null, null, $_SESSION["userID"], $_POST["commentText"], null, $_POST["eventID"], null);
 
   //insert user in DB
   $newComment->insert($mysqli);
@@ -23,5 +20,5 @@ try {
 }
 
 mysqli_close($mysqli);
-header("../events/event.php?eventID=1");
+header("Location: {$_SERVER['HTTP_REFERER']}");
 ?>

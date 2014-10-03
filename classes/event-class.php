@@ -773,5 +773,90 @@ class Event {
     return $eventArray;
   }
 
+///// STATIC METHOD to get Event Info via eventID
+  /**
+   *
+   * @param makes a query on the Events table to grab results for a list of Events
+   * @return creates multiple $eventArry objects that can be looped through
+   *
+   **/
+  public static function getEventInfo(&$mysqli, $eventID) {
+    // create & prepare a query template
+    $query = "SELECT events.eventID, events.routeID, events.userID, events.eventDate, events.eventCity, events.eventDateCreated, events.eventDescription, events.eventDifficulty, events.eventName, events.eventPrivacy, events.eventState, events.eventZip, events.eventMemberCount, eventToActivity.eventActivityList
+              FROM events
+              INNER JOIN (SELECT DISTINCT eventID, GROUP_CONCAT(DISTINCT activityTypeName ORDER BY activityTypeName SEPARATOR ', ') AS eventActivityList FROM eventToActivity LEFT JOIN activityType ON eventToActivity.activityTypeID = activityType.activityTypeID GROUP BY eventID) eventToActivity
+              ON events.eventID = eventToActivity.eventID
+              WHERE events.eventID = ?";
+
+    // prepare the statement
+    if(($statement = $mysqli->prepare($query)) === false) {
+      throw(new mysqli_sql_exception("Unable to prepare query $query"));
+    }
+
+    // bind parameters to the template
+    if(($statement->bind_param("i", $eventID)) === false) {
+      throw(new mysqli_sql_exception("Unable to bind parameters"));
+    }
+
+    // execute the query
+    if(($statement->execute()) === false) {
+      throw(new mysqli_sql_exception("Unable to execute statement"));
+    }
+
+    // get the results
+    if(($result = $statement->get_result()) === false) {
+      throw(new mysqli_sql_exception("Unable to get results"));
+    }
+
+    // create the $eventArray that can be looped through
+    $eventArray = array();
+
+    while(($row = $result->fetch_assoc()) !== null) {
+      $eventArray[] = new Event($row["eventID"], $row["routeID"], $row["userID"], $row["eventDateCreated"], $row["eventCity"], $row["eventDate"], $row["eventDescription"], $row["eventDifficulty"], $row["eventName"], $row["eventPrivacy"], $row["eventState"], $row["eventZip"], $row["eventMemberCount"], $row["eventActivityList"]);
+    }
+
+    return $eventArray;
+  }
+
+///// STATIC METHOD to get ALL Events for Events page
+  /**
+   *
+   * @param makes a query on the Events table to grab results for a list of Events
+   * @return creates multiple $eventArry objects that can be looped through
+   *
+   **/
+  public static function getAllEventInfo(&$mysqli) {
+    // create & prepare a query template
+    $query = "SELECT events.eventID, events.routeID, events.userID, events.eventDate, events.eventCity, events.eventDateCreated, events.eventDescription, events.eventDifficulty, events.eventName, events.eventPrivacy, events.eventState, events.eventZip, events.eventMemberCount, eventToActivity.eventActivityList
+              FROM events
+              INNER JOIN (SELECT DISTINCT eventID, GROUP_CONCAT(DISTINCT activityTypeName ORDER BY activityTypeName SEPARATOR ', ') AS eventActivityList FROM eventToActivity LEFT JOIN activityType ON eventToActivity.activityTypeID = activityType.activityTypeID GROUP BY eventID) eventToActivity
+              ON events.eventID = eventToActivity.eventID";
+
+    // prepare the statement
+    if(($statement = $mysqli->prepare($query)) === false) {
+      throw(new mysqli_sql_exception("Unable to prepare query $query"));
+    }
+
+    // execute the query
+    if(($statement->execute()) === false) {
+      throw(new mysqli_sql_exception("Unable to execute statement"));
+    }
+
+    // get the results
+    if(($result = $statement->get_result()) === false) {
+      throw(new mysqli_sql_exception("Unable to get results"));
+    }
+
+    // create the $eventArray that can be looped through
+    $eventArray = array();
+
+    while(($row = $result->fetch_assoc()) !== null) {
+      $eventArray[] = new Event($row["eventID"], $row["routeID"], $row["userID"], $row["eventDateCreated"], $row["eventCity"], $row["eventDate"], $row["eventDescription"], $row["eventDifficulty"], $row["eventName"], $row["eventPrivacy"], $row["eventState"], $row["eventZip"], $row["eventMemberCount"], $row["eventActivityList"]);
+    }
+
+    return $eventArray;
+  }
+
+
 }
 ?>

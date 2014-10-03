@@ -25,39 +25,29 @@
     <div class = "container-fluid">
       <div class = "col-lg-1"></div>
       <article class = "col-lg-10">
-        <!-- comment entry form-->
-        <form class="form-horizontal" role="form" action="../php/insert-comment.php" method="post">
-          <div class="form-group col-lg-10">
-            <label for="userID">UserID</label>
-            <input type="text" class="form-control" id="userID" name="userID">
-          </div>
-          <div class="form-group col-lg-10">
-            <label for="groupID">GroupID</label>
-            <input type="text" class="form-control" id="groupID" name="groupID">
-          </div>
-          <div class="form-group col-lg-10">
-            <label for="routeID">RouteID</label>
-            <input type="text" class="form-control" id="routeID" name="routeID">
-          </div>
-          <div class="form-group col-lg-10">
-            <label for="eventID">EventID</label>
-            <input type="text" class="form-control" id="eventID" name="eventID">
-          </div>
-          <div class="form-group col-lg-10">
-            <label for="commentText">Comment:</label>
-            <textarea class="form-control" rows="5" id="commentText" name="commentText"></textarea>
-          </div>
-          <div class="form-group col-lg-10">
-            <div class="col-sm-10">
-              <button type="submit" class="btn btn-default">Submit</button>
-            </div>
-          </div>
-        </form>
-        <div style="clear:both;"></div>
+        <?php require_once('../php/event-page-content.php');?>
 
+      <div class="bar col-md-10">Comments</div>
+      <div style="clear:both;"></div>
 
-        <div class="bar">Comments</div>
-        <?php require_once('../php/comment-list-create-userid.php');?>
+      <?php require_once('../php/comment-list-create-eventid.php');?>
+
+      <!-- comment entry form-->
+      <div class="bar col-md-10">Add a comment</div>
+      <div style="clear:both;"></div>
+      <form class="form-horizontal" role="form" action="../php/insert-event-comment.php" method="post">
+          <input type="hidden" value="<?php echo $_GET['eventID'];?>" id="eventID" name="eventID" />
+        <div class="form-group col-md-10">
+          <label for="commentText">Comment:</label>
+          <textarea class="form-control" rows="5" id="commentText" name="commentText"></textarea>
+        </div>
+        <div class="form-group col-md-10  ">
+          <div class="col-sm-10">
+            <button type="submit" class="btn btn-default">Submit</button>
+          </div>
+        </div>
+      </form>
+      <div style="clear:both;"></div>
 
       </article>
       <div class = "col-lg-1"></div>

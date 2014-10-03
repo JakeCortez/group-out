@@ -1,5 +1,6 @@
 <?php
 session_start();
+$_SESSION["userID"] = 1;
 ?>
 <!DOCTYPE html>
 <html>
@@ -29,7 +30,7 @@ session_start();
     <div class="container-fluid">
       <div class = "col-lg-1"></div>
       <!-- Article Area -->
-      <article class="col-lg-10">
+      <article class="col-md-10">
         <!-- User Profile Information -->
         <div class="userAvatar"></div>
         <div class="userDisplayName">Display Name</div>
