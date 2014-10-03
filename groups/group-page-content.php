@@ -37,7 +37,7 @@ try {
     echo <<<EOD
       <div class="userAvatar"></div>
       <div class="userDisplayName">$groupName</div>
-      <div class="userActivities">$niceDate<br><strong>$groupActivityList</strong></div>
+      <div class="userActivities">$niceDate<br><strong>hike, bike</strong></div>
       <div class="userAboutMe">
         <h1>Event Description</h1>
         <p>$groupDescription</p>

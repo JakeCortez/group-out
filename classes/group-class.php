@@ -724,5 +724,90 @@ class Group {
             return(null);
         }
     }
+    
+    public static function getGroupInfo(&$mysqli, $groupID){
+      //handle degenerate cases
+        if(gettype($mysqli) !== "object" || get_class($mysqli) !== "mysqli"){
+            throw(new mysqli_sql_exception("input is not a mysqli object"));
+        }
+        
+        //cleanse input
+        $groupID = trim($groupID);
+        $groupID = intval($groupID);
+        if(filter_var($groupID, FILTER_VALIDATE_INT) === false){
+            throw(new UnexpectedValueException("groupID is invalid"));
+        }
+        
+        $query = "SELECT groupID, userID, groupDateCreated, groupAvatar, groupCity, groupDescription,
+                                         groupName, groupSkill, groupState, groupZip, privacyLevel FROM groups WHERE groupID = ?";
+        
+        $statement = $mysqli->prepare($query);
+        if($statement === false){
+            throw(new mysqli_sql_exception("Unable to prepare statement"));
+        }
+        
+        //bind member variables to the place holder
+        $clean = $statement->bind_param("s", $groupID);
+        if($clean === false){
+            throw(new mysqli_sql_exception("Unable to bind parameter"));
+        }
+        
+        //execute
+        if($statement->execute() === false) {
+            throw(new mysqli_sql_exception("Unable to execute mySQL statement"));
+        }
+        
+        //get results from the SELECT query
+        $result  = $statement->get_result();
+        if($result === null){
+            throw(new mysqli_sql_exception("Unable to get result set"));
+        }
+        
+        //create group array to be looped through
+        $groupArray = array();
+        
+        while(($row = $result->fetch_assoc()) !== null) {
+            $groupArray = new Group($row["groupID"], $row["userID"], $row["groupDateCreated"], $row["groupAvatar"], $row["groupCity"], $row["groupDescription"],
+                                   $row["groupName"], $row["groupSkill"], $row["groupState"], $row["groupZip"], $row["privacyLevel"]);
+        }
+        
+        return $groupArray;
+    }
+    
+    public static function getAllGroupInfo(&$mysqli){
+      //handle degenerate cases
+        if(gettype($mysqli) !== "object" || get_class($mysqli) !== "mysqli"){
+            throw(new mysqli_sql_exception("input is not a mysqli object"));
+        }
+        
+        $query = "SELECT groupID, userID, groupDateCreated, groupAvatar, groupCity, groupDescription,
+                                         groupName, groupSkill, groupState, groupZip, privacyLevel FROM groups";
+        
+        $statement = $mysqli->prepare($query);
+        if($statement === false){
+            throw(new mysqli_sql_exception("Unable to prepare statement"));
+        }
+        
+        //execute
+        if($statement->execute() === false) {
+            throw(new mysqli_sql_exception("Unable to execute mySQL statement"));
+        }
+        
+        //get results from the SELECT query
+        $result  = $statement->get_result();
+        if($result === null){
+            throw(new mysqli_sql_exception("Unable to get result set"));
+        }
+        
+        //create group array to be looped through
+        $groupArray = array();
+        
+        while(($row = $result->fetch_assoc()) !== null) {
+            $groupArray = new Group($row["groupID"], $row["userID"], $row["groupDateCreated"], $row["groupAvatar"], $row["groupCity"], $row["groupDescription"],
+                                   $row["groupName"], $row["groupSkill"], $row["groupState"], $row["groupZip"], $row["privacyLevel"]);
+        }
+        
+        return $groupArray;
+    }
 }
 ?>
