@@ -1,16 +1,20 @@
 <?php
-require_once("../config/Pointer.php");
+session_start();
+$_SESSION["userID"] = 1;
 require_once("../classes/event-class.php");
 
-// require_once("/etc/apache2/capstone-mysql/group-out.php");
-// require_once("event-class.php");
+// Jim's xampp
+require_once("../config/Pointer.php");
+
+// groupout live site
+//require_once("/etc/apache2/capstone-mysql/group-out.php");
 
 try {
   // call the Pointer static method to connect to mySQL
   $mysqli = Pointer::getPointer();
-
+  $currentUserID = $_SESSION["userID"]
   // call the class static method for querying/getting 3 event results
-  $eventArray = Event::getEventsByUserID($mysqli, 1);
+  $eventArray = Event::getEventsByUserID($mysqli, $currentUserID);
 
   // loop through the result set
   foreach($eventArray as $event) {

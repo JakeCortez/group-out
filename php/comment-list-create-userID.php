@@ -1,9 +1,13 @@
 <?php
-require_once("../config/Pointer.php");
-require_once("commentText-class.php");
+session_start();
+$_SESSION["userID"] = 1;
+require_once("../php/commentText-class.php");
 
-// require_once("/etc/apache2/capstone-mysql/group-out.php");
-// require_once("commentText-class.php");
+// Jim's xampp
+require_once("../config/Pointer.php");
+
+// groupout live site
+//require_once("/etc/apache2/capstone-mysql/group-out.php");
 
 try {
   // call the Pointer static method to connect to mySQL
