@@ -59,8 +59,8 @@
           <input name = "groupCity" type = "text"><br>
           <label for = "privacyLevel">Privacy:</label>
           <select name = "privacyLevel">
-            <option value = "1">Private - Only group members have access</option>
-            <option value = "0">Public - Anybody can see this group</option>
+            <option value = "3">Private - Only group members have access</option>
+            <option value = "1">Public - Anybody can see this group</option>
           </select><br>
           <button type = "submit">Create Group</button>
         </form>

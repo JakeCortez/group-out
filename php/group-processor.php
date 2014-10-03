@@ -5,13 +5,12 @@
     $_SESSION["userID"] = 2;
     
     //check if userID exists
-    if(notset($_SESSION["userID"])){
+    if(!isset($_SESSION["userID"])){
         echo("You must be logged into an account to create a group");
     }
     
     //require all needed files
     require_once("/etc/apache2/capstone-mysql/group-out.php");
-    require_once("../classes/user-login.php");
     require_once("../classes/group-class.php");
     
     //set up connection to server
@@ -24,7 +23,7 @@
     
     //create group object
     try{
-    $group  = Group( null, $_SESSION["userID"], null, $_POST["groupAvatar"], $_POST["groupCity"],
+    $group  = new Group(null, $_SESSION["userID"], null, $_POST["groupAvatar"], $_POST["groupCity"],
                      $_POST["groupDescription"], $_POST["groupName"], $_POST["groupSkill"],
                      $_POST["groupState"], $_POST["groupZip"], $_POST["privacyLevel"] );
     }
@@ -37,7 +36,7 @@
     
     //insert group into database
     try{
-        $this->group->insert($this->mysqli);
+        $group->insert($mysqli);
     }
     catch(mysqli_sql_exception $error){
         throw(new mysqli_sql_exception("sorry, could not save group"));

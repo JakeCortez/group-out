@@ -90,7 +90,6 @@ class Group {
             throw(new UnexpectedValueException("Sorry Something went wrong when creating your group.", 0, $error));
         }
         catch(RangeException $error){
-            var_dump($error);
             throw(new RangeException("Sorry Something went wrong when creating your group", 0, $error));
         }
     }
@@ -469,7 +468,7 @@ class Group {
         }
         
         //checks if value is within range
-        if($newPrivacyLevel > 3 || $newPrivacyLevel <= 0){
+        if($newPrivacyLevel !== 3 || $newPrivacyLevel !== 1){
             throw(new UnexpectedValueException("The privacy level set is out of range"));
         }
         
