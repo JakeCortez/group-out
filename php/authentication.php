@@ -16,7 +16,7 @@
         <body>
         <?php
         
-        try {
+try {
          //hash the user's password 2048 times (128 bytes long)
         $userHash = hash_pbkdf2("sha512", $_POST["userPassword"], $userSalt, 2048, 128);
         
@@ -30,7 +30,11 @@
         //get user by email
             $user = User::getUserByEmail($mysqli, $userEmail);
             $userHash = $hash($_POST["userPassword"].$user->getUserSalt());
-        
+            
+        //examine AuthToken
+            if ($userAuthToken !== null) {
+                throw (new exception ("We can't find your email address.  Please register again"));              
+            }
         //compare $userHash and $userLogin->getUserHash()
             if($user->getUserPassword()==$userHash){
                 $_SESSION["userID"]=$user->getID(); {
@@ -39,17 +43,13 @@
                 }
                 if (isset($_SESSION["message"])) {
                     echo $_SESSION["message"]; 
-                    }   
+                    }
                 }
             }
-            
-        //ensure that authToken === null
-        
-            
         echo "Welcome back to Group-Out.";
-        
-        } catch(mysqli_sql_exception $sqlException) {
-        echo "Exception: " . $sqlException->getMessage();
+     }
+        catch(mysqli_sql_exception $sqlException) {
+            echo "Exception: " . $sqlException->getMessage();
         }
         
         ?>
