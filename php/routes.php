@@ -3,7 +3,7 @@
 * @author Charlie goodan (cgoodan@gmail.com)
 */
 
-class Rout {
+class Route {
     
     // PROPERTIES
     
