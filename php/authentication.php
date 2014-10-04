@@ -10,9 +10,7 @@
     
     //insert something into the session to follow user & userZip
     $_SESSION["userID", "userZip"] = "";
-    
-    echo "<br />Your session ID is " .$_COOKIE["PHPSESSID"];
-    
+        
     //destroy the cookie
     $params = session_get_cookie_params();
     setcookie(session_name(), "", 1, $params["path"], $params["domain"], $params["secure"], $params["httponly"]);
@@ -52,7 +50,7 @@ try {
             }
         //compare $userHash and $userLogin->getUserHash()
             if($user->getUserPassword()==$userHash){
-                $_SESSION["userID"]=$user->getID(); {
+                $_SESSION["userID"]=$user->getuserID(); {
                 else{
                     $_SESSION["message"] = "Your ID doesn't match your login email"                    
                 }
@@ -62,10 +60,11 @@ try {
                 }
             }
         echo "Welcome back to Group-Out.";
-     }
-        catch(mysqli_sql_exception $sqlException) {
+     } else {
+        throw(mysqli_sql_exception $sqlException) {
             echo "Exception: " . $sqlException->getMessage();
         }
+     }
 ?>
         </body>
     </html>
