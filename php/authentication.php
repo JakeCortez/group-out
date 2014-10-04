@@ -44,8 +44,9 @@ try {
             $user = User::getUserByEmail($mysqli, $userEmail);
             $userHash = $hash($_POST["userPassword"].$user->getUserSalt());
             
-        //examine if AuthToken set to null or never activated
-            if ($userAuthToken !== null) {
+        //examine AuthToken here.  Upon "activation" click, authToken is set to null
+        //otherwise db will see AuthToken or no authToken
+              if ($userAuthToken !== null) {
                 throw (new exception ("We can't find your email address.  Please register again"));              
             }
         //compare $userHash and $userLogin->getUserHash()

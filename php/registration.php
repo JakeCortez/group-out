@@ -34,7 +34,7 @@
             $newUser->insert($mysqli);
         
         // mail the user
-            $message = "Welcome to group out. Click http://bootcamp-coders.cnm.edu/group-out/php/activate.php?authToken=" . $newUser->getUserAuthToken();
+            $message = "Welcome to group out. Click http://bootcamp-coders.cnm.edu/group-out/php/activiation.php?authToken=" . $newUser->getUserAuthToken();
                 mail($newUser->getUserEmail(), "Welcome to Group Out", $message);
             
         echo "Welcome to Group Out!";

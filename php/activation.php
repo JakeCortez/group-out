@@ -1,69 +1,32 @@
-<?php
+<?php //  FROM WIKI HOW http://www.wikihow.com/Create-a-Secure-Login-Script-in-PHP-and-MySQL
     //require the class we're going to use
     require_once("../classes/user-login.php");
     
-    function login($userEmail, $userPassword, $mysqli) {
-    // Using prepared statements means that SQL injection is not possible. 
-    if ($stmt = $mysqli->prepare("SELECT userID, userPassword, userSalt FROM userID WHERE userEmail = ? LIMIT 1")) {
-        $stmt->bind_param('s', $userEmail);  // Bind "$email" to parameter.
-        $stmt->execute();    // Execute the prepared query.
-        $stmt->store_result();
- 
-        // get variables from result.
-        $stmt->bind_result($userID, $userPassword, $userSalt);
-        $stmt->fetch();
- 
-        // hash the password with the unique salt.
-        $password = hash('sha512', $userPassword . $userSalt);
-        if ($stmt->num_rows == 1) {
-            // If the user exists we check if the account is locked
-            // from too many login attempts 
- 
-            if (checkbrute($userID, $mysqli) == true) {
-                // Account is locked 
-                // Send an email to user saying their account is locked
-                return false;
-            } else {
-                // Check if the password in the database matches
-                // the password the user submitted.
-                if ($userPassword == $userPassword) {
-                    // Password is correct!
-                    // Get the user-agent string of the user.
-                    $user_browser = $_SERVER['HTTP_USER_AGENT'];
-                    // XSS protection as we might print this value
-                    $userID = preg_replace("/[^0-9]+/", "", $userID);
-                    $_SESSION['userID'] = $userID;
-                    // XSS protection as we might print this value
-                    $username = preg_replace("/[^a-zA-Z0-9_\-]+/", "", $username);
-                    $_SESSION['username'] = $username;
-                    $_SESSION['login_string'] = hash('sha512', $password . $user_browser);
-                    // Login successful.
-                    return true;
-                } else {
-                    // Password is not correct
-                    // We record this attempt in the database
-                    $now = time();
-                    $mysqli->query("INSERT INTO login_attempts(userID, time) VALUES ('$userID', '$now')");
-                    return false;
-                }
-            }
-        } else {
-            // No user exists.
-            return false;
-        }
+    // get the token from the URL
+    $userAuthToken = $_GET["authToken"];
+
+   //connect to mySQL
+    require_once("/etc/apache2/capstone-mysql/group-out.php");
+    $mysqli = Pointer::getPointer();
+  
+    // get the user by Email
+    $user = User::getUserByAuthToken($mysqli, $userAuthToken);
+  
+    // if user found: examine ser AuthToken and compare to the authToken on record
+    if ($user !== null) 
+        
+    // if AuthTokens match, set AuthToken to null in mysqli log 
+    $mysqli->setAuthToken(null);
+    
+    //user accepted, activated 
+    $user->update($mysqli);
+    
+    //OTHERWISE
+    } else {
+    
+    throw(exception $error) {
+      echo "Cannot log in user" . $error->getMessage();
     }
-}
-
+  }
 ?>
-
-
-// page to MATCH new (unapproved) USER AUTH TOKEN
-<!DOCTYPE html>
-    <html>
-        <head>
-            <title></title>
-        </head>
-        <body>
-            
-        </body>
-    </html>
+ 
