@@ -25,9 +25,9 @@ session_start();
   <body>
 
     <?php require_once('../php/nav.html');?>
-    <div class = "container-fluid">
-      <div class = "col-lg-1"></div>
-      <article class = "col-lg-10">
+    <div class="container-fluid">
+      <div class="col-lg-1"></div>
+      <article class="col-md-10">
         <?php require_once('../php/event-page-content.php');?>
 
       <div class="bar col-md-10">Comments</div>
@@ -36,7 +36,7 @@ session_start();
       <?php require_once('../php/comment-list-create-eventid.php');?>
 
       <!-- comment entry form-->
-      <div class="bar col-md-10">Add a comment</div>
+      <div class="bar col-md-10" style="margin-top:20px;">Add a comment</div>
       <div style="clear:both;"></div>
       <form class="form-horizontal" role="form" action="../php/insert-event-comment.php" method="post">
           <input type="hidden" value="<?php echo $_GET['eventID'];?>" id="eventID" name="eventID" />

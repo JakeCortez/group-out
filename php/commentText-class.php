@@ -45,6 +45,10 @@
      * @see Comment
      * */
     private $commentText;
+    /**
+     * string of the user's First Name from userProfiles table
+     **/
+    private $userFirstName;
 
 
     /**
@@ -54,7 +58,7 @@
    * @throws UnexpectedValueException when a parameter is of the wrong type
    * @throws RangeException when a parameter is invalid
    **/
-  public function __construct($newCommentID, $newCommentDateCreated, $newUserID, $newCommentText, $newGroupID, $newEventID, $newRouteID) {
+  public function __construct($newCommentID, $newCommentDateCreated, $newUserID, $newCommentText, $newGroupID, $newEventID, $newRouteID, $newUserFirstName) {
       try {
         $this->setCommentID($newCommentID);
         $this->setCommentDateCreated($newCommentDateCreated);
@@ -63,6 +67,7 @@
         $this->setGroupID($newGroupID);
         $this->setEventID($newEventID);
         $this->setRouteID($newRouteID); // FOREIGN KEY
+        $this->setUserFirstName($newUserFirstName);
 
       } catch(UnexpectedValueException $unexpectedValue) {
           // rethrow to the caller
@@ -369,6 +374,30 @@
         $this->commentText = $newCommentText;
     }
 
+///// GET & SET FOR userFirstName
+  /**
+   * gets the value of userFirstName
+   *
+   * @return string userFirstName
+   **/
+  public function getUserFirstName() {
+      return($this->userFirstName);
+  }
+
+  /**
+   * sets the value of userFirstName
+   *
+   * @param string $newUserFirstName userFirstName
+   **/
+  public function setUserFirstName($newUserFirstName) {
+      // filter the city as a generic string
+      $newUserFirstName = trim($newUserFirstName);
+      $newUserFirstName = filter_var($newUserFirstName, FILTER_SANITIZE_STRING);
+
+      // then just take the city out of quarantine
+      $this->userFirstName = $newUserFirstName;
+  }
+
     ///// METHOD TO INSERT COMMENT INTO MYSQL
   /**
    * inserts this commentText to mysql
@@ -448,16 +477,20 @@
 
   }
 
-   //// STATIC METHOD to get public comments by the UserID of the event author
+   //// STATIC METHOD to get public comments by the UserID
   /**
    *
-   * @param makes a query on the Events table to grab results for a list of Events
-   * @return creates multiple $eventArry objects that can be looped through
+   * @param makes a query on the comments and userProfiles tables to grab results
+   * @return creates multiple $userCommentArrays objects that can be looped through
    *
    **/
   public static function getCommentsByUserID(&$mysqli, $userID) {
     // create & prepare a query template
-    $query = "SELECT commentID, commentDateCreated, userID, commentText, groupID, eventID, routeID FROM comments WHERE userID = ? LIMIT 10";
+    $query = "SELECT comments.commentID, comments.commentDateCreated, comments.userID, comments.commentText, comments.groupID, comments.eventID, comments.routeID, userProfiles.userFirstName
+              FROM comments
+              LEFT JOIN userProfiles ON comments.userID=userProfiles.userID
+              WHERE userID = ?
+              LIMIT 10";
 
     // prepare the statement
     if(($statement = $mysqli->prepare($query)) === false) {
@@ -479,26 +512,30 @@
       throw(new mysqli_sql_exception("Unable to get results"));
     }
 
-    // create the $eventArray that can be looped through
+    // create the $userCommentArray that can be looped through
     $userCommentArray = array();
 
     while(($row = $result->fetch_assoc()) !== null) {
-      $userCommentArray[] = new Comment($row["commentID"], $row["commentDateCreated"], $row["userID"], $row["commentText"], $row["groupID"], $row["eventID"], $row["routeID"]);
+      $userCommentArray[] = new Comment($row["commentID"], $row["commentDateCreated"], $row["userID"], $row["commentText"], $row["groupID"], $row["eventID"], $row["routeID"], $row["userFirstName"]);
     }
 
     return $userCommentArray;
   }
 
-     //// STATIC METHOD to get public comments by the RouteID of the event author
+     //// STATIC METHOD to get public comments by the RouteID
   /**
    *
-   * @param makes a query on the Route table to grab results for a list of Route
-   * @return creates multiple $eventArry objects that can be looped through
+   * @param makes a query on the comments and userProfiles tables to grab results
+   * @return creates multiple $userCommentArrays objects that can be looped through
    *
    **/
   public static function getCommentsByRouteID(&$mysqli, $routeID) {
     // create & prepare a query template
-    $query = "SELECT commentID, commentDateCreated, userID, commentText, groupID, eventID, routeID FROM comments WHERE userID = ? LIMIT 5";
+    $query = "SELECT comments.commentID, comments.commentDateCreated, comments.userID, comments.commentText, comments.groupID, comments.eventID, comments.routeID, userProfiles.userFirstName
+              FROM comments
+              LEFT JOIN userProfiles ON comments.userID=userProfiles.userID
+              WHERE routeID = ?
+              LIMIT 10";
 
     // prepare the statement
     if(($statement = $mysqli->prepare($query)) === false) {
@@ -520,26 +557,30 @@
       throw(new mysqli_sql_exception("Unable to get results"));
     }
 
-    // create the $routeArray that can be looped through
-    $routeCommentArray = array();
+    // create the $userCommentArray that can be looped through
+    $userCommentArray = array();
 
     while(($row = $result->fetch_assoc()) !== null) {
-      $routeCommentArray[] = new Comment($row["commentID"], $row["commentDateCreated"], $row["userID"], $row["commentText"], $row["groupID"], $row["eventID"], $row["routeID"]);
+      $userCommentArray[] = new Comment($row["commentID"], $row["commentDateCreated"], $row["userID"], $row["commentText"], $row["groupID"], $row["eventID"], $row["routeID"], $row["userFirstName"]);
     }
 
-    return $routeCommentArray;
+    return $userCommentArray;
   }
 
 //// STATIC METHOD to get public comments by the eventID
   /**
   *
-  * @param makes a query on the Events table to grab results for a list of Events
-  * @return creates multiple $eventArry objects that can be looped through
+  * @param makes a query on the comments and userProfiles tables to grab results
+  * @return creates multiple $userCommentArrays objects that can be looped through
   *
   **/
   public static function getCommentsByEventID(&$mysqli, $eventID) {
    // create & prepare a query template
-   $query = "SELECT commentID, commentDateCreated, userID, commentText, groupID, eventID, routeID FROM comments WHERE eventID = ? LIMIT 10";
+   $query = "SELECT comments.commentID, comments.commentDateCreated, comments.userID, comments.commentText, comments.groupID, comments.eventID, comments.routeID, userProfiles.userFirstName
+             FROM comments
+             LEFT JOIN userProfiles ON comments.userID=userProfiles.userID
+             WHERE eventID = ?
+             LIMIT 10";
 
    // prepare the statement
    if(($statement = $mysqli->prepare($query)) === false) {
@@ -561,26 +602,30 @@
      throw(new mysqli_sql_exception("Unable to get results"));
    }
 
-   // create the $eventArray that can be looped through
+   // create the $userCommentArray that can be looped through
    $userCommentArray = array();
 
    while(($row = $result->fetch_assoc()) !== null) {
-     $userCommentArray[] = new Comment($row["commentID"], $row["commentDateCreated"], $row["userID"], $row["commentText"], $row["groupID"], $row["eventID"], $row["routeID"]);
+     $userCommentArray[] = new Comment($row["commentID"], $row["commentDateCreated"], $row["userID"], $row["commentText"], $row["groupID"], $row["eventID"], $row["routeID"], $row["userFirstName"]);
    }
 
    return $userCommentArray;
 }
 
-     //// STATIC METHOD to get public comments by the GroupID of the event author
+//// STATIC METHOD to get public comments by the groupID of the event author
   /**
    *
-   * @param makes a query on the Groups table to grab results for a list of Groups
-   * @return creates multiple $eventArry objects that can be looped through
+   * @param makes a query on the comments and userProfiles tables to grab results
+   * @return creates multiple $userCommentArrays objects that can be looped through
    *
    **/
   public static function getCommentsByGroupID(&$mysqli, $groupID) {
     // create & prepare a query template
-    $query = "SELECT commentID, commentDateCreated, userID, commentText, groupID, eventID, routeID FROM comments WHERE groupID = ? LIMIT 5";
+    $query = "SELECT comments.commentID, comments.commentDateCreated, comments.userID, comments.commentText, comments.groupID, comments.eventID, comments.routeID, userProfiles.userFirstName
+              FROM comments
+              LEFT JOIN userProfiles ON comments.userID=userProfiles.userID
+              WHERE groupID = ?
+              LIMIT 10";
 
     // prepare the statement
     if(($statement = $mysqli->prepare($query)) === false) {
@@ -602,14 +647,14 @@
       throw(new mysqli_sql_exception("Unable to get results"));
     }
 
-    // create the $eventArray that can be looped through
-    $groupCommentArray = array();
+    // create the $userCommentArray that can be looped through
+    $userCommentArray = array();
 
     while(($row = $result->fetch_assoc()) !== null) {
-      $groupCommentArray[] = new Comment($row["commentID"], $row["commentDateCreated"], $row["userID"], $row["commentText"], $row["groupID"], $row["eventID"], $row["routeID"]);
+      $userCommentArray[] = new Comment($row["commentID"], $row["commentDateCreated"], $row["userID"], $row["commentText"], $row["groupID"], $row["eventID"], $row["routeID"], $row["userFirstName"]);
     }
 
-    return $groupCommentArray;
+    return $userCommentArray;
   }
 }
 

@@ -35,12 +35,14 @@ try {
 
     // echo the result
     echo <<<EOD
-      <div class="userAvatar"></div>
-      <div class="userDisplayName">$eventName</div>
-      <div class="userActivities">$niceDate<br><strong>$eventActivityList</strong></div>
-      <div class="userAboutMe">
-        <h1>Event Description</h1>
-        <p>$eventDescription</p>
+      <div class="col-md-10">
+        <div class="userAvatar"></div>
+        <div class="userDisplayName">$eventName</div>
+        <div class="userActivities">$niceDate<br><strong>$eventActivityList</strong></div>
+        <div class="userAboutMe">
+          <h1>Event Description</h1>
+          <p>$eventDescription</p>
+        </div>
       </div>
 EOD;
   }
