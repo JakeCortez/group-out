@@ -241,7 +241,7 @@ class User {
         //first, trim the input of any excess white space
         $newUserSalt = trim($newUserSalt);
      
-        //second, verify this is a string of 32 hexadecimal characters
+        //second, verify this is a string of 64 hexadecimal characters
         $filterOptions = array("options" => array("regexp" =>"/^[0-9a-f]{64}$/i"));
         if((filter_var($newUserSalt, FILTER_VALIDATE_REGEXP, $filterOptions)) === false) {
             throw(new UnexpectedValueException("$newUserSalt is not hexadecimal"));
@@ -356,8 +356,8 @@ class User {
         
         //bind member variables to the placeholder in the template (ORDER MATTERS!)
         $wasClean = $statement->bind_param("sssisi", $this->userAuthToken, $this->userEmail, 
-                                                    $this->userPassword,  $this->userRole, 
-                                                    $this->userSalt, $this->userID);
+                                                     $this->userPassword,  $this->userRole, 
+                                                     $this->userSalt,      $this->userID);
         
         if($wasClean === false) {
             throw(new mysqli_sql_exception("Unable to bind parameters"));
@@ -378,14 +378,19 @@ class User {
      *@throws mysqli_sql_exception when mySQL related errors occur
      **/
     public static function getUserByAuthToken(&$mysqli, $authToken) {
+        
           //handle degenerate cases
         if(gettype($mysqli) !== "object" || get_class($mysqli) !== "mysqli") {
             throw(new mysqli_sql_exception("input is not a mysqli object"));
         }
         
-        //sanitize the authToken before searching
-        $authToken = trim($authToken);
-        $authToken = filter_var($authToken, FILTER_VALIDATE_INT, FILTER_FLAG_ALLOW_HEX);
+        //sanitize the authToken 
+        $authToken = trim($authToken)
+        
+        //verify this is a string of 32 hexadecimal characters using filter_var:
+        $filterOptions = array("options" => array("regexp" =>"/^[0-9a-f]{32}$/i"));
+        if((filter_var($newAuthToken, FILTER_VALIDATE_REGEXP, $filterOptions)) === false) {
+            throw(new UnexpectedValueException("$newAuthToken is not hexadecimal"));
         
         //create query template -- 
         $query     = "SELECT userID, userAuthToken, userEmail, userPassword, userRole, userSalt FROM userLogin WHERE userAuthToken = ?";
@@ -419,14 +424,11 @@ class User {
         if($row !== null) {
             try {
                 $user = new User($row["userID"], $row["userAuthToken"], $row["userEmail"], $row["userPassword"], $row["userRole"], $row["userSalt"]);
-                var_dump($user);
             }
             catch(Exception $exception) {
                 // if the row couldn't be converted, rethrow it
                 throw(new mysqli_sql_exception("Unable to convert row to User", 0, $exception));
             }
-            //if we got here, the user is USER - remove AuthToken from files, user can be gotten by Email
-            return($user);
         } else {
             return(null);
         }
@@ -444,6 +446,10 @@ class User {
         if($statement->execute() === false) {
             throw(new mysqli_sql_exception("Unable to execute mySQL statement"));
         }
+        
+        // now return the new, authToken-free user
+        $user->setUserAuthToken(null);
+        return($user);
     }
     /**
      *get USER by email

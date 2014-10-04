@@ -1,5 +1,6 @@
 <?php
-
+    //require the class we're going to use
+    require_once("../classes/user-login.php");
 
 ?>
 

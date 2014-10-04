@@ -5,6 +5,21 @@
     //start the session state
     session_start();
     
+    //set session to a blank array
+    $_SESSION = array();
+    
+    //insert something into the session to follow user & userZip
+    $_SESSION["userID", "userZip"] = "";
+    
+    echo "<br />Your session ID is " .$_COOKIE["PHPSESSID"];
+    
+    //destroy the cookie
+    $params = session_get_cookie_params();
+    setcookie(session_name(), "", 1, $params["path"], $params["domain"], $params["secure"], $params["httponly"]);
+
+    //destroy the current session
+    session_destroy();
+    
 ?>
 <!DOCTYPE html>
     <html>
@@ -31,7 +46,7 @@ try {
             $user = User::getUserByEmail($mysqli, $userEmail);
             $userHash = $hash($_POST["userPassword"].$user->getUserSalt());
             
-        //examine AuthToken
+        //examine if AuthToken set to null or never activated
             if ($userAuthToken !== null) {
                 throw (new exception ("We can't find your email address.  Please register again"));              
             }
@@ -51,7 +66,6 @@ try {
         catch(mysqli_sql_exception $sqlException) {
             echo "Exception: " . $sqlException->getMessage();
         }
-        
-        ?>
+?>
         </body>
     </html>
