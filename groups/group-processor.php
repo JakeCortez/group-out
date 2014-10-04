@@ -42,6 +42,8 @@
         throw(new mysqli_sql_exception("sorry, could not save group"));
     }
     
-    //we did it!
-    echo("you succesfully created a group");
+    $group   = Group::getGroupByName($mysqli, $_POST["groupName"]);
+    $groupID = $group->getGroupID();
+    
+    header("Location: group.php?groupID=$groupID");
 ?>

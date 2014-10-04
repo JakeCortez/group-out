@@ -13,7 +13,7 @@ try {
   $mysqli = Pointer::getPointer();
 
   // grab the groupID from the page URL
-  $pageEventID = $_GET["groupID"];
+  $pageGroupID = $_GET["groupID"];
 
   // call the class static method for getting details about the group via groupID
   $groupArray = Group::getGroupInfo($mysqli, $pageGroupID);
@@ -29,8 +29,6 @@ try {
     $groupCity = $group->getGroupCity();
     $groupState = $group->getGroupState();
     $groupSkill = $group->getGroupSkill();
-    $groupMemberCount = $group->getGroupMemberCount();
-    $groupActivityList = $group->getGroupActivityList();
     $groupDescription = $group->getGroupDescription();
 
     // echo the result

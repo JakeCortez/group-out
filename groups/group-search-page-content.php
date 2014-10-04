@@ -1,5 +1,4 @@
 <?php
-session_start();
 $_SESSION["userID"] = 1;
 require_once("../classes/group-class.php");
 
@@ -22,7 +21,7 @@ foreach($groupArray as $group) {
 
   // reformat the date
   $groupID = $group->getGroupID();
-  $dateTime = $group->getGroupDate();
+  $dateTime = $group->getGroupDateCreated();
   $niceDate = $dateTime->format("F j, Y");
   $groupName = $group->getGroupName();
   $groupCity = $group->getGroupCity();
@@ -52,3 +51,8 @@ foreach($groupArray as $group) {
     </div>
 EOD;
 }
+} catch(mysqli_sql_exception $error) {
+echo 'oops';
+}
+
+?>

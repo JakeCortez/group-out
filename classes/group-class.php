@@ -51,7 +51,10 @@ class Group {
      * number for privacy setting
      **/
     private $privacyLevel;
-
+    /**
+     * string, user selects from drop-down that inputs CHARS(2)
+     */
+    //private $groupActivityList;
 
     /**
      * contructor for group
@@ -67,11 +70,13 @@ class Group {
      *@param integer that represents skill level of group (0-4)
      *@param regular expression for zip code(s) of group based in
      *@param integer that represents privacy level of group (0-2)
+     *@param string $newGroupActivityList, one or more
      *@throws UnexpectedValueException if fails to construct group
      *@throws RangeException if fails to construct group
      **/
     public function __construct($newGroupID, $newUserID, $newGroupDateCreated, $newGroupAvatar, $newGroupCity,
-                                $newGroupDescription, $newGroupName, $newGroupSkill, $newGroupState, $newGroupZip, $newPrivacyLevel){
+                                $newGroupDescription, $newGroupName, $newGroupSkill, $newGroupState, $newGroupZip, $newPrivacyLevel//, $newGroupActivityList){
+                               ){
         try{
             //validate and sanitize inputs
             $this->setGroupID($newGroupID);
@@ -85,6 +90,7 @@ class Group {
             $this->setGroupState($newGroupState);
             $this->setGroupZip($newGroupZip);
             $this->setPrivacyLevel($newPrivacyLevel);
+            //$this->setGroupActivityList($newGroupActivityList);
         }
         catch(UnexpectedValueException $error){
             throw(new UnexpectedValueException("Sorry Something went wrong when creating your group.", 0, $error));
@@ -477,6 +483,26 @@ class Group {
     }
     
     /**
+     * gets value of groupActivityList
+     **/
+    public function getGroupActivityList(){
+        return($this->groupActivityList);
+    }
+    
+    /**
+     * sets value of groupActivityList
+     *
+     * @param mixed for list of acitivities
+     **/
+    public function setGroupActivityList($newGroupActivityList){
+        //filter for bad inputs
+        $newGroupActivityList = trim($newGroupActivityList);
+        $newGroupActivityList = filter_var($newGroupActivityList, FILTER_SANITIZE_STRING);
+        //set value of activities
+        $this->groupActivityList = $newGroupActivityList;
+    }
+    
+    /**
      * inserts group into mySQL
      *
      * @param resource $mysqli pointer to mySQL connection, by reference
@@ -682,8 +708,8 @@ class Group {
         }
         
         //query template
-        $query     = "SELECT groupID, userID, groupDateCreated, groupAvatar, groupCity, groupDescription,
-                                         groupName, groupSkill, groupState, groupZip, privacyLevel FROM groups WHERE groupID = ?";
+        $query     = "SELECT groups.groupID, groups.userID, groups.groupDateCreated, groups.groupAvatar, groups.groups.groupCity, groups.groupDescription, groups.groupName, groups.groupSkill, groups.groupSkill, groups.groupState, groups.groupZip, groups.privacyLevel, groupsToActivity.groupActivityList FROM groups
+        INNER JOIN (SELECT DISTINCT groupID, GROUP-CONCAT(DISTINCT activityTypeName ORDER BY activityTypeName SEPERATOR ', ') AS groupActivityList FROM groupToActivity";
         
         $statement = $mysqli->prepare($query);
         if($statement === false){
@@ -691,7 +717,7 @@ class Group {
         }
         
         //bind member variables to the place holder
-        $clean = $statement->bind_param("s", $groupID);
+        $clean = $statement->bind_param("i", $groupID);
         if($clean === false){
             throw(new mysqli_sql_exception("Unable to bind parameter"));
         }
@@ -747,7 +773,7 @@ class Group {
         }
         
         //bind member variables to the place holder
-        $clean = $statement->bind_param("s", $groupID);
+        $clean = $statement->bind_param("i", $groupID);
         if($clean === false){
             throw(new mysqli_sql_exception("Unable to bind parameter"));
         }
@@ -767,7 +793,7 @@ class Group {
         $groupArray = array();
         
         while(($row = $result->fetch_assoc()) !== null) {
-            $groupArray = new Group($row["groupID"], $row["userID"], $row["groupDateCreated"], $row["groupAvatar"], $row["groupCity"], $row["groupDescription"],
+            $groupArray[] = new Group($row["groupID"], $row["userID"], $row["groupDateCreated"], $row["groupAvatar"], $row["groupCity"], $row["groupDescription"],
                                    $row["groupName"], $row["groupSkill"], $row["groupState"], $row["groupZip"], $row["privacyLevel"]);
         }
         
@@ -780,8 +806,8 @@ class Group {
             throw(new mysqli_sql_exception("input is not a mysqli object"));
         }
         
-        $query = "SELECT groupID, userID, groupDateCreated, groupAvatar, groupCity, groupDescription,
-                                         groupName, groupSkill, groupState, groupZip, privacyLevel FROM groups";
+        $query = "SELECT groups.groupID, groups.userID, groups.groupDateCreated, groups.groupAvatar, groups.groupCity, groups.groupDescription,
+                                         groups.groupName, groups.groupSkill, groups.groupState, groups.groupZip, groups.privacyLevel FROM groups";
         
         $statement = $mysqli->prepare($query);
         if($statement === false){
@@ -803,7 +829,7 @@ class Group {
         $groupArray = array();
         
         while(($row = $result->fetch_assoc()) !== null) {
-            $groupArray = new Group($row["groupID"], $row["userID"], $row["groupDateCreated"], $row["groupAvatar"], $row["groupCity"], $row["groupDescription"],
+            $groupArray[] = new Group($row["groupID"], $row["userID"], $row["groupDateCreated"], $row["groupAvatar"], $row["groupCity"], $row["groupDescription"],
                                    $row["groupName"], $row["groupSkill"], $row["groupState"], $row["groupZip"], $row["privacyLevel"]);
         }
         

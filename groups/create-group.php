@@ -27,7 +27,7 @@
       <article class = "col-lg-10">
       <div class = "page_content">
         <h1 id = "createHeader">Create a Group</h1><br>
-        <form method = "post" action = "../php/group-processor.php" class = "basicForm">
+        <form method = "post" action = "group-processor.php" class = "basicForm">
           <label for = "groupName">Group Name:</label>
           <input type = "text" name = "groupName"><br>
           <label for = "groupAvatar">Group Avatar:</label>

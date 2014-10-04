@@ -25,10 +25,8 @@
     <div class = "container-fluid">
       <div class = "col-lg-1"></div>
       <article class = "col-lg-10">
-          <div class = "page_info">
-  
+
           <?php require_once("group-search-page-content.php");?>
-          </div>
 
       </article>
       <div class = "col-lg-1"></div>
