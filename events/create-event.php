@@ -1,4 +1,7 @@
- <!DOCTYPE html>
+<?php
+session_start();
+?>
+<!DOCTYPE html>
 <html>
   <head>
      <meta charset="UTF-8">
@@ -20,7 +23,7 @@
       <script src="../js/group-out.js"></script>
   </head>
   <body>
-    
+
     <?php require_once('../php/nav.html');?>
     <div class = "container-fluid">
       <div class = "col-lg-1"></div>
@@ -73,4 +76,3 @@
           <script src="../js/validateLogIn.js"></script>
   </body>
 </html>
-
