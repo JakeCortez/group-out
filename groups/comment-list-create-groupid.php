@@ -17,7 +17,7 @@ try {
 
 
   // call the class static method for getting user comments by this page's eventID
-  $userCommentArray = Comment::getCommentsByEventID($mysqli, $pageGroupID);
+  $userCommentArray = Comment::getCommentsByGroupID($mysqli, $pageGroupID);
 
   // loop through the result set
   foreach($userCommentArray as $comment) {
