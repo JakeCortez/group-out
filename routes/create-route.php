@@ -1,4 +1,11 @@
- <!DOCTYPE html>
+<?php
+session_start();
+$_SESSION["userZip"] = 87124;
+$userZipGeocode = file_get_contents(
+("https://maps.googleapis.com/maps/api/geocode/json?address=".$_SESSION["userZip"]."&key=AIzaSyB2aOD4S27kgQRMsngL2OLy_nKGYJ6YUO8"));
+?>
+
+<!DOCTYPE html>
 <html>
   <head>
      <meta charset="UTF-8">
@@ -6,113 +13,49 @@
      <meta name="viewport" content="width=device-width, initial-scale=1">
      <title>Group Out</title>
      <?php
-     //include "../php/RouteClass.php";
-     //include "../php/MapMarkerClass.php";
-     //include "../php/sqlconnect.php";
-     require_once ("../config/Pointer.php");
-     require_once("../php/getUserZip.php");
-     
-     $mysqli = Pointer::getPointer();
-     $query = "select ";
+	require_once ("../config/Pointer.php");
+	$mysqli = Pointer::getPointer();
+	$query = "";//SQL TO WRITE TO DATABASE
      
      ?>
-     <!-- script below grabs user's zip code -->
-     
-          <!--custom css and javascript-->
-      <link href="../css/style.css" rel="stylesheet">
-      <script type="text/javascript"
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB2aOD4S27kgQRMsngL2OLy_nKGYJ6YUO8&libraries=drawing">
-    </script>
-      <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script> 
-      <script type = "text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-      <script src="json2.js"></script>
-      <script type="text/javascript">
+     <!-- declaring important variables -->
+     <script type="text/javascript">
       var data = {};
       var routeData = {};
-      var geocoder;
       var latlngCenter;
-      function initialize() {
-        /**
-        geocoder = new google.maps.Geocoder();
-        geocoder.geocode({'address':zipCode},function(results,status){
-        if (status == google.maps.GeocoderStatus.OK) {
-        latlngCenter = (results[0].geometry.location);
-          });
-        }
-        **/
-       
-        var latInput = 35.1107;
-        var lngInput = -106.61;
-        latlngCenter = new google.maps.LatLng(latInput,lngInput);
-        var latlngRouteStart = new google.maps.LatLng(latInput,lngInput);
-        var latlngDestination = new google.maps.LatLng(latInput+.2,lngInput+.2);
-        directionsRendererObject = new google.maps.DirectionsRenderer({'draggable':true});
-        directionsServiceObject = new google.maps.DirectionsService();
-        directionsServiceObject.route(
-          {'origin': latlngRouteStart,'destination': latlngDestination,'travelMode':google.maps.DirectionsTravelMode.WALKING},
-          function(res,sts){if(sts == 'OK')directionsRendererObject.setDirections(res);}//res is a directionsResult object  
-        )
-        var mapOptions = {
-          center: latlngCenter,
-          zoom: 12
-        };
-        var map = new google.maps.Map(document.getElementById('map-canvas'),mapOptions);
-        directionsRendererObject.setMap(map);
-        var drawingManager = new google.maps.drawing.DrawingManager({
-            drawingMode: google.maps.drawing.OverlayType.MARKER,
-            drawingControl: true,
-            drawingControlOptions: {
-              position: google.maps.ControlPosition.TOP_CENTER,
-              drawingModes: [
-                google.maps.drawing.OverlayType.MARKER,
-                google.maps.drawing.OverlayType.POLYLINE
-              ]
-            },
-            markerOptions: {
-              icon: 'http://www.example.com/icon.png'
-            },
-            circleOptions: {
-              fillColor: '#ffff00',
-              fillOpacity: 1,
-              strokeWeight: 5,
-              clickable: false,
-              zIndex: 1,
-              editable: true
-            }
-          });
-          drawingManager.setMap(map);
+     </script>
+      <!--linking css and javascript-->
+      <link href="../css/style.css" rel="stylesheet">
+      <script type="text/javascript" src="saveMapFunction.js"></script>
+      <script type="text/javascript" src="mapInitFunction.js"></script>
+      <script type="text/javascript"
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB2aOD4S27kgQRMsngL2OLy_nKGYJ6YUO8&libraries=drawing">
+      </script>
+      <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script> 
+      <script type = "text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+     <!-- MAKING AN AJAX OBJECT called "request" -->
+     <script type = "text/javascript" src="createRequest.js"></script>
+     <script>
+    //getting latLng coordinates of users zip code from google geocode api
+    var request = null;
+    var userZipLatLng;
+    request = createRequest();
+     var url = "https://maps.googleapis.com/maps/api/geocode/json?address="+<?php echo $_SESSION["userZip"]?>+"&key=AIzaSyB2aOD4S27kgQRMsngL2OLy_nKGYJ6YUO8";
+     request.open("GET",url, false);
+     request.onreadystatechange = function(){
+      if (request.readyState==4) {
+	var geocodeObject = JSON.parse(request.responseText);
+	userZipLatLng = (geocodeObject.results[0].geometry.location);
+	
       }
-      google.maps.event.addDomListener(window, 'load', initialize);
-      
-      function save_map(){
-        routeData.routeName = document.getElementById("routeName").value;
-        routeData.routeType = document.getElementById("routeType").value;
-        routeData.skill = document.getElementById("skill").value;
-        routeData.privacyLevel = document.getElementById("privacyLevel").value;
-        routeData.routeInfo = document.getElementById("routeInfo").value; 
-	var w=[],wp;
-	var rleg = directionsRendererObject.directions.routes[0].legs[0]; //https://developers.google.com/maps/documentation/directions/#Legs rleg is assigned to first leg of first route
-	data.start = {'lat': rleg.start_location.lat(), 'lng':rleg.start_location.lng()}//data object is given a start property assigned the lat and lng coordinates of rleg's start
-	data.end = {'lat': rleg.end_location.lat(), 'lng':rleg.end_location.lng()}
-	var wp = rleg.via_waypoints	//wp is assigned to the array of user generated waypoints
-	for(var i=0;i<wp.length;i++)w[i] = [wp[i].lat(),wp[i].lng()]	 //wp is fed 2d array w/ lat and lng of each waypoint
-	data.waypoints = w; //data object's waypoint variable is assigned to the array we just fed valued to 
-	var str = JSON.stringify(data) //our data is turned into a jsong string
-        var routeDataString = JSON.stringify(routeData);
-	var jax = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');//an ajax object is created 
-	jax.open('POST','route-save.php');//make a post request to php file...this must be done before we send data
-	jax.setRequestHeader('Content-Type','application/x-www-form-urlencoded');//specifies the type of data we'll be sending
-	jax.send('command=save&mapdata='+str+'&routeData='+routeDataString)//Sends "save" command. Also sends str as $_REQUEST['mapdata']
-        //to php file AND the str string...sends routeData as routeDataString too
-	jax.onreadystatechange = function(){ if(jax.readyState==4) {	//when ready state of ajax object changes we run the function
-		//if all went well with the connection...
-		
-		
-		//if connection was messed up...
-		
-	}}
-}
+     }
+     request.send(null);
+    google.maps.event.addDomListener(window, 'load', initialize);
     </script>
+     
+     
+     
             <!-- Bootstrap -->
       <link href="../css/bootstrap.min.css" rel="stylesheet">
       <script src="../js/bootstrap.min.js"></script>
@@ -159,7 +102,7 @@
               <option value = "1">Private - Only you can see this route</option>
               <option value = "0">Public - Anybody can see this route</option>
             </select><br>
-            <input type="button" value="Create" onClick="save_map()"></input>
+            <input type="button" value="Create" onClick="save_map();"/>
           </form>
         </div>
       </article>
