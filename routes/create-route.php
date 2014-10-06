@@ -12,12 +12,7 @@ $userZipGeocode = file_get_contents(
      <meta http-equiv="X-UA-Compatible" content="IE=edge">
      <meta name="viewport" content="width=device-width, initial-scale=1">
      <title>Group Out</title>
-     <?php
-	require_once ("../config/Pointer.php");
-	$mysqli = Pointer::getPointer();
-	$query = "";//SQL TO WRITE TO DATABASE
      
-     ?>
      <!-- declaring important variables -->
      <script type="text/javascript">
       var data = {};
