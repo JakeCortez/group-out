@@ -627,7 +627,7 @@ class Event {
     }
 
     // create query template
-    $query = "INSERT INTO events(routeID, userID, eventDateCreated, eventCity, eventDate, eventDescription, eventDifficulty, eventName, eventPrivacy, eventState, eventZip) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $query = "INSERT INTO events(routeID, userID, eventDateCreated, eventCity, eventDate, eventDescription, eventDifficulty, eventName, eventPrivacy, eventState, eventZip, eventMemberCount) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     $statement = $mysqli->prepare($query);
     if($statement === false) {
       throw(new mysqli_sql_exception("Unable to prepare statement"));
@@ -635,7 +635,7 @@ class Event {
 
     // bind the member variables to the place holders in the template
     // for bind_param s=string i=integer d=double
-    $wasClean = $statement->bind_param("iissssisiis", $this->routeID, $this->userID, $this->eventDateCreated, $this->eventCity, $this->eventDate, $this->eventDescription, $this->eventDifficulty, $this->eventName, $this->eventPrivacy, $this->eventState, $this->eventZip);
+    $wasClean = $statement->bind_param("iissssisisss", $this->routeID, $this->userID, $this->eventDateCreated, $this->eventCity, $this->eventDate, $this->eventDescription, $this->eventDifficulty, $this->eventName, $this->eventPrivacy, $this->eventState, $this->eventZip, $this->eventMemberCount);
     if($wasClean === false) {
       throw(new mysqli_sql_exception("Unable to bind parameters"));
     }

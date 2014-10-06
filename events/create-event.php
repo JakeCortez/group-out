@@ -31,6 +31,7 @@ session_start();
         <div class = "page_content">
           <h1 id = "createHeader">Create an Event</h1><br>
           <form class = "basicForm" id="eventName" method="post" action="event-processor.php">
+            <input type="hidden" id="eventMemberCount" name="eventMemberCount" value="1" />
             <label for="eventName">Event Name</label>
             <input type="text" id="eventName" required name="eventName" placeholder="myEvent!"/><br>
             <label for="eventCity">Event City</label>

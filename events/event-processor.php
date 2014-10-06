@@ -29,7 +29,7 @@
     try{
     $event  = new Event(null, null, $_SESSION["userID"], null, $_POST["eventCity"], $_POST["eventDate"],
                      $_POST["eventDescription"], $_POST["eventDifficulty"], $_POST["eventName"],
-                     $_POST["eventPrivacy"], $_POST["eventState"], $_POST["eventZip"], 1, null);
+                     $_POST["eventPrivacy"], $_POST["eventState"], $_POST["eventZip"], $_POST["eventMemberCount"], null);
     }
     catch(UnexpectedValueException $error){
         throw(new UnexpectedValueException("sorry something went wrong when creating your event", 0, $error));
