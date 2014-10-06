@@ -7,79 +7,79 @@ class Userprofile {
 * primary key of the user, auto incrementd
 **/
 
-private userProfileId;
+private $userProfileId;
 /*
 * foreign key of the user's profile, auto incremented in the profile table
 * @see Profile
 */
-}
 
-private dateCreated;
+
+private $dateCreated;
 /*
 * date of user profile creation, this is unique field
 * validate & sanitize date format, regexp
 */
 
-private firstName;
+private $firstName;
 
 /*
  * user's first name, validate & sanitize string regexp
  * 
  */
 
- private lastName;
+ private $lastName;
  
  /*
   * user's las name, validate & sanitize string regexp
   *
   */
  
- private userCity;
+ private $userCity;
  
  /*
   * user's preferred or home city, validate & sanitize string regexp
   *
   */
- private userState;
+ private $userState;
  
  /*
   * user's home/preferred state, validate & sanitize INT
   * 
   */
  
- private userZip;
+ private $userZip;
  
  /*
   * user's preferred or home location's zip code
   *
   */
- private aboutMe;
+ private $aboutMe;
  
  /*
   * user's self description, validate & sanitize string, regexp
   *
   */
- private userPrivacyLevel;
+ private $userPrivacyLevel;
  
  /*
   * validate user's current privacy setting
   *
   */
  
- private userWebsite;
+ private $userWebsite;
  
  /*
   * user's website page, validate & sanitize url link
   *
   */
  
- private userAvatar;
+ private $userAvatar;
  
  /*
   * validate user's personal profile Avatar source format
   *
   */
- private userId;
+ private $userId;
  
  /*
   * user's Id, validate
@@ -497,47 +497,47 @@ private firstName;
      **/
     public function setUserAvatar($newUserAvatar){
         //create the white list of allowed types
-$goodExtentions = array("jpg", "jpeg", "png");
-$goodMimes = array("image/jpeg", "image/png");
-
-//verify the file was uploaded ok
-if($_FILES["avatar"]["error"] !== UPLOAD_ERR_OK) {
-    throw(new RunTimeException ("error while uploading file: " . $_FILES["avatar"]["error"]));
-}
-
-//verify the file is an allowed extension and type
-$extension = end(explode(".", $_FILES["avatar"]["name"]));
-if(in_array($extension, $goodExtentions) === false 
-   || in_array($_FILES["avatar"]["type"], $goodMimes) === false ) {
-    throw(new RuntimeException($_FILES["avatar"]["name"]. " is not a JPEG or PNG file"));
-   }
-  
-//move the file to its peramanent home - instead of mt_rand() - use mysql for the id, please...
-$destination = "/var/www/html/upload";
-//sanitize file name for security reasons
-$fileName = "avatar-".mt_rand(1,1024).".".strtolower($extension);
-if(move_uploaded_file($_FILES["avatar"]["tmp_name"], "$destination/$fileName") === false) {
-    throw(new RuntimeException("Unable to move file"));
-
-}
-//report successful upload to the user
-
-$avatarName = $_FILES["avatar"]["name"];
-$avatarSize = $_FILES["avatar"]["size"];
-$avatarType = $_FILES["avatar"]["type"];
-$firstName = $_POST["firstName"];
-$lastName =  $_POST["lastName"];
-echo<<<_EOF
-<p>Profile successfully updated</p>
-<ul>
-    <li>First Name: $firstName</li>
-    <li>Last Name: $lastName</li>
-    <li>Avatar: $avatarName ($avatarType, $avatarSize bytes) <br />
-    <img src="/upload/$avatarName" /></li>
-</ul>
-_EOF;
-// the file name was not sanitized, for safe
+        $goodExtentions = array("jpg", "jpeg", "png");
+        $goodMimes = array("image/jpeg", "image/png");
         
+        //verify the file was uploaded ok
+        if($_FILES["avatar"]["error"] !== UPLOAD_ERR_OK) {
+            throw(new RunTimeException ("error while uploading file: " . $_FILES["avatar"]["error"]));
+        }
+        
+        //verify the file is an allowed extension and type
+        $extension = end(explode(".", $_FILES["avatar"]["name"]));
+        if(in_array($extension, $goodExtentions) === false 
+           || in_array($_FILES["avatar"]["type"], $goodMimes) === false ) {
+            throw(new RuntimeException($_FILES["avatar"]["name"]. " is not a JPEG or PNG file"));
+           }
+          
+        //move the file to its peramanent home - instead of mt_rand() - use mysql for the id, please...
+        $destination = "/var/www/html/upload";
+        //sanitize file name for security reasons
+        $fileName = "avatar-".mt_rand(1,1024).".".strtolower($extension);
+        if(move_uploaded_file($_FILES["avatar"]["tmp_name"], "$destination/$fileName") === false) {
+            throw(new RuntimeException("Unable to move file"));
+        
+        }
+        //report successful upload to the user
+        
+        $avatarName = $_FILES["avatar"]["name"];
+        $avatarSize = $_FILES["avatar"]["size"];
+        $avatarType = $_FILES["avatar"]["type"];
+        $firstName = $_POST["firstName"];
+        $lastName =  $_POST["lastName"];
+        echo<<<_EOF
+        <p>Profile successfully updated</p>
+        <ul>
+            <li>First Name: $firstName</li>
+            <li>Last Name: $lastName</li>
+            <li>Avatar: $avatarName ($avatarType, $avatarSize bytes) <br />
+            <img src="/upload/$avatarName" /></li>
+        </ul>
+_EOF;
+        // the file name was not sanitized, for safe
+                
     //sets value for user's avatar
     $this->userAvatar = ($newUserAvatar);
         

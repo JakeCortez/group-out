@@ -23,9 +23,9 @@
     
     //create group object
     try{
-    $group  = new Group(null, $_SESSION["userID"], null, $_POST["groupAvatar"], $_POST["groupCity"],
+    $group  = new Group(null, $_SESSION["userID"], null, $_FILES["groupAvatar"], $_POST["groupCity"],
                      $_POST["groupDescription"], $_POST["groupName"], $_POST["groupSkill"],
-                     $_POST["groupState"], $_POST["groupZip"], $_POST["privacyLevel"], null, null);
+                     $_POST["groupState"], $_POST["groupZip"], $_POST["privacyLevel"], null);
     }
     catch(UnexpectedValueException $error){
         throw(new UnexpectedValueException("sorry something went wrong when creating your group", 0, $error));
