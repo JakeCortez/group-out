@@ -54,7 +54,7 @@ class Group {
     /**
      * string, user selects from drop-down that inputs CHARS(2)
      */
-    //private $groupActivityList;
+    private $groupActivityList;
 
     /**
      * contructor for group
@@ -75,8 +75,8 @@ class Group {
      *@throws RangeException if fails to construct group
      **/
     public function __construct($newGroupID, $newUserID, $newGroupDateCreated, $newGroupAvatar, $newGroupCity,
-                                $newGroupDescription, $newGroupName, $newGroupSkill, $newGroupState, $newGroupZip, $newPrivacyLevel//, $newGroupActivityList){
-                               ){
+                                $newGroupDescription, $newGroupName, $newGroupSkill, $newGroupState, $newGroupZip, $newPrivacyLevel// $newGroupActivityList){
+                               )
         try{
             //validate and sanitize inputs
             $this->setGroupID($newGroupID);
@@ -793,7 +793,7 @@ class Group {
         $groupArray = array();
         
         while(($row = $result->fetch_assoc()) !== null) {
-            $groupArray[] = new Group($row["groupID"], $row["userID"], $row["groupDateCreated"], $row["groupAvatar"], $row["groupCity"], $row["groupDescription"],
+            $groupArray = new Group($row["groupID"], $row["userID"], $row["groupDateCreated"], $row["groupAvatar"], $row["groupCity"], $row["groupDescription"],
                                    $row["groupName"], $row["groupSkill"], $row["groupState"], $row["groupZip"], $row["privacyLevel"]);
         }
         
