@@ -27,45 +27,58 @@
             </title>
         </head> 
         <body>
-        <?php
-        
-try {
-         //hash the user's password 2048 times (128 bytes long)
-        $userHash = hash_pbkdf2("sha512", $_POST["userPassword"], $userSalt, 2048, 128);
-        
-        //require the class we're going to use
-            require_once("../classes/user-login.php");
+<?php
+        $userEmail = $_POST['userEmail'];
+        $userPassword = $hash($_POST['userPassword']);
   
         //connect to mySQL
-            require_once("/etc/apache2/capstone-mysql/group-out.php");
-            $mysqli = Pointer::getPointer();
+         require_once("/etc/apache2/capstone-mysql/group-out.php");
+        $mysqli = Pointer::getPointer();
+  
+        // get the user by Email
+        $user = User::getUserByEmail($mysqli, $userEmail);
+        $userHash = $hash($_POST["userPassword"].$user->getUserSalt());
+        
+        //examine AuthToken -- if not set to null, cancel user's session
+        if ($userAuthToken !== null) {
+           throw (new exception ("We can't find your email address.  Please register again"));
+            mysqli_close();
+        }
+  
+        // if found: calculate the hash of the user's inserted password
+        if ($user!== null)
+            $userHash = hash_pbkdf2("sha512", $_POST["userPassword"], $userSalt, 2048, 128);
+        
+        //compare to the hash of the password in the database
+            $userSalt = $user->getUserSalt();
+            $passwordToCompareTo = hash_pbkdf2("sha512", $_POST["userPassword"], $userSalt, 2048, 128);
+    
+        //compare the two to see if they are equal
+        if($passwordToCompareTo === $user->getUserPassword(){
             
-        //get user by email
-            $user = User::getUserByEmail($mysqli, $userEmail);
-            $userHash = $hash($_POST["userPassword"].$user->getUserSalt());
-            
-        //examine AuthToken here.  Upon "activation" click, authToken is set to null
-        //otherwise db will see AuthToken or no authToken
-              if ($userAuthToken !== null) {
-                throw (new exception ("We can't find your email address.  Please register again"));              
-            }
-        //compare $userHash and $userLogin->getUserHash()
-            if($user->getUserPassword()==$userHash){
-                $_SESSION["userID"]=$user->getuserID(); {
-                else{
-                    $_SESSION["message"] = "Your ID doesn't match your login email"                    
+        //if equal let them through and send user back to entrypage 
+            header("Location: {$_SERVER['HTTP_REFERER']}");
+        }
+        else {
+            // while password matches, create session, store userID
+                if ($userPasswordStatement -> execute() === false) {
+                    throw (new exception ("your password doesn't match"));
+                    mysqli_close();
                 }
-                if (isset($_SESSION["message"])) {
-                    echo $_SESSION["message"]; 
+                
+                // while password matches, create session, store userID
+                = $userPassword-> store_result();
+                while ($userPassword = $userPassword) -> fetch_assoc()) {
+                    $_SESSION["userID"]=$userPassword; {
                     }
                 }
-            }
-        echo "Welcome back to Group-Out.";
-     } else {
-        throw(mysqli_sql_exception $sqlException) {
-            echo "Exception: " . $sqlException->getMessage();
+            echo "Welcome back to Group-Out.";
         }
-     }
+            else {
+                throw(exception, $error) {
+                    echo "Cannot log in user" . $error->getMessage();
+                }
+            }
 ?>
-        </body>
-    </html>
+    </body>
+</html>
