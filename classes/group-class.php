@@ -272,12 +272,7 @@ class Group {
      *
      * @param mixed value of img associated with group allowing null if not set 
      **/
-    public function setGroupAvatar($newGroupAvatar){
-        // if null set default avatar
-        if($newGroupAvatar === null){
-            $this->groupAvatar = "default";
-        }
-        
+    public function setGroupAvatar(&$newGroupAvatar){
         //create the white list of allowed types
         $goodExtensions = array("jpg", "jpeg", "png");
         $goodMimes = array("image/jpeg", "image/png");
@@ -295,9 +290,9 @@ class Group {
            }
           
         //move the file to its peramanent home
-        $destination = "/var/www/html/group-out/images/group";
+        $destination = "/var/www/html/group-out/images/user";
         //sanitize file name for security reasons
-        $fileName = "avatar-". $this->groupID . ".$extension";
+        $fileName = "avatar-". $this->groupName . ".$extension";
         if(move_uploaded_file($newGroupAvatar["tmp_name"], "$destination/$fileName") === false) {
             throw(new RuntimeException("Unable to move file"));
 
@@ -699,7 +694,7 @@ class Group {
         if($row !==null){
             try{
                 $group = new Group($row["groupID"], $row["userID"], $row["groupDateCreated"], $row["groupAvatar"], $row["groupCity"], $row["groupDescription"],
-                                   $row["groupName"], $row["groupSkill"], $row["groupState"], $row["groupZip"], $row["privacyLevel"]);
+                                   $row["groupName"], $row["groupSkill"], $row["groupState"], $row["groupZip"], $row["privacyLevel"], null);
             }
             catch(Exception $exception){
                 throw(new mysqli_sql_exception("Unable to convert row to user", 0, $exception));

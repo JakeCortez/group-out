@@ -27,11 +27,11 @@
       <article class = "col-lg-10">
       <div class = "page_content">
         <h1 id = "createHeader">Create a Group</h1><br>
-        <form method = "post" action = "group-processor.php" class = "basicForm">
+        <form method = "post" action = "group-processor.php" enctype = "multipart/form-data" class = "basicForm">
           <label for = "groupName">Group Name:</label>
           <input type = "text" name = "groupName"><br>
           <label for = "groupAvatar">Group Avatar:</label>
-          <input type = "file" name = "groupAvatar"><br>
+          <input type = "file" name = "groupAvatar" id = "groupAvatar"><br>
           <label for = "groupSkill">Skill Level of Group:</label>
           <select name = "groupSkill">
             <option value = "null">--</option>

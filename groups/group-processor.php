@@ -13,14 +13,6 @@
     require_once("/etc/apache2/capstone-mysql/group-out.php");
     require_once("../classes/group-class.php");
     
-    //set up connection to server
-    try{
-        $mysqli = Pointer::getPointer();
-    }
-    catch(mysqli_sql_excpetion $error){
-        throw(new mysqli_sql_exception("could not connect to server", 0, $error));
-    }
-    
     //create group object
     try{
     $group  = new Group(null, $_SESSION["userID"], null, $_FILES["groupAvatar"], $_POST["groupCity"],
@@ -32,6 +24,14 @@
     }
     catch(RangeException $error){
         throw(new RangeException("sorry something went wrong when creating your group"));
+    }
+    
+    //set up connection to server
+    try{
+        $mysqli = Pointer::getPointer();
+    }
+    catch(mysqli_sql_excpetion $error){
+        throw(new mysqli_sql_exception("could not connect to server", 0, $error));
     }
     
     //insert group into database
