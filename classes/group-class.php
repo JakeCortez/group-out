@@ -76,7 +76,7 @@ class Group {
      **/
     public function __construct($newGroupID, $newUserID, $newGroupDateCreated, $newGroupAvatar, $newGroupCity,
                                 $newGroupDescription, $newGroupName, $newGroupSkill, $newGroupState, $newGroupZip, $newPrivacyLevel// $newGroupActivityList){
-                               )
+                               ){
         try{
             //validate and sanitize inputs
             $this->setGroupID($newGroupID);
