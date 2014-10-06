@@ -1,4 +1,5 @@
 <?php
+
   $userEmail = $_POST['userEmail'];
   $userPassword = $_POST['userPassword'];
   
@@ -15,7 +16,6 @@
     
   // if hashes match, log in User
   if ($userHash == $hash); {
-    $user = $_SERVER["HTTP_ACCEPTED"];
     
   //user accepted, activated  OTHERWISE
   
