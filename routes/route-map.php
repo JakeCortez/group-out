@@ -22,6 +22,7 @@
   <body>
     
     <?php require_once('../php/nav.html');?>
+    <?php require_once('../config/Pointer.php');?>
     <div class = "container-fluid">
       <div class = "col-lg-1"></div>
       <article class = "col-lg-10">
@@ -29,7 +30,9 @@
       </article>
       <div class = "col-lg-1"></div>
     </div>
-    <?php require_once('../php/footer.html');?>
+    <?php require_once('../php/footer.html');
+  
+    ?>
                       <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <!-- Include all compiled plugins (below), or include individual files as needed -->
           <script src="../js/validateReg.js"></script>
