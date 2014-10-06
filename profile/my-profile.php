@@ -45,15 +45,6 @@ $_SESSION["userID"] = 1;
         <div class="bar">Events</div>
         <?php require_once('../php/list-create.php');?>
 
-
-        <!-- testing -->
-        <pre>
-          <?php
-          print_r($_SESSION);
-          ?>
-        </pre>
-
-
       </article>
       <div class = "col-lg-1"></div>
     </div>

@@ -1,5 +1,4 @@
 <?php
-session_start();
 $_SESSION["userID"] = 1;
 require_once("../classes/event-class.php");
 
@@ -12,7 +11,7 @@ require_once("../config/Pointer.php");
 try {
   // call the Pointer static method to connect to mySQL
   $mysqli = Pointer::getPointer();
-  $currentUserID = $_SESSION["userID"]
+  $currentUserID = $_SESSION["userID"];
   // call the class static method for querying/getting 3 event results
   $eventArray = Event::getEventsByUserID($mysqli, $currentUserID);
 
@@ -22,7 +21,7 @@ try {
 
     // reformat the date
     $eventID = $event->getEventID();
-    $dateTime = $event->getEventDate();
+    $dateTime = new DateTime($event->getEventDate());
     $niceDate = $dateTime->format("F j, Y");
     $eventName = $event->getEventName();
     $eventCity = $event->getEventCity();

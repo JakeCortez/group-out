@@ -49,5 +49,25 @@
 
     $eventID = $event->getEventID();
 
+    $activityTypeID = $_POST["activityTypeID"];
+    foreach($activityTypeID as $activity) {
+      $query = "INSERT INTO eventToActivity (eventID, activityTypeID) VALUES (?, ?)";
+
+      $statement = $mysqli->prepare($query);
+      if($statement === false) {
+        throw(new mysqli_sql_exception("Unable to prepare statement"));
+      }
+
+      $wasClean = $statement->bind_param("ii", $eventID, $activity);
+      if($wasClean === false) {
+        throw(new mysqli_sql_exception("Unable to bind parameters"));
+      }
+
+      if($statement->execute() === false) {
+        echo($error);
+        throw(new mysqli_sql_exception("Unable to execute mySQL statement"));
+      }
+    }
+
     header("Location: event.php?eventID=$eventID");
 ?>

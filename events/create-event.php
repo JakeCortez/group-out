@@ -45,16 +45,16 @@ session_start();
             <label for="date">Event Time and Date</label>
             <input type="text" id="eventDate" required name="eventDate"><br>
             <label for="activity">Choose One or More Activities:</label>
-            <label for="roadBike">Road Bike</label>
-            <input name="roadBike" type="checkbox" value="1">
-            <label for="mountainBike">Mountain Bike</label>
-            <input name="mountainBike" type="checkbox" value="2">
-            <label for="hike">Hike</label>
-            <input name="hike"  type="checkbox" value="3">
-            <label for="run">Run</label>
-            <input name="run"  type="checkbox" value="4">
-            <label for="walk">Walk</label>
-            <input name="walk"  type="checkbox" value="5">
+            <label for="activityTypeID[]">Road Bike</label>
+            <input name="activityTypeID[]" type="checkbox" value="1">
+            <label for="activityTypeID[]">Mountain Bike</label>
+            <input name="activityTypeID[]" type="checkbox" value="2">
+            <label for="activityTypeID[]">Hike</label>
+            <input name="activityTypeID[]"  type="checkbox" value="3">
+            <label for="activityTypeID[]">Run</label>
+            <input name="activityTypeID[]"  type="checkbox" value="4">
+            <label for="activityTypeID[]">Walk</label>
+            <input name="activityTypeID[]"  type="checkbox" value="5">
             <br><br>
             <label for="eventDifficulty">Choose Your Event's Difficulty</label>
             <select name = "eventDifficulty">
