@@ -32,11 +32,15 @@ try {
     $eventID = $comment->getEventID();
     $groupID = $comment->getGroupID();
     $commentText = $comment->getCommentText();
+    $userFirstName = $comment->getUserFirstName();
 
     // echo the result
     echo <<<EOD
-      <p><strong>$niceDate</strong><br>
-      $commentText</p>
+      <div class="alert-success col-md-10" style="margin-bottom:5px;padding:1px 5px 1px 20px;">
+        <h4>$userFirstName</h4>
+        <p><strong>$niceDate</strong><br>$commentText</p>
+      </div>
+      <div style="clear:both;"></div>
 EOD;
   }
 } catch(mysqli_sql_exception $error) {
