@@ -687,7 +687,7 @@ class Group {
     }
     
     /**
-     * static method to get group info with eventID
+     * static method to get group info with groupID
      *
      * @param object $mysqli that describes mysqli object from database
      * @param int $groupID that represents current group being displayed on page
@@ -709,8 +709,8 @@ class Group {
         
         //query template
         $query     = "SELECT groups.groupID, groups.userID, groups.groupDateCreated, groups.groupAvatar, groups.groups.groupCity, groups.groupDescription, groups.groupName, groups.groupSkill, groups.groupSkill, groups.groupState, groups.groupZip, groups.privacyLevel, groupsToActivity.groupActivityList FROM groups
-        INNER JOIN (SELECT DISTINCT groupID, GROUP-CONCAT(DISTINCT activityTypeName ORDER BY activityTypeName SEPERATOR ', ') AS groupActivityList FROM groupToActivity";
-        
+        INNER JOIN (SELECT DISTINCT groupID, GROUP-CONCAT(DISTINCT activityTypeName ORDER BY activityTypeName SEPERATOR ', ') AS groupActivityList FROM groupToActivity LEFT JOIN activityType ON groupToActivity.activityTypeID = activityType.activityTypeID GROUP BY groupID) groupToActivity ON groups.groupID = groupToActivity.groupID WHERE groups.userID = ? AND groups.privacyLevel = 1";
+    
         $statement = $mysqli->prepare($query);
         if($statement === false){
             throw(new mysqli_sql_exception("Unable to prepare statement"));

@@ -16,13 +16,8 @@ try {
   $pageGroupID = $_GET["groupID"];
 
   // call the class static method for getting details about the group via groupID
-  $groupArray = Group::getGroupInfo($mysqli, $pageGroupID);
+  $group = Group::getGroupInfo($mysqli, $pageGroupID);
 
-  // loop through the result set
-  foreach($groupArray as $group) {
-
-    // reformat the date
-    $groupID = $group->getGroupID();
     $dateTime = $group->getGroupDateCreated();
     $niceDate = $dateTime->format("F j, Y");
     $groupName = $group->getGroupName();
@@ -41,8 +36,7 @@ try {
         <p>$groupDescription</p>
       </div>
 EOD;
-  }
-} catch(mysqli_sql_exception $error) {
+}catch(mysqli_sql_exception $error) {
   echo 'oops';
 }
 ?>
