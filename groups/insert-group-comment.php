@@ -1,6 +1,6 @@
 <?php
 session_start();
-$_SESSION["userID"] = 1;
+$_SESSION["userID"] = 2;
 
 require_once("/etc/apache2/capstone-mysql/group-out.php");
 

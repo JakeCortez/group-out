@@ -42,16 +42,16 @@
             <option value = "1">Starter</option>
           </select><br>
             <label for="activity">Choose One or More Activities</label>
-            <label for="roadBike">Road Bike</label>
-            <input name="event[]" type="checkbox" value="1">
-            <label for="mountainBike">Mountain Bike</label>
-            <input name="event[]" type="checkbox" value="2">
-            <label for="hike">Hike</label>
-            <input name="event[]"  type="checkbox" value="3">
-            <label for="run">Run</label>
-            <input name="event[]" type="checkbox" value="4">
-            <label for="walk">Walk</label>
-            <input name="event[]" type="checkbox" value="5">
+            <label for="activity[]">Road Bike</label>
+            <input name="activity[]" type="checkbox" value="1">
+            <label for="activity[]">Mountain Bike</label>
+            <input name="activity[]" type="checkbox" value="2">
+            <label for="activity[]">Hike</label>
+            <input name="activity[]"  type="checkbox" value="3">
+            <label for="activity[]">Run</label>
+            <input name="activity[]" type="checkbox" value="4">
+            <label for="activity[]">Walk</label>
+            <input name="activity[]" type="checkbox" value="5">
             <br><br>
           <label fot = "groupDescription">Group Description:</label>
           <textarea rows = "5" cols = "80" max = "500" type = "text" name = "groupDescription"></textarea><br>

@@ -27,6 +27,7 @@ foreach($groupArray as $group) {
   $groupCity = $group->getGroupCity();
   $groupState = $group->getGroupState();
   $groupSkill = $group->getGroupSkill();
+  $groupActivityList = $group->getGroupActivityList();
 
   // echo the result
   echo <<<EOD
@@ -34,7 +35,7 @@ foreach($groupArray as $group) {
     <div class="listThumb"></div>
 
     <div class="listDetails">
-      <div class="listHead"><a href="group.php?groupID=$groupID">$groupName</a> | Hike and Bike</div>
+      <div class="listHead"><a href="group.php?groupID=$groupID">$groupName</a> | $groupActivityList</div>
       <div class="listInfo">$groupCity, $groupState | $niceDate</div>
       <div class="listDifficulty">difficulty / $groupSkill</div>
     </div>

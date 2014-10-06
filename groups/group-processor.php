@@ -25,7 +25,7 @@
     try{
     $group  = new Group(null, $_SESSION["userID"], null, $_POST["groupAvatar"], $_POST["groupCity"],
                      $_POST["groupDescription"], $_POST["groupName"], $_POST["groupSkill"],
-                     $_POST["groupState"], $_POST["groupZip"], $_POST["privacyLevel"] );
+                     $_POST["groupState"], $_POST["groupZip"], $_POST["privacyLevel"], null, null);
     }
     catch(UnexpectedValueException $error){
         throw(new UnexpectedValueException("sorry something went wrong when creating your group", 0, $error));
@@ -47,14 +47,11 @@
         
     //define id for group and activities
     $groupID = $group->getGroupID();
-    $activityTypeID = $_POST["events"];
+    $activityTypeID = $_POST["activity"];
     
     foreach($activityTypeID as $activity){
-        if($activity === null){
-            return;
-        }
         
-        $query   = "INSERT INTO groupToActivity(groupID, activityTypeID) values(?,?)";
+        $query   = "INSERT INTO groupToActivity(groupID, activityTypeID) VALUES(?,?)";
         
         $statement = $mysqli->prepare($query);
         //bind variables to place holders in query
@@ -70,5 +67,6 @@
         
     }
     
+    $groupID = $group->getGroupID();
     header("Location: group.php?groupID=$groupID");
 ?>

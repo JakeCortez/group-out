@@ -75,8 +75,7 @@ class Group {
      *@throws RangeException if fails to construct group
      **/
     public function __construct($newGroupID, $newUserID, $newGroupDateCreated, $newGroupAvatar, $newGroupCity,
-                                $newGroupDescription, $newGroupName, $newGroupSkill, $newGroupState, $newGroupZip, $newPrivacyLevel// $newGroupActivityList){
-                               ){
+                                $newGroupDescription, $newGroupName, $newGroupSkill, $newGroupState, $newGroupZip, $newPrivacyLevel, $newGroupActivityList){
         try{
             //validate and sanitize inputs
             $this->setGroupID($newGroupID);
@@ -90,7 +89,7 @@ class Group {
             $this->setGroupState($newGroupState);
             $this->setGroupZip($newGroupZip);
             $this->setPrivacyLevel($newPrivacyLevel);
-            //$this->setGroupActivityList($newGroupActivityList);
+            $this->setGroupActivityList($newGroupActivityList);
         }
         catch(UnexpectedValueException $error){
             throw(new UnexpectedValueException("Sorry Something went wrong when creating your group.", 0, $error));
@@ -708,8 +707,13 @@ class Group {
         }
         
         //query template
-        $query     = "SELECT groups.groupID, groups.userID, groups.groupDateCreated, groups.groupAvatar, groups.groups.groupCity, groups.groupDescription, groups.groupName, groups.groupSkill, groups.groupSkill, groups.groupState, groups.groupZip, groups.privacyLevel, groupsToActivity.groupActivityList FROM groups
-        INNER JOIN (SELECT DISTINCT groupID, GROUP-CONCAT(DISTINCT activityTypeName ORDER BY activityTypeName SEPERATOR ', ') AS groupActivityList FROM groupToActivity LEFT JOIN activityType ON groupToActivity.activityTypeID = activityType.activityTypeID GROUP BY groupID) groupToActivity ON groups.groupID = groupToActivity.groupID WHERE groups.userID = ? AND groups.privacyLevel = 1";
+        $query     = "SELECT groups.groupID, groups.userID, groups.groupDateCreated, groups.groupAvatar, groups.groups.groupCity, groups.groupDescription, groups.groupName, groups.groupSkill, groups.groupSkill, groups.groupState, groups.groupZip, groups.privacyLevel, groupsToActivity.groupActivityList
+        FROM groups
+        INNER JOIN (SELECT DISTINCT groupID, GROUP-CONCAT(DISTINCT activityTypeName ORDER BY activityTypeName SEPERATOR ', ')
+        AS groupActivityList
+        FROM groupToActivity LEFT JOIN activityType ON groupToActivity.activityTypeID = activityType.activityTypeID GROUP BY groupID) groupToActivity
+        ON groups.groupID = groupToActivity.groupID
+        WHERE groups.userID = ? AND groups.privacyLevel = 1";
     
         $statement = $mysqli->prepare($query);
         if($statement === false){
@@ -764,9 +768,16 @@ class Group {
             throw(new UnexpectedValueException("groupID is invalid"));
         }
         
-        $query = "SELECT groupID, userID, groupDateCreated, groupAvatar, groupCity, groupDescription,
-                                         groupName, groupSkill, groupState, groupZip, privacyLevel FROM groups WHERE groupID = ?";
-        
+        //create query
+        $query = "SELECT groups.groupID, groups.userID, groups.groupDateCreated,  groups.groupName,  groups.groupCity,  groups.groupState, groups.groupZip,  groups.groupDescription, groups.groupSkill, groups.privacyLevel, groups.groupAvatar, groupToActivity.groupActivityList
+            FROM groups
+            INNER JOIN (SELECT DISTINCT groupID, GROUP_CONCAT(DISTINCT activityTypeName ORDER BY activityTypeName SEPARATOR ', ')
+            AS groupActivityList
+            FROM groupToActivity LEFT JOIN activityType
+            ON groupToActivity.activityTypeID = activityType.activityTypeID GROUP BY groupID) groupToActivity
+            ON groups.groupID = groupToActivity.groupID
+            WHERE groups.groupID = ?";
+        //prepare the statement
         $statement = $mysqli->prepare($query);
         if($statement === false){
             throw(new mysqli_sql_exception("Unable to prepare statement"));
@@ -793,8 +804,8 @@ class Group {
         $groupArray = array();
         
         while(($row = $result->fetch_assoc()) !== null) {
-            $groupArray = new Group($row["groupID"], $row["userID"], $row["groupDateCreated"], $row["groupAvatar"], $row["groupCity"], $row["groupDescription"],
-                                   $row["groupName"], $row["groupSkill"], $row["groupState"], $row["groupZip"], $row["privacyLevel"]);
+            $groupArray[] = new Group($row["groupID"], $row["userID"], $row["groupDateCreated"], $row["groupAvatar"], $row["groupCity"], $row["groupDescription"],
+                                   $row["groupName"], $row["groupSkill"], $row["groupState"], $row["groupZip"], $row["privacyLevel"], $row["groupActivityList"]);
         }
         
         return $groupArray;
@@ -806,8 +817,13 @@ class Group {
             throw(new mysqli_sql_exception("input is not a mysqli object"));
         }
         
-        $query = "SELECT groups.groupID, groups.userID, groups.groupDateCreated, groups.groupAvatar, groups.groupCity, groups.groupDescription,
-                                         groups.groupName, groups.groupSkill, groups.groupState, groups.groupZip, groups.privacyLevel FROM groups";
+        $query = "SELECT groups.groupID, groups.userID, groups.groupDateCreated,  groups.groupName,  groups.groupCity,  groups.groupState, groups.groupZip,  groups.groupDescription, groups.groupSkill, groups.privacyLevel, groups.groupAvatar, groupToActivity.groupActivityList
+            FROM groups
+            INNER JOIN (SELECT DISTINCT groupID, GROUP_CONCAT(DISTINCT activityTypeName ORDER BY activityTypeName SEPARATOR ', ')
+            AS groupActivityList
+            FROM groupToActivity LEFT JOIN activityType
+            ON groupToActivity.activityTypeID = activityType.activityTypeID GROUP BY groupID) groupToActivity
+            ON groups.groupID = groupToActivity.groupID";
         
         $statement = $mysqli->prepare($query);
         if($statement === false){
@@ -830,7 +846,7 @@ class Group {
         
         while(($row = $result->fetch_assoc()) !== null) {
             $groupArray[] = new Group($row["groupID"], $row["userID"], $row["groupDateCreated"], $row["groupAvatar"], $row["groupCity"], $row["groupDescription"],
-                                   $row["groupName"], $row["groupSkill"], $row["groupState"], $row["groupZip"], $row["privacyLevel"]);
+                                   $row["groupName"], $row["groupSkill"], $row["groupState"], $row["groupZip"], $row["privacyLevel"], $row["groupActivityList"]);
         }
         
         return $groupArray;
