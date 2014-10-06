@@ -356,7 +356,8 @@ class Event {
     if(($dateTime = DateTime::createFromFormat("Y-m-d H:i:s", $newEventDate)) === false) {
         throw(new RangeException("eventDate $newEventDate cannot be converted to a DateTime object"));
     }
-    $this->eventDate = $dateTime;
+    $this->eventDate = $newEventDate;
+    //$this->eventDate = $dateTime;
   }
 
 ///// GET & SET FOR eventDescription
@@ -626,7 +627,7 @@ class Event {
     }
 
     // create query template
-    $query = "INSERT INTO event(routeID, userID, eventDateCreated, eventCity, eventDate, eventDescription, eventDifficulty, eventName, eventPrivacy, eventState, eventZip) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $query = "INSERT INTO events(routeID, userID, eventDateCreated, eventCity, eventDate, eventDescription, eventDifficulty, eventName, eventPrivacy, eventState, eventZip) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     $statement = $mysqli->prepare($query);
     if($statement === false) {
       throw(new mysqli_sql_exception("Unable to prepare statement"));
@@ -856,6 +857,68 @@ class Event {
 
     return $eventArray;
   }
+
+  /**
+   * gets event by name
+   *
+   * @param resource $mysqli pointer to mySQL connection by reference
+   * @param string $name to search for
+   * @return mixed event or events found or null if not found
+   * @throws mysqli_sql_exception when mySQL related errors occur
+   **/
+  public static function getEventByName(&$mysqli, $name){
+      //handle degenerate cases
+      if(gettype($mysqli) !== "object" || get_class($mysqli) !== "mysqli"){
+          throw(new mysqli_sql_exception("input is not a mysqli object"));
+      }
+
+      //sanitize name before searching
+      $name = trim($name);
+      $name = filter_var($name, FILTER_SANITIZE_STRING);
+      $name = strval($name);
+
+      //query template
+      $query = "SELECT eventID, routeID, userID, eventDate, eventCity, eventDateCreated, eventDescription, eventDifficulty, eventName, eventPrivacy, eventState, eventZip, eventMemberCount, eventActivityList FROM events WHERE eventName = ?";
+
+      $statement = $mysqli->prepare($query);
+      if($statement === false){
+          throw(new mysqli_sql_exception("Unable to prepare statement"));
+      }
+
+      //bind member variables to the place holder
+      $clean = $statement->bind_param("s", $name);
+      if($clean === false){
+          throw(new mysqli_sql_exception("Unable to bind parameter"));
+      }
+
+      //execute
+      if($statement->execute() === false) {
+          throw(new mysqli_sql_exception("Unable to execute mySQL statement"));
+      }
+
+      //get results from the SELECT query
+      $result  = $statement->get_result();
+      if($result === null){
+          throw(new mysqli_sql_exception("Unable to get result set"));
+      }
+
+      //fetch result
+      $row = $result->fetch_assoc();
+
+      if($row !==null){
+          try{
+              $group = new Group($row["eventID"], $row["routeID"], $row["userID"], $row["eventDateCreated"], $row["eventCity"], $row["eventDate"], $row["eventDescription"], $row["eventDifficulty"], $row["eventName"], $row["eventPrivacy"], $row["eventState"], $row["eventZip"], $row["eventMemberCount"], $row["eventActivityList"]);
+          }
+          catch(Exception $exception){
+              throw(new mysqli_sql_exception("Unable to convert row to user", 0, $exception));
+          }
+
+          return($event);
+      } else {
+          return(null);
+      }
+  }
+
 
 
 }

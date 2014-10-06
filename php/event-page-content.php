@@ -23,7 +23,7 @@ try {
 
     // reformat the date
     $eventID = $event->getEventID();
-    $dateTime = $event->getEventDate();
+    $dateTime = new DateTime($event->getEventDate());
     $niceDate = $dateTime->format("F j, Y");
     $eventName = $event->getEventName();
     $eventCity = $event->getEventCity();
