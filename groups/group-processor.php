@@ -42,8 +42,33 @@
         throw(new mysqli_sql_exception("sorry, could not save group"));
     }
     
+    //find group just created
     $group   = Group::getGroupByName($mysqli, $_POST["groupName"]);
+        
+    //define id for group and activities
     $groupID = $group->getGroupID();
+    $activityTypeID = $_POST["events"];
+    
+    foreach($activityTypeID as $activity){
+        if($activity === null){
+            return;
+        }
+        
+        $query   = "INSERT INTO groupToActivity(groupID, activityTypeID) values(?,?)";
+        
+        $statement = $mysqli->prepare($query);
+        //bind variables to place holders in query
+        $clean = $statement->bind_param("ii", $groupID, $activity);
+        if($clean ===false){
+            throw(new mysqli_sql_exception("Unable to bind variables"));
+        }
+        
+        //execute
+        if($statement->execute() === false){
+            throw(new mysqli_sql_exception("Unable to Execute mySQL statement"));
+        }
+        
+    }
     
     header("Location: group.php?groupID=$groupID");
 ?>
