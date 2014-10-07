@@ -356,6 +356,9 @@ display: block;
 /*** RESPONSIVE (@MEDIA) STYLES ***/
 
 @media (max-width: 768px) {
+  .pageheader {
+    display: none;
+  }
   .userDisplayName {
     clear: both;
   }
