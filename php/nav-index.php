@@ -37,7 +37,7 @@
                   </ul>
                 </li>
                 <li class="dropdown">
-                  <a href="profile/my-profile.php" class="dropdown-hover" data-hover="dropdown">Profile<span class="caret"></span></a>
+                  <a href="profile/my-profile.php?profileID=<?php $_SESSION["profileID"];?>" class="dropdown-hover" data-hover="dropdown">Profile<span class="caret"></span></a>
                   <ul class="dropdown-menu dropdown-hover" data-hover="dropdown" role="menu">
                     <li><a href="profile/my-routes.php">My Routes</a></li>
                     <li><a href="profile/my-groups.php">My Groups</a></li>
