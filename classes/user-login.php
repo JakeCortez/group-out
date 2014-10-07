@@ -385,12 +385,13 @@ class User {
         }
         
         //sanitize the authToken 
-        $authToken = trim($authToken)
+        $authToken = trim($authToken);
         
         //verify this is a string of 32 hexadecimal characters using filter_var:
         $filterOptions = array("options" => array("regexp" =>"/^[0-9a-f]{32}$/i"));
         if((filter_var($newAuthToken, FILTER_VALIDATE_REGEXP, $filterOptions)) === false) {
             throw(new UnexpectedValueException("$newAuthToken is not hexadecimal"));
+        }
         
         //create query template -- 
         $query     = "SELECT userID, userAuthToken, userEmail, userPassword, userRole, userSalt FROM userLogin WHERE userAuthToken = ?";
