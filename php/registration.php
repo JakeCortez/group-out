@@ -37,7 +37,7 @@
         // mail the user
             $message = "Welcome to group out. Click http://bootcamp-coders.cnm.edu/group-out/php/activation.php?authToken=" . $newUser->getUserAuthToken();
                 mail($newUser->getUserEmail(), "Welcome to Group Out", $message);
-            $_SESSION["userID"] = $newUser->getUserID;
+            $_SESSION["userID"] = $newUser->getUserID();
         
         } catch(mysqli_sql_exception $sqlException) {
         echo "<span class='badForm'> Exception: " . $sqlException->getMessage() . "</span>";
