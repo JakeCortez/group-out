@@ -1,3 +1,6 @@
+ <?php
+ session_start();
+ ?>
  <!DOCTYPE html>
 <html>
   <head>
@@ -21,7 +24,7 @@
   </head>
   <body>
     
-    <?php require_once('../php/nav.html');?>
+    <?php require_once('../php/nav.php');?>
     <div class = "container-fluid">
       <div class = "row">
         <section class = "col-lg-9">
