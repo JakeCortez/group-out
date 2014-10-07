@@ -5,18 +5,16 @@
     //start the session state
     session_start();
     
-    //set session to a blank array
-    $_SESSION = array();
-    
     //insert something into the session to follow user & userZip
-    $_SESSION["userID", "userZip"] = "";
+    $_SESSION["userID"]  = null;
+    $_SESSION["userZip"] = null;
         
     //destroy the cookie
-    $params = session_get_cookie_params();
-    setcookie(session_name(), "", 1, $params["path"], $params["domain"], $params["secure"], $params["httponly"]);
+   // $params = session_get_cookie_params();
+    //setcookie(session_name(), "", 1, $params["path"], $params["domain"], $params["secure"], $params["httponly"]);
 
     //destroy the current session
-    session_destroy();
+    //session_destroy();
     
 ?>
 <!DOCTYPE html>
@@ -29,56 +27,36 @@
         <body>
 <?php
         $userEmail = $_POST['userEmail'];
-        $userPassword = $hash($_POST['userPassword']);
+        $userPassword = $_POST['userPassword'];
   
         //connect to mySQL
-         require_once("/etc/apache2/capstone-mysql/group-out.php");
+        require_once("/etc/apache2/capstone-mysql/group-out.php");
         $mysqli = Pointer::getPointer();
+        require_once("../classes/user-login.php");
   
         // get the user by Email
         $user = User::getUserByEmail($mysqli, $userEmail);
-        $userHash = $hash($_POST["userPassword"].$user->getUserSalt());
+        $userSalt = $user->getUserSalt();
+        $userHash = hash_pbkdf2("sha512", $userPassword, $userSalt, 2048, 128);
+        $userAuthToken = $user->getUserAuthToken();
         
         //examine AuthToken -- if not set to null, cancel user's session
         if ($userAuthToken !== null) {
            throw (new exception ("We can't find your email address.  Please register again"));
-            mysqli_close();
         }
   
-        // if found: calculate the hash of the user's inserted password
-        if ($user!== null)
-            $userHash = hash_pbkdf2("sha512", $_POST["userPassword"], $userSalt, 2048, 128);
-        
-        //compare to the hash of the password in the database
-            $userSalt = $user->getUserSalt();
-            $passwordToCompareTo = hash_pbkdf2("sha512", $_POST["userPassword"], $userSalt, 2048, 128);
-    
-        //compare the two to see if they are equal
-        if($passwordToCompareTo === $user->getUserPassword(){
+        // if found, compare passwords
+        if ($user!== null && $userHash === $user->getUserPassword()) {
+            $_SESSION["userID"]=$user->getUserID();
             
-        //if equal let them through and send user back to entrypage 
+        //if equal let them through and send user back to entry page 
             header("Location: {$_SERVER['HTTP_REFERER']}");
         }
-        else {
-            // while password matches, create session, store userID
-                if ($userPasswordStatement -> execute() === false) {
-                    throw (new exception ("your password doesn't match"));
-                    mysqli_close();
-                }
-                
-                // while password matches, create session, store userID
-                = $userPassword-> store_result();
-                while ($userPassword = $userPassword) -> fetch_assoc()) {
-                    $_SESSION["userID"]=$userPassword; {
-                    }
-                }
-            echo "Welcome back to Group-Out.";
+        
+        // while password matches, create session, store userID
+        else  {
+            throw (new exception ("your password doesn't match"));
         }
-            else {
-                throw(exception, $error) {
-                    echo "Cannot log in user" . $error->getMessage();
-                }
-            }
 ?>
     </body>
 </html>
