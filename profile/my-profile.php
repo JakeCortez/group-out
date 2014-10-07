@@ -30,6 +30,7 @@ session_start();
       <div class = "col-lg-1"></div>
       <!-- Article Area -->
       <article class="col-md-10">
+        <h1><?php $_SESSION["profileID"]; ?></h1>
         <?php require_once("profile-page-content.php");?>
       </article>
       <div class = "col-lg-1"></div>

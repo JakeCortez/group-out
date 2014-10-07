@@ -668,64 +668,48 @@ public static function getProfileByUserId (&$mysqli, $newUserId) {
     }
     
     public function insert(&$mysqli) {
-    // create a database connection
-        // create a sql statement
-        //prepare sql statement
-        //bind variables
-        //insert sql statement
-    // handle degenerate cases
-
-    if(gettype($mysqli) !== "object" || get_class($mysqli) !== "mysqli") {
-
-    throw(new mysqli_sql_exception("input is not a mysqli object"));
-
-    }
-
-    // enforce the resoureId is null (i.e., don't insert a resource that already exists)
-
-    if($this->userProfileId !== null) {
-
-    throw(new mysqli_sql_exception("not a new profile Id"));
-
-    }
-
-    // create query template
-
-    $query = "INSERT INTO userProfiles(userDateCreated, userFirstName, userLastName, userCity, userState, userZip, userAboutMe, userPrivacyLevel, userWebsite, userID) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";  
-
-    $statement = $mysqli->prepare($query);
-
-    if($statement === false) {
-
-    throw(new mysqli_sql_exception("Unable to prepare statement"));
-
-    }
-
-    // bind the member variables to the place holders in the template
-
-    $wasClean = $statement->bind_param("sssssssisi", $this->dateCreated, $this->firstName, $this->lastName, $this->userCity, $this->userState, $this->userZip, $this->aboutMe, $this->userPrivacyLevel, $this->userWebsite,
-                                   $this->userId);
-
-    if($wasClean === false) {
-
-    throw(new mysqli_sql_exception("Unable to bind parameters"));
-    
-    }
-
-    // execute the statement
-    if($statement->execute() === false) {
-        echo($statement->error);
-        throw(new mysqli_sql_exception("Unable to execute mySQL statement"));
-
-    }
-    
-    //update the null profile Id
-    $this->userProfileId = $mysqli->insert_id;
+        // create a database connection
+            // create a sql statement
+            //prepare sql statement
+            //bind variables
+            //insert sql statement
+        // handle degenerate cases
         
+        if(gettype($mysqli) !== "object" || get_class($mysqli) !== "mysqli") {
+        throw(new mysqli_sql_exception("input is not a mysqli object"));
+        }
+        
+        // enforce the resoureId is null (i.e., don't insert a resource that already exists)
+        
+        if($this->userProfileId !== null) {
+        throw(new mysqli_sql_exception("not a new profile"));
+        }
+        
+        // create query template
+        $query = "INSERT INTO userProfiles(userDateCreated, userFirstName, userLastName, userCity, userState, userZip, userAboutMe, userPrivacyLevel, userWebsite, userID) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        
+        $statement = $mysqli->prepare($query);
+        if($statement === false) {
+        throw(new mysqli_sql_exception("Unable to prepare statement"));
+        }
+        
+        // bind the member variables to the place holders in the template
+        $wasClean = $statement->bind_param("sssssssisi", $this->dateCreated, $this->firstName, $this->lastName, $this->userCity, $this->userState, $this->userZip, $this->aboutMe, $this->userPrivacyLevel, $this->userWebsite, $this->userId);
+        
+        if($wasClean === false) {
+        throw(new mysqli_sql_exception("Unable to bind parameters"));
+        }
+        
+        // execute the statement
+        if($statement->execute() === false) {
+            echo($statement->error);
+            throw(new mysqli_sql_exception("Unable to execute mySQL statement"));
+        }
+        
+        //update the null profile Id
+        $this->userProfileId = $mysqli->insert_id;
     }
     
-
-    }
 
     /**
 

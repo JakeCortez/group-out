@@ -43,12 +43,12 @@
         $profile->insert($mysqli);
     }
     catch(mysqli_sql_exception $error){
-      echo($error);
       throw(new mysqli_sql_exception("sorry, could not save event"));
     }
     
     //set profile ID to session
-    $profileID = $profile->getUserProfileId;
+    $profileID = UserProfile::getProfileByUserId($mysqli, $userID);
+    echo($profileID);
     $_SESSION["profileID"] = $profileID;
     
     $activityTypeID = $_POST["activity"];
