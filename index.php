@@ -34,7 +34,7 @@ session_start();
       <p>event creator for outdoor enthusiasts</p>
     </div>
 
-    <?php require_once('php/nav-index.html');?>
+    <?php require_once('php/nav-index.php');?>
 
      <div class = "container-fluid">
       <div class = "row">
