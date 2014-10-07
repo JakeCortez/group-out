@@ -1,9 +1,7 @@
 <?php
     //start session
     session_start();
-
-    $_SESSION["userID"] = 2;
-
+    
     //check if userID exists
     if(!isset($_SESSION["userID"])){
         echo("You must be logged into an account to create a group");
@@ -15,7 +13,7 @@
 
     // groupout live site
     require_once("/etc/apache2/capstone-mysql/group-out.php");
-    
+
     require_once("../classes/event-class.php");
 
     //set up connection to server
