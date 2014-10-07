@@ -40,7 +40,7 @@
         echo "Welcome to Group Out!";
         
         } catch(mysqli_sql_exception $sqlException) {
-        echo "<span class='badForm'> Exception: " . $sqlException->getMessage() "</span>";
+        echo "<span class='badForm'> Exception: " . $sqlException->getMessage() . "</span>";
         }
         
         ?>
