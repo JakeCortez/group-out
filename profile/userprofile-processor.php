@@ -22,12 +22,14 @@
     catch(mysqli_sql_exception $error){
         throw(new mysqli_sql_exception("could not connect to server", 0, $error));
     }
+    
+    $userID = $_SESSION["userID"];
 
     //create profile object
     try{
-        $profile = new UserProfile($_SESSION["userID"], null, $_POST["firstName"], $_POST["lastName"],
+        $profile = new UserProfile(null, null, $_POST["firstName"], $_POST["lastName"],
                                    $_POST["userCity"], $_POST["userState"], $_POST["userZip"], $_POST["aboutMe"],
-                                   $_POST["userPrivacyLevel"], $_POST["website"], null, $_SESSION["userID"]);
+                                   $_POST["userPrivacyLevel"], $_POST["website"], null, $userID);
     }
     catch(UnexpectedValueException $error){
         throw(new UnexpectedValueException("sorry something went wrong when creating your profile", 0, $error));
@@ -38,6 +40,8 @@
 
     //insert profile into database
     try{
+        echo($_SESSION["userID"]);
+        var_dump($profile);
         $profile->insert($mysqli);
     }
     catch(mysqli_sql_exception $error){
@@ -45,7 +49,6 @@
       throw(new mysqli_sql_exception("sorry, could not save event"));
     }
 
-    $userID = $profile->getProfileID();
     $activityTypeID = $_POST["activity"];
     
     foreach($activityTypeID as $activity) {

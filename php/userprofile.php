@@ -194,15 +194,43 @@ private $firstName;
      */
 
     public function setDateCreated($newDateCreated) {
-        //check for null
+        //if null for a new profile
         if($newDateCreated === null){
-            $this->dateCreated = DateTime::setDate("servertime");
-        //check if date is in correct format
-        } elseif(DateTime::createFromFormat("Y-m-d H:i:s", $newDateCreated)){
-            $this->dateCreated = $newDateCreated;
-        } else {
-            throw(new UnexpectedValueException("Date created not found"));
+            date_default_timezone_set('America/Denver'); // CDT
+            
+            $current_date = date('Y-m-d H:i:s');
+            
+            $this->dateCreated = $current_date;
+            return;
         }
+        
+        //zeroth, if the is a DateTime object, assign it
+        if(gettype($newDateCreated) === "object" && get_class($newDateCreated) === "DateTime") {
+            $this->dateCreated = $newDateCreated;
+            return;
+        }
+        
+        $newDateCreated = trim($newDateCreated);
+        $newDateCreated = filter_var($newDateCreated, FILTER_SANITIZE_STRING);
+        
+        //second, use a regular expression to extract the date and verify it
+        if((preg_match("/^(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})$/", $newDateCreated, $matches)) !== 1) {
+            throw(new RangeException("DateCreated $newDateCreated is not a mySQL formatted date"));
+        }
+        
+        //verify the date is valid date
+        $year  = intval($matches[1]);
+        $month = intval($matches[2]);
+        $day   = intval($matches[3]);
+        if((checkdate($month, $day, $year)) === false) {
+            throw(new RangeException("DateCreated $newDateCreated is not a gregorian date"));
+        }
+        
+        //convert the date to a DateTime Object
+        if(($dateTime = DateTime::createFromFormat("Y-m-d H:i:s", $newDateCreated)) === false) {
+            throw(new RangeException("DateCreated $newDateCreated cannot be converted to a DateTime object"));
+        }
+        $this->dateCreated = $dateTime;
     }
 
     /*
@@ -452,15 +480,17 @@ private $firstName;
      **/
     
     public function setUserWebsite($newUserWebsite){
+        if($newUserWebsite === null){
+            $this->userWebsite = null;
+            return;
+        }
     
         if(gettype($newUserWebsite) !== "string") {
             throw(new UnexpectedValueException("Please use a URL string of the resource link"));
         }
 
-        //check that string is a valid URL
-        if(filter_var($newUserWebsite, FILTER_VALIDATE_URL) === false) {
-            throw(new UnexpectedValueException("Please use a valid URL link"));
-        }
+        //sanitize URL
+        $newUserWebsite = filter_var($newUserWebsite, FILTER_SANITIZE_STRING);
          //sets value for user website
          $this->userWebsite = $newUserWebsite;
     }
@@ -480,6 +510,12 @@ private $firstName;
      **/
     
     public function setUserAvatar(&$newUserAvatar){
+        //check if null
+        if($newUserAvatar === null){
+            $this->userAvatar = null;
+            return;
+        }
+        
         //create the white list of allowed types
         $goodExtensions = array("jpg", "jpeg", "png");
         $goodMimes = array("image/jpeg", "image/png");
@@ -538,8 +574,7 @@ private $firstName;
             throw(new RangeException("Invalid User ID detected"));
         }
         
-        //check if UserID is in Database
-       
+        $this->userId = $newUserID;
     }
    //________________________________________________________________________________
    //________________________________________________________________________________
@@ -555,7 +590,7 @@ public static function selectUserByProfileId (&$mysqli, $newProfileId) {
     //trim whitespace
     $newProfileId = trim ($newProfileId);
     if($newProfileId === null) {
-            $this->profileId = null;
+            $this->userProfileId = null;
             return;
     }
 
@@ -576,13 +611,13 @@ public static function selectUserByProfileId (&$mysqli, $newProfileId) {
 
     // enforce the ProfileId is not null (i.e., don't update a resource that hasn't been inserted)
 
-    if($this->profileId === null) {
+    if($this->userProfileId === null) {
         throw(new mysqli_sql_exception("Unable to update a profile id that does not exist"));
 
     }       
 
     // create query template
-    $query = "SELECT userID, userDateCreated, userfirstName, userlastName, userCity, userState, userZip, userAboutMe, userPrivacyLevel, userWebsite, userId FROM userProfiles WHERE userProfileId = ?";
+    $query = "SELECT userProfileID, userID, userDateCreated, userfirstName, userlastName, userCity, userState, userZip, userAboutMe, userPrivacyLevel, userWebsite, userId FROM userProfiles WHERE userProfileID = ?";
 
     $statement = $mysqli->prepare($query);  
 
@@ -628,7 +663,7 @@ public static function selectUserByProfileId (&$mysqli, $newProfileId) {
 
     // enforce the resoureId is null (i.e., don't insert a resource that already exists)
 
-    if($this->profileID !== null) {
+    if($this->userProfileId !== null) {
 
     throw(new mysqli_sql_exception("not a new profile Id"));
 
@@ -636,7 +671,7 @@ public static function selectUserByProfileId (&$mysqli, $newProfileId) {
 
     // create query template
 
-    $query = "INSERT INTO userProfiles(userdateCreated, userfirstName, userlastName, userCity, userState, userZip, userAboutMe, userPrivacyLevel, userWebsite, userId) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";  
+    $query = "INSERT INTO userProfiles(userDateCreated, userFirstName, userLastName, userCity, userState, userZip, userAboutMe, userPrivacyLevel, userWebsite, userID) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";  
 
     $statement = $mysqli->prepare($query);
 
@@ -648,8 +683,8 @@ public static function selectUserByProfileId (&$mysqli, $newProfileId) {
 
     // bind the member variables to the place holders in the template
 
-    $wasClean = $statement->bind_param("sssssssibi", $this->dateCreated, $this->firstName, $this->lastName, $this->userCity, $this->userState, $this->userZip, $this->aboutMe, $this->userPrivacyLevel, $this-> userWebsite,
-                                   $this-> userId);
+    $wasClean = $statement->bind_param("sssssssisi", $this->dateCreated, $this->firstName, $this->lastName, $this->userCity, $this->userState, $this->userZip, $this->aboutMe, $this->userPrivacyLevel, $this->userWebsite,
+                                   $this->userId);
 
     if($wasClean === false) {
 
@@ -659,12 +694,10 @@ public static function selectUserByProfileId (&$mysqli, $newProfileId) {
 
     // execute the statement
     if($statement->execute() === false) {
+        echo($statement->error);
         throw(new mysqli_sql_exception("Unable to execute mySQL statement"));
 
     }
-
-    // update the null resourceId with what mySQL just gave us
-    $this->userProfileId = $mysqli->profileID;
 
     }
 
@@ -709,7 +742,7 @@ throw(new mysqli_sql_exception("Unable to prepare statement"));
 
 // bind the member variables to the place holder in the template
 
-$wasClean = $statement->bind_param("i", $this->proileID);
+$wasClean = $statement->bind_param("i", $this->profileID);
 
 if($wasClean === false) {
 
@@ -772,7 +805,7 @@ throw(new mysqli_sql_exception("Unable to prepare statement"));
 
 // bind the member variables to the place holders in the template
 
-$wasClean = $statement->bind_param("sssssssibi", $this->dateCreated, $this->firstName, $this->lastName, $this->userCity, $this->userState, $this->userZip, $this->aboutMe, $this->userPrivacyLevel, $this-> userWebsite,
+$wasClean = $statement->bind_param("sssssssisi", $this->dateCreated, $this->firstName, $this->lastName, $this->userCity, $this->userState, $this->userZip, $this->aboutMe, $this->userPrivacyLevel, $this-> userWebsite,
                                    $this-> userId);
 
 if($wasClean === false) {

@@ -121,7 +121,7 @@
             <option value = "1">Public - Anybody can see your profile page</option>
             </select><br>
             <label for="website"><h4>Website (optional)</h4></label>
-            <input type="url" id="website" name="website" placeholder="website"/>
+            <input type="text" id="website" name="website" placeholder="website"/>
             <button type = "submit">Create Your Profile</button>
         </form>
       </article>
