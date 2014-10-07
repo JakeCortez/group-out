@@ -35,9 +35,6 @@
                     <li><a href="groups/create-group.php">Create a Group</a></li>
                   </ul>
                 </li>
-                <li class="dropdown">
-                  <a href="profile/my-profile.php?profileID=<?php $_SESSION["profileID"];?>" class="dropdown-hover" data-hover="dropdown">Profile</a>
-                </li>
               </ul>
               <?php require_once("check-login-index.php")?>
 <!--
