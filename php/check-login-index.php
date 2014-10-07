@@ -1,12 +1,12 @@
 <?php
     if(isset($_SESSION["userID"])){
-        echo <<<EOD
+        echo <<<_EOD
         <form action = "php/log-out.php">
             <button type = "submit" class ="logOut btn btn-default navbar-right navbar-btn">Log Out</button>
         </form>
-EOD;
+_EOD;
     } else {
-        echo <<<EOD
+        echo <<<_EOD
                 <button type="button" class="register btn btn-default navbar-right navbar-btn" data-toggle = "modal" data-target = "#registerModal">Register</button>
               <div class="modal fade registerModal" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="Register here" aria-hidden="true">
                 <div class="modal-dialog">
@@ -44,6 +44,6 @@ EOD;
                 </div>
                </div>
               </div>
-EOD;
+_EOD;
     }
 ?>
