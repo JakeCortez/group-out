@@ -35,6 +35,7 @@
         throw(new UnexpectedValueException("sorry something went wrong when creating your profile", 0, $error));
     }
     catch(RangeException $error){
+        echo($error);
         throw(new RangeException("sorry something went wrong when creating your profile"));
     }
 

@@ -1,5 +1,10 @@
 <?php
 session_start();
+
+if(!isset($_SESSION["profileID"])){
+  header("Location: create-profile.php")
+}
+
 ?>
 <!DOCTYPE html>
 <html>

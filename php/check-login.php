@@ -1,6 +1,9 @@
 <?php
     if(isset($_SESSION["userID"])){
         echo <<<EOD
+        <form action = "../profiles/profile-session.php">
+            <button type = "submit" class ="logOut btn btn-default navbar-right navbar-btn">Profile</button>
+        </form>
         <form action = "../php/log-out.php">
             <button type = "submit" class ="logOut btn btn-default navbar-right navbar-btn">Log Out</button>
         </form>
