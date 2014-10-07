@@ -65,7 +65,7 @@ $userZipGeocode = file_get_contents(
   </head>
   <body>
   <script type = "text/javscript" src = "../js/maptest.js"></script> 
-    <?php require_once('../php/nav.html');?>
+    <?php require_once('../php/nav.php');?>
     <div id = "container-fluid">
     <div class = "row">
       <article class = "col-lg-9">
