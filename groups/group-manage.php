@@ -31,6 +31,7 @@
     </div>
                       <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-          <script src="../js/validator.js"></script>
+          <script src="../js/validateLogIn.js"></script>
+           <script src="../js/validateReg.js"></script>
   </body>
 </html>

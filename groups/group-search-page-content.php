@@ -15,7 +15,7 @@ try {
   $groupArray = Group::getAllGroupInfo($mysqli);
 
   // loop through the result set
-foreach($groupArray as $group) {
+  foreach($groupArray as $group) {
 
 
   // reformat the date
@@ -50,9 +50,9 @@ foreach($groupArray as $group) {
     <div style="clear:both;"></div>
     </div>
 EOD;
-}
-} catch(mysqli_sql_exception $error) {
-echo 'oops';
-}
+        }
 
+    } catch(mysqli_sql_exception $error) {
+    echo 'oops';
+    }
 ?>
