@@ -11,10 +11,11 @@
 
     //require all needed files
     // Jim's xampp
-    require_once("../config/Pointer.php");
+    //require_once("../config/Pointer.php");
 
     // groupout live site
-    //require_once("/etc/apache2/capstone-mysql/group-out.php");
+    require_once("/etc/apache2/capstone-mysql/group-out.php");
+    
     require_once("../classes/event-class.php");
 
     //set up connection to server

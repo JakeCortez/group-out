@@ -1,12 +1,13 @@
 <?php
+session_start();
 $_SESSION["userID"] = 1;
 require_once("../classes/event-class.php");
 
 // Jim's xampp
-require_once("../config/Pointer.php");
+//require_once("../config/Pointer.php");
 
 // groupout live site
-//require_once("/etc/apache2/capstone-mysql/group-out.php");
+require_once("/etc/apache2/capstone-mysql/group-out.php");
 
 try {
   // call the Pointer static method to connect to mySQL
@@ -38,7 +39,7 @@ try {
       <div class="col-md-10">
         <div class="userAvatar"></div>
         <div class="userDisplayName">$eventName</div>
-        <div class="userActivities">$niceDate<br><strong>$eventActivityList</strong></div>
+        <div class="userActivities">$eventCity, $eventState | $niceDate<br><strong>$eventActivityList</strong></div>
         <div class="userAboutMe">
           <h1>Event Description</h1>
           <p>$eventDescription</p>
