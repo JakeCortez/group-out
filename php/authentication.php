@@ -1,6 +1,7 @@
 <?php
     //require the class we're going to use
     require_once("../classes/user-login.php");
+    require_once("../php/userprofile.php");
     
     //start the session state
     session_start();
@@ -36,10 +37,13 @@
         if ($userAuthToken !== null) {
            throw (new exception ("We can't find your email address.  Please register again"));
         }
-  
+        
         // if found, compare passwords
         if ($user!== null && $userHash === $userPassword) {
             $_SESSION["userID"] = $userID;
+            
+            $profileID = UserProfile::getProfileByUserId($mysqli, $userID);
+            $_SESSION["profileID"] = $profileID;
             
         //if equal let them through and send user back to entry page 
             header("Location: {$_SERVER['HTTP_REFERER']}");

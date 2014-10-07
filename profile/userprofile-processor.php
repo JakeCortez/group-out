@@ -40,15 +40,17 @@
 
     //insert profile into database
     try{
-        echo($_SESSION["userID"]);
-        var_dump($profile);
         $profile->insert($mysqli);
     }
     catch(mysqli_sql_exception $error){
       echo($error);
       throw(new mysqli_sql_exception("sorry, could not save event"));
     }
-
+    
+    //set profile ID to session
+    $profileID = $profile->getUserProfileId;
+    $_SESSION["profileID"] = $profileID;
+    
     $activityTypeID = $_POST["activity"];
     
     foreach($activityTypeID as $activity) {
@@ -70,5 +72,5 @@
       }
     }
 
-    header("Location: my-profile.php?profileID=$userID");
+    header("Location: my-profile.php?profileID=$profileID");
 ?>

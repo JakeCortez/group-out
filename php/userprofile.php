@@ -608,43 +608,24 @@ private $firstName;
   //_________________________________________________________________________________
   //_________________________________________________________________________________
    
-public static function selectUserByProfileId (&$mysqli, $newProfileId) {
-
-    // handle degenerate cases
-    if(gettype($newProfileId) !== "string") {
-    throw (new UnexpectedValueExceptioon("The input format is invalid, please insert string"));
-    }   
+public static function getProfileByUserId (&$mysqli, $newUserId) {
     //trim whitespace
-    $newProfileId = trim ($newProfileId);
-    if($newProfileId === null) {
-            $this->userProfileId = null;
-            return;
+    $newUserId = trim($newUserId);
+    $newUserId = intval($newUserId);
+    
+    if(filter_var($newUserId, FILTER_VALIDATE_INT) === false){
+        throw(new UnexpectedValueException("userID is invalid"));
     }
-
-    if((filter_var($newUserProfileId, FILTER_VALIDATE_INT)) === false) {
-            throw(new UnexpectedValueException("user id $newProfileId is not an integer"));
-        }
-        //third, convdert the user id to an integer and ensure it's positive
-        $newProfileId =intval($newProfileId);
-        if($newProfileId <=0) {
-            throw(new RangeException("Please make sure that  $userId is a positive number"));
-        
-        }
+    if($newUserId <= 0) {
+       throw(new RangeException("Please make sure that  $newUserId is a positive number"));
+    }
 
         if(gettype($mysqli) !== "object" || get_class($mysqli) !== "mysqli") {
         throw(new mysqli_sql_exception("input is not a mysqli object"));
-
     }
 
-    // enforce the ProfileId is not null (i.e., don't update a resource that hasn't been inserted)
-
-    if($this->userProfileId === null) {
-        throw(new mysqli_sql_exception("Unable to update a profile id that does not exist"));
-
-    }       
-
     // create query template
-    $query = "SELECT userProfileID, userID, userDateCreated, userfirstName, userlastName, userCity, userState, userZip, userAboutMe, userPrivacyLevel, userWebsite, userId FROM userProfiles WHERE userProfileID = ?";
+    $query = "SELECT profileID FROM userProfiles WHERE userID = ?";
 
     $statement = $mysqli->prepare($query);  
 
@@ -656,7 +637,7 @@ public static function selectUserByProfileId (&$mysqli, $newProfileId) {
 
     // bind the member variables to the place holders in the template
 
-    $wasClean = $statement->bind_param("i", $this->profileID);                  
+    $wasClean = $statement->bind_param("i", $newUserId);                  
 
     if($wasClean === false) {
 
@@ -672,6 +653,21 @@ public static function selectUserByProfileId (&$mysqli, $newProfileId) {
 
     }
 
+    //get results from the SELECT query
+    $result  = $statement->get_result();
+    if($result === null){
+        throw(new mysqli_sql_exception("Unable to get result set"));
+    }
+    
+    //fetch result
+    $row = $result->fetch_assoc();
+    
+    if($row !==null){
+        $profileID = $row["profileID"];
+        
+        return($profileID);
+    }
+    
     }
     
     public function insert(&$mysqli) {
