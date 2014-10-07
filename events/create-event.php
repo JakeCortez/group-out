@@ -43,7 +43,7 @@ session_start();
             <label for="eventDescription">Event Description</label>
             <textarea name="eventDescription" rows="5" class="description" cols="80" max="500" type="text"></textarea> <br>
             <label for="date">Event Time and Date</label>
-            <input type="text" id="eventDate" required name="eventDate"><br>
+            <input type="text" id="eventDate" required name="eventDate" placeholder="YYYY-MM-DD HH:MM:SS"><br>
             <label for="activity">Choose One or More Activities:</label>
             <label for="activityTypeID[]">Road Bike</label>
             <input name="activityTypeID[]" type="checkbox" value="1">
