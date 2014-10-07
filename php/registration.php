@@ -28,14 +28,14 @@
             $mysqli = Pointer::getPointer();
             
         //authenticate user 
-            $newUserID = new UserID (null, $userAuthToken, $_POST["userEmail"], $userHash, 2, $userSalt);
+            $newUser = new User (null, $userAuthToken, $_POST["userEmail"], $userHash, 2, $userSalt);
             
         //insert user in DB
             $newUser->insert($mysqli);
         
         // mail the user
-            $message = "Welcome to group out. Click http://bootcamp-coders.cnm.edu/group-out/php/activation.php?authToken=" . $newUserID->getUserAuthToken();
-                mail($newUserID->getUserEmail(), "Welcome to Group Out", $message);
+            $message = "Welcome to group out. Click http://bootcamp-coders.cnm.edu/group-out/php/activation.php?authToken=" . $newUser->getUserAuthToken();
+                mail($newUser->getUserEmail(), "Welcome to Group Out", $message);
             
         echo "Welcome to Group Out!";
         
