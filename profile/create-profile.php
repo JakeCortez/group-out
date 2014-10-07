@@ -25,23 +25,29 @@
 
     <div class="container-fluid">
       <div class = "col-lg-1"></div>
-        </head>
-        <body>
+        <article class = "col-lg-10">
             <h1>Create My Profile</h1>
-            <form id="profileForm" method="post" action="upload_profile.php" enctype="multipart/form-data">
+            <form id="profileForm" method="post" class = "basicForm" action = "user-profile-processor.php" enctype="multipart/form-data">
             <label for="firstName" placeholder="my name">First Name</label>
             <input type="text" id="firstName" name="firstName" /><br /><br />
             <label for="lastName">Last Name</label>
             <input type="text" id="lastName" name="lastName" /><br />
-            <label for="displayName"><h4>Display Name</h4></label>
-            <input name="displayName" type="text" id="displayName" placeholder="my name" required max="25"<br />
-            <h4>Preferred Activities</h4><p> Choose one or more</p>
-            <input name="activity" type="checkbox" value="hike">Hike<input type="checkbox" value="bike">Bike<input type="checkbox" value="run">Run<input type="checkbox" value="other">Other<br />
-            <br />
-            <label for="city"><h4>City</h4></label>
-            <input type="text" id="city" name="city" placeholder="Albuquerque"/><br />
-            <label for="state"><h4>State</h4></label>
-            <select>
+            <label for="activity">Choose One or More Activities</label>
+            <label for="activity[]">Road Bike</label>
+            <input name="activity[]" type="checkbox" value="1">
+            <label for="activity[]">Mountain Bike</label>
+            <input name="activity[]" type="checkbox" value="2">
+            <label for="activity[]">Hike</label>
+            <input name="activity[]"  type="checkbox" value="3">
+            <label for="activity[]">Run</label>
+            <input name="activity[]" type="checkbox" value="4">
+            <label for="activity[]">Walk</label>
+            <input name="activity[]" type="checkbox" value="5">
+            <br><br>
+            <label for="userCity"><h4>City</h4></label>
+            <input type="text" id="city" name="serCity" placeholder="Albuquerque"/><br />
+            <label for="userState"><h4>State</h4></label>
+            <select name = "userState">
                   <option value="AL">Alabama</option>
                   <option value="AK">Alaska</option>
                   <option value="AZ">Arizona</option>
@@ -104,13 +110,17 @@
                   <option value="AE">Armed Froces Euroope</option>
                   <option value="AO">Armed Forces Others</option>
             </select><br />
-            <label for="zip"><h4>Zip Code</h4></label><input type="text" id="zipCode" required name="zipCode" placeholder="87185" minlength="5" maxlength="10"><br />
+            <label for="userZip"><h4>Zip Code</h4></label>
+            <input name = "userZip" type="text" id="zipCode" required name="zipCode" placeholder="zipcode" minlength="5" maxlength="10"><br />
             <label for="aboutMe"><h4>Describe Yourself</h4></label>
-            <textarea type="text" id="aboutMe" name="aboutMe" placeholder="I am an avid sports enthusiast.." /></textarea><br />
-            <label for="email"><h4>Email (required)</h4> </h4></label>
-            <input type"email" name="email" id="email" placeholder="abc@defg.com"><br />
-            <label for="website"><h4>Website (optional)</h4<label>
-            <input type="url" id="website" name="website" placeholder="abc@groupout.com"/>
+            <textarea type="text" id="aboutMe" name="aboutMe" placeholder="I am an avid sports enthusiast.."></textarea><br>
+            <label for = "userPrivacyLevel"><h4>Privacy Level</h4></label>
+            <select name = "userPrivacyLevel">
+            <option value = "3">Private - Nobody can see your profile page</option>
+            <option value = "1">Public - Anybody can see your profile page</option>
+            </select><br>
+            <label for="website"><h4>Website (optional)</h4></label>
+            <input type="url" id="website" name="website" placeholder="website"/>
         </form>
       </article>
       <div class = "col-lg-1"></div>
