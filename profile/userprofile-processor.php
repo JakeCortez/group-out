@@ -28,8 +28,8 @@
     //create profile object
     try{
         $profile = new UserProfile(null, null, $_POST["firstName"], $_POST["lastName"],
-                                   $_POST["userCity"], $_POST["userState"], $_POST["userZip"], $_POST["aboutMe"],
-                                   $_POST["userPrivacyLevel"], $_POST["website"], null, $userID, null);
+                           $_POST["userCity"], $_POST["userState"], $_POST["userZip"], $_POST["aboutMe"],
+                           $_POST["userPrivacyLevel"], $_POST["website"], null, $userID, null);
     }
     catch(UnexpectedValueException $error){
         throw(new UnexpectedValueException("sorry something went wrong when creating your profile", 0, $error));
