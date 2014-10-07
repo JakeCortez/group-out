@@ -21,7 +21,7 @@
     try{
         $mysqli = Pointer::getPointer();
     }
-    catch(mysqli_sql_excpetion $error){
+    catch(mysqli_sql_exception $error){
         throw(new mysqli_sql_exception("could not connect to server", 0, $error));
     }
 
