@@ -338,12 +338,13 @@ input:required {
     text-align: center;
 }
 
+.dropdown:hover .dropdown-hover {
+display: block;
+}
+
 /*** RESPONSIVE (@MEDIA) STYLES ***/
 
 @media (max-width: 768px) {
-  .dropdown:hover .dropdown-hover {
-    display: block;
-  }
   .userDisplayName {
     clear: both;
   }
