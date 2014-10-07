@@ -31,20 +31,7 @@ $_SESSION["userID"] = 1;
       <div class = "col-lg-1"></div>
       <!-- Article Area -->
       <article class="col-md-10">
-        <!-- User Profile Information -->
-        <div class="userAvatar"></div>
-        <div class="userDisplayName">Display Name</div>
-        <div class="userActivities">biker | runner</div>
-        <div class="userAboutMe">
-          <h1>About Me</h1>
-          <p>Praesent accumsan lacus massa, sed aliquam lorem dapibus vitae. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Sed a gravida leo, vel blandit dolor. Praesent vulputate purus justo, sed ornare tortor aliquet id. Vivamus commodo fringilla nisl non eleifend.</p>
-        </div>
-        <div class="userLinks">my website / facebook / twitter / instagram</div>
-
-        <!-- Lists of routes, events and groups-->
-        <div class="bar">Events</div>
-        <?php require_once('../php/list-create.php');?>
-
+        <?php require_once("profile-page-content.php");?>
       </article>
       <div class = "col-lg-1"></div>
     </div>

@@ -82,6 +82,11 @@ private $firstName;
  
  private $userId;
  
+ /**
+  * user's activityList
+  **/
+ private $userActivityList;
+ 
  /*
   * user's Id, validate
   *
@@ -109,7 +114,7 @@ private $firstName;
     **/
     
     public function __construct($newUserProfileId, $newDateCreated, $newFirstName, $newLastName, $newUserCity, $newUserState,
-                               $newUserZip, $newAboutMe, $newUserPrivacyLevel, $newUserWebsite, $newUserAvatar, $newUserId) {
+                               $newUserZip, $newAboutMe, $newUserPrivacyLevel, $newUserWebsite, $newUserAvatar, $newUserId, $newUserActivityList) {
         //use the mutator methods to populate the user
         try {
             $this->setUserProfileId($newUserProfileId);
@@ -123,7 +128,8 @@ private $firstName;
             $this->setUserPrivacyLevel($newUserPrivacyLevel);
             $this->setUserWebsite($newUserWebsite);
             $this->setUserAvatar($newUserAvatar);
-            $this->setUserID($newUserId);   
+            $this->setUserID($newUserId);
+            $this->setUserActivityList($newUserActivityList);
         }catch (UnexpectedValueException $unexpectedValue) {
                 //rethrow to the caller
             throw(new UnexpectedValueException("Unable to construct user", 0, $unexpectedValue));
@@ -576,6 +582,27 @@ private $firstName;
         
         $this->userId = $newUserID;
     }
+    
+    /**
+     * gets values of userActivityList
+     **/
+    public function getUserActivityList(){
+        return($this->userActivityList);
+    }
+    
+    /*
+     * sets value of userActivityList
+     *
+     * @param mixed for list of activities
+     **/
+    public function setUserActivityList($newUserActivityList){
+        //filter
+        $newUserActivityList = trim($newUserActivityList);
+        $newUserActivityList = filter_var($newUserActivityList, FILTER_SANITIZE_STRING);
+        
+        //set values
+        $this->userActivityList = $newUserActivityList;
+    }
    //________________________________________________________________________________
    //________________________________________________________________________________
   //_________________________________________________________________________________
@@ -824,6 +851,59 @@ throw(new mysqli_sql_exception("Unable to execute mySQL statement"));
 
 }
 
-}
+    public static function getProfileInfo(&$mysqli, $profileId){
+      //handle degenerate cases
+        if(gettype($mysqli) !== "object" || get_class($mysqli) !== "mysqli"){
+            throw(new mysqli_sql_exception("input is not a mysqli object"));
+        }
+        
+        //cleanse input
+        $profileId = trim($profileId);
+        $profileId = intval($profileId);
+        if(filter_var($profileId, FILTER_VALIDATE_INT) === false){
+            throw(new UnexpectedValueException("profileID is invalid"));
+        }
+        
+        //create query
+        $query = "SELECT userProfiles.profileID, userProfiles.userID, userProfiles.userDateCreated, userProfiles.userFirstName, userProfiles.userLastName,  userProfiles.userCity,  userProfiles.userState, userProfiles.userZip,  userProfiles.userAboutMe, userProfiles.userPrivacyLevel, userProfiles.userWebsite, userProfiles.userAvatar, userToActivity.userActivityList
+            FROM userProfiles
+            INNER JOIN (SELECT DISTINCT userID, GROUP_CONCAT(DISTINCT activityTypeName ORDER BY activityTypeName SEPARATOR ', ')
+            AS userActivityList
+            FROM userToActivity LEFT JOIN activityType
+            ON userToActivity.activityTypeID = activityType.activityTypeID GROUP BY userID) userToActivity
+            ON userProfiles.userID = userToActivity.userID
+            WHERE userProfiles.profileID = ?";
+            
+        $statement = $mysqli->prepare($query);
+        if($statement === false){
+            throw(new mysqli_sql_exception("Unable to prepare statement"));
+        }
+        
+        //bind member variables to the place holder
+        $clean = $statement->bind_param("i", $profileId);
+        if($clean === false){
+            throw(new mysqli_sql_exception("Unable to bind parameter"));
+        }
+        
+        //execute
+        if($statement->execute() === false) {
+            throw(new mysqli_sql_exception("Unable to execute mySQL statement"));
+        }
+        
+        //get results from the SELECT query
+        $result  = $statement->get_result();
+        if($result === null){
+            throw(new mysqli_sql_exception("Unable to get result set"));
+        }
+        
+        $profileArray = array();
+        
+        while(($row = $result->fetch_assoc()) !== null) {
+            $profileArray[] = new UserProfile($row["profileID"], $row["userDateCreated"], $row["userFirstName"], $row["userLastName"], $row["userCity"], $row["userState"], $row["userZip"],$row["userAboutMe"], $row["userPrivacyLevel"], $row["userWebsite"], $row["userAvatar"], $row["userID"], $row["userActivityList"]);
+        }
+        
+        return $profileArray;
+    }
 
+}
 ?>
