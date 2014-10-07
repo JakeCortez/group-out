@@ -20,6 +20,7 @@
     
     //user accepted, activated 
     $user->update($mysqli);
+    echo "Your Group-Out membership has been approved."
     
     //OTHERWISE
     } else {
