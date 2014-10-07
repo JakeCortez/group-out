@@ -35,7 +35,7 @@ try {
     // echo the result
     echo <<<EOD
       <div class="col-md-10">
-        <div class="userAvatar"></div>
+        <div class="userAvatar"><img src="../images/$eventID-event.jpg" alt="$eventName" width="200px" height="200px"></div>
         <div class="userDisplayName">$eventName</div>
         <div class="userActivities">$eventCity, $eventState | $niceDate<br><strong>$eventActivityList</strong></div>
         <div class="userAboutMe">
