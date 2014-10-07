@@ -718,6 +718,12 @@ public static function getProfileByUserId (&$mysqli, $newUserId) {
         throw(new mysqli_sql_exception("Unable to execute mySQL statement"));
 
     }
+    
+    //update the null profile Id
+    $this->userProfileId = $mysqli->insert_id;
+        
+    }
+    
 
     }
 
