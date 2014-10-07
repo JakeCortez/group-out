@@ -267,7 +267,7 @@ footer {
 }
 
 .footer_links {
-  text-align: center;
+  text-align: left;
   border: 0.1em transparent solid;
   display: block;
   color: #777;
