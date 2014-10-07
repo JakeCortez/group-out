@@ -351,5 +351,9 @@ input:required {
     float: left;
     clear: both;
   }
+  .listButton {
+    float: left;
+    clear: both;
+  }
 
 }
