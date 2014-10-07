@@ -1,6 +1,6 @@
 <?php
 /**
-* @author Charlie goodan (cgoodan@gmail.com)
+* @ author Charlie goodan (cgoodan@gmail.com)
 */
 
 class Route {
@@ -281,9 +281,9 @@ class Route {
   /**
    * sets the value of routeDifficulty
    *
-   * @param mixed $newRouteDifficulty routeDifficulty (or null if new object)
-   * @throws UnexpectedValueException if not an integer or null
-   * @throws RangeException if routeDifficulty isn't positive
+   * @ param mixed $newRouteDifficulty routeDifficulty (or null if new object)
+   * @ throws UnexpectedValueException if not an integer or null
+   * @ throws RangeException if routeDifficulty isn't positive
    **/
   public function setRouteDifficulty($newRouteDifficulty) {
     // zeroth, set allow the routeDifficulty to be null if a new object
@@ -320,9 +320,9 @@ class Route {
   /**
    * sets the value of routePrivacy
    *
-   * @param mixed $newRoutePrivacy routePrivacy (or null if new object)
-   * @throws UnexpectedValueException if not an integer or null
-   * @throws RangeException if routePrivacy isn't positive
+   * @ param mixed $newRoutePrivacy routePrivacy (or null if new object)
+   * @ throws UnexpectedValueException if not an integer or null
+   * @ throws RangeException if routePrivacy isn't positive
    **/
   public function setRoutePrivacy($newRoutePrivacy) {
     // zeroth, set allow the routePrivacy to be null if a new object
@@ -527,7 +527,7 @@ class Route {
     }
      // bind the member variables to the place holders in the template
 
-    $wasClean = $statement->bind_param("sssssssibi", $this->rouetDateCreated, $this->routeName, $this->routeDescription, $this->routedifficulty, $this->routePrivacy, $this->centerLng, $this->centerLat);
+    $wasClean = $statement->bind_param("sssiidd", $this->routeDateCreated, $this->routeName, $this->routeDescription, $this->routedifficulty, $this->routePrivacy, $this->centerLng, $this->centerLat);
 
     if($wasClean === false) {
 
@@ -545,3 +545,117 @@ class Route {
     $this->routeID = $mysqli->routeID;
 
     }
+
+/**
+* updates the route in mySQL
+*
+* @ param resource $mysqli pointer to mySQL connection, by reference
+* @ throws mysqli_sql_exception when mySQL related errors occur
+**/
+
+public function update(&$mysqli) {
+
+// handle degenerate cases
+
+if(gettype($mysqli) !== "object" || get_class($mysqli) !== "mysqli") {
+
+throw(new mysqli_sql_exception("input is not a mysqli object"));
+
+}
+
+// enforce the resourceId is not null (i.e., don't update a resource that hasn't been inserted)
+
+if($this->routeID === null) {
+
+throw(new mysqli_sql_exception("Unable to update a resource that does not exist"));
+
+}
+
+// create query template
+
+$query = "UPDATE routes SET routeID = ?, userID = ?, routeDateCreated = ?, routeName = ?, lastDescription = ?, routeDifficulty = ?, routePrivacy = ?,
+                               centerLng= ?, centerLat = ?";
+
+$statement = $mysqli->prepare($query);
+
+if($statement === false) {
+
+throw(new mysqli_sql_exception("Unable to prepare statement"));
+
+}
+
+// bind the member variables to the place holders in the template
+
+$wasClean = $statement->bind_param("sssiidd", $this->routeDateCreated, $this->routeName, $this->routeDescription, $this->routeDifficulty, $this->routePrivacy, $this->centerLng, $this->centerLat);
+
+if($wasClean === false) {
+
+throw(new mysqli_sql_exception("Unable to bind parameters"));
+
+}
+
+// execute the statement
+
+if($statement->execute() === false) {
+
+throw(new mysqli_sql_exception("Unable to execute mySQL statement"));
+
+}
+
+}
+
+}
+
+     /**
+    * deletes this Resource from mySQL
+    *
+    * @ param resource $mysqli pointer to mySQL connection, by reference
+    * @ throws mysqli_sql_exception when mySQL related errors occur
+    **/
+
+    public function delete(&$mysqli) {
+
+    // handle degenerate cases
+    if(gettype($mysqli) !== "object" || get_class($mysqli) !== "mysqli") {
+        throw(new mysqli_sql_exception("input is not a mysqli object"));
+
+    }
+
+    // enforce the resourceId is not null (i.e., don't delete a resource that hasn't been inserted)
+
+    if($this->profileID=== null) {
+        throw(new mysqli_sql_exception("Unable to delete a resource that does not exist"));
+
+}
+
+// create query template
+
+$query = "DELETE FROM routes WHERE routeID = ?";
+
+$statement = $mysqli->prepare($query);
+
+if($statement === false) {
+
+throw(new mysqli_sql_exception("Unable to prepare statement"));
+
+}
+
+// bind the member variables to the place holder in the template
+
+$wasClean = $statement->bind_param("i", $this->routeeID);
+
+if($wasClean === false) {
+
+throw(new mysqli_sql_exception("Unable to bind parameters"));
+
+}
+
+// execute the statement
+
+if($statement->execute() === false) {
+
+throw(new mysqli_sql_exception("Unable to execute mySQL statement"));
+
+}
+
+}
