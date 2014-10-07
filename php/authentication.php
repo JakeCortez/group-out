@@ -45,7 +45,7 @@
             $_SESSION["profileID"] = $profileID;
             
         //if equal let them through and send user back to entry page 
-            header("Location: {$_SERVER['HTTP_REFERER']}");
+            header("Location: ../index.php");
         }
         
         // while password matches, create session, store userID
