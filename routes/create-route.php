@@ -1,6 +1,7 @@
 <?php
 session_start();
 $_SESSION["userZip"] = 87124;
+$_SESSION["userID"] = 0;
 $userZipGeocode = file_get_contents(
 ("https://maps.googleapis.com/maps/api/geocode/json?address=".$_SESSION["userZip"]."&key=AIzaSyB2aOD4S27kgQRMsngL2OLy_nKGYJ6YUO8"));
 ?>
