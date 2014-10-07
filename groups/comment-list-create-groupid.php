@@ -1,5 +1,4 @@
 <?php
-session_start();
 require_once("../php/commentText-class.php");
 
 // Jim's xampp

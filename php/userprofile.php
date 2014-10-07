@@ -661,12 +661,9 @@ public static function getProfileByUserId (&$mysqli, $newUserId) {
     
     //fetch result
     $row = $result->fetch_assoc();
-    
-    if($row !==null){
-        $profileID = $row["profileID"];
+    $profileID = $row["profileID"];
         
-        return($profileID);
-    }
+    return($profileID);
     
     }
     
