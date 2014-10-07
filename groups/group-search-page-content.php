@@ -27,7 +27,7 @@ try {
   $groupState = $group->getGroupState();
   $groupSkill = $group->getGroupSkill();
   $groupActivityList = $group->getGroupActivityList();
-  $groupMembersAmount = echo rand(5,25);
+  $groupMembersAmount = rand(5,25);
 
   // echo the result
   echo <<<EOD
