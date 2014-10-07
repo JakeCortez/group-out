@@ -33,7 +33,6 @@
                   <a href="../groups/groups.php" class="dropdown-hover" data-hover="dropdown">Groups<span class="caret"></span></a>
                   <ul class="dropdown-menu dropdown-hover" data-hover="dropdown" role="menu">
                     <li><a href="../groups/create-group.php">Create a Group</a></li>
-                    <li><a href="../groups/group-manage.php">Groups Management</a></li>
                   </ul>
                 </li>
                 <li class="dropdown">
