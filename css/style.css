@@ -214,7 +214,7 @@ aside {
 
 .modalLogIn {
   display: inline-block;
-  margin-left: auto;  
+  margin-left: auto;
   margin-right: auto;
   margin-top: 1em;
   margin-bottom: 1em;
@@ -222,7 +222,7 @@ aside {
 }
 .logInModal {
   display: inline-block;
-  margin-left: auto;  
+  margin-left: auto;
   margin-right: auto;
   margin-top: 1em;
   margin-bottom: 1em;
@@ -235,7 +235,7 @@ aside {
 
 .basicForm input, .basicForm button, .basicForm label, .basicForm textarea, .basicForm select {
   display: block;
-  margin-left: auto;  
+  margin-left: auto;
   margin-right: auto;
   margin-top: 0.25em;
   margin-bottom: 0.25em;
@@ -340,8 +340,16 @@ input:required {
 
 /*** RESPONSIVE (@MEDIA) STYLES ***/
 
-@media (min-width: 768px) {
-    .dropdown:hover .dropdown-hover {
+@media (max-width: 768px) {
+  .dropdown:hover .dropdown-hover {
     display: block;
   }
+  .userDisplayName {
+    clear: both;
+  }
+  .listJoin {
+    float: left;
+    clear: both;
+  }
+
 }
