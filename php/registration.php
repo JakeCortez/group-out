@@ -1,4 +1,5 @@
 <?php
+    session_start();
     //require the class we're going to use
     require_once("../classes/user-login.php");
 ?>
@@ -36,8 +37,7 @@
         // mail the user
             $message = "Welcome to group out. Click http://bootcamp-coders.cnm.edu/group-out/php/activation.php?authToken=" . $newUser->getUserAuthToken();
                 mail($newUser->getUserEmail(), "Welcome to Group Out", $message);
-            
-        echo "Welcome to Group Out!";
+            $_SESSION["userID"] = $newUser->getUserID;
         
         } catch(mysqli_sql_exception $sqlException) {
         echo "<span class='badForm'> Exception: " . $sqlException->getMessage() . "</span>";
