@@ -32,7 +32,7 @@ foreach($eventArray as $event) {
   // echo the result
   echo <<<EOD
     <div class="listItem">
-    <div class="listThumb"><img src="../images/$eventID-event.jpg" alt="$eventName" width="140px" height="140px"></div>
+    <div class="listThumb"><img src="../images/$eventID-event.jpg" title="eventName" alt="$eventName" width="140px" height="140px"></div>
 
     <div class="listDetails">
       <div class="listHead"><a href="../events/event.php?eventID=$eventID">$eventName</a> | $eventActivityList</div>
