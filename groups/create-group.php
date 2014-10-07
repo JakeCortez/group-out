@@ -1,4 +1,4 @@
-<?php session_start(); ?>
+<?php session_start();?>
 <!DOCTYPE html>
 <html>
   <head>
@@ -21,7 +21,7 @@
       <script src="../js/group-out.js"></script>
   </head>
   <body>
-    <?php require_once('../php/nav.html');?>
+    <?php require_once('../php/nav.php');?>
     <div class = "container-fluid">
       <div class = "col-lg-1"></div>
       <article class = "col-lg-10">
