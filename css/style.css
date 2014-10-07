@@ -2,6 +2,12 @@ html {
   padding: 0;
 }
 
+.optional {
+  float: left;
+  width: 173px;
+  margin-right: 10px;
+}
+
 textarea{
     resize:none;
 }

@@ -24,7 +24,7 @@
     <?php require_once('../php/nav.html');?>
     <div class = "container-fluid">
       <article class = "col-lg-9">
-        <img src="url" alt="Profile Picture"><br />
+        <img src="url" alt="Profile Photo"><br />
         <fieldset title="Other form elements">
           <legend>Profile Photo</legend>
           <label>Upload file
@@ -35,13 +35,16 @@
         
         
         <form id="displayName" method="post" action="">
-            <label for="displayName"><h4>Display Name</h4></label><p>Choose a name you would like to be visible to public</p><br />
-            <input name="displayName" type="text" id="displayName" placeholder="abc123" required max="25">< br/>
+            <label for="displayName"><h4>Display Name</h4></label>
+            <input name="displayName" type="text" id="displayName" placeholder="GroupOut" required max="25"><br />
             <h4>Preferred Activities</h4><p> Choose one or more</p>
-            <input name="activity" type="checkbox" value="hike">Hike<input type="checkbox" value="bike">Bike<input type="checkbox" value="run">Run<input type="checkbox" value="other">Other<br /><br />
+            <input name="activity" type="checkbox" value="hike">Hike</input>&nbsp; &nbsp;
+            <input type="checkbox" value="bike">Bike</input>&nbsp; &nbsp;
+            <input type="checkbox" value="run">Run</input>&nbsp; &nbsp;
+            <input type="checkbox" value="other">Other<br /><br />
             
             <label for="city"><h4>City</h4></label>
-            <input type="text" id="city" name="city" placeholder="abc123"/><br />
+            <input type="text" id="city" name="city" placeholder="Albuquerque"/><br />
             <label for="state"><h4>State</h4></label>
             <select>
                   <option value="AL">Alabama</option>
@@ -105,22 +108,21 @@
                   <option value="AP">Armed Forces Pacific</option>
                   <option value="AE">Armed Froces Euroope</option>
                   <option value="AO">Armed Forces Others</option>
-
-            </select>
+             </select><br />
             
-            <label for="zip"><h4>Zip Code</h4></label><input type="number" id="zipCode" required name="zipCode" placeholder="87185" minlength="5" maxlength="10">
+            <label for="zip"><h4>Zip Code</h4></label><input type="text" id="zipCode" required name="zipCode" placeholder="87185" minlength="5" maxlength="10"><br />
             <label for="aboutMe"><h4>Describe Yourself</h4></label>
-            <textarea type="text" id="aboutMe" name="aboutMe" placeholder="abc123" /></textarea><br />
-            <label for="email"><h4>Email (required)</h4> </h4></label>
-            <input type"email" name="email" id="email" placeholder="abc@defg.com><br />
-            <label for="website"><h4>Website (optional)</h4<label><br />
-            <input type="url" id="website" name="website" placeholder="abc@groupout.com"/>
-            <label for="faceboook"><h4>Facebook (optional)</h4<label><br />
-            <input type="text" id="facebook" name="facebook" placeholder="abc@groupout.com"/>
-            <label for="twitter"><h4>Twitter (optional)</h4<label><br />
-            <input type="text" id="twitter" name="twitter" placeholder="abc123"/>
-            <label for="instagram"><h4>Instagram (optional)</h4<label><br />
-            <input type="text" id="instagram" name="instagram" placeholder="abc123"/>
+            <textarea type="text" id="aboutMe" name="aboutMe" placeholder="I like turtles!"></textarea><br />
+            <label for="email"><h4>Email (required)</h4></label>
+            <input type"email" name="email" id="email" placeholder="abc@defg.com">
+            <label for="website"><div class="optional"><h4>Website (optional)</h4><label>
+            <input type="url" class="optional" name="website" placeholder="abc@groupout.com"/></div>
+            <label for="faceboook"><div class="optional"><h4>Facebook (optional)</h4><label>
+            <input type="text" class="optional" name="facebook" placeholder="@facebook"></div>
+            <label for="twitter"><div class="optional"><h4>Twitter (optional)</h4><label>
+            <input type="text" class="optional" name="twitter" placeholder="@twitter"/></div>
+            <label for="instagram"><div class="optional"><h4>Instagram (optional)</h4><label>
+            <input type="text" class="optional" name="instagram" placeholder="@instagram"/></div>
             
         </form>
       </article>
