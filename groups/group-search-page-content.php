@@ -1,5 +1,4 @@
 <?php
-$_SESSION["userID"] = 1;
 require_once("../classes/group-class.php");
 
 // Jim's xampp
@@ -32,7 +31,7 @@ foreach($groupArray as $group) {
   // echo the result
   echo <<<EOD
     <div class="listItem">
-    <div class="listThumb"></div>
+    <div class="listThumb"><img src = "../images/1-event.jpg" width = "140px" height = "140px"></div>
 
     <div class="listDetails">
       <div class="listHead"><a href="group.php?groupID=$groupID">$groupName</a> | $groupActivityList</div>

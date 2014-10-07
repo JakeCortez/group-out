@@ -30,7 +30,7 @@ try {
 
     // echo the result
     echo <<<EOD
-      <div class="userAvatar"></div>
+      <div class="userAvatar"><img src = "../images/1-event.jpg" width = "200px" height = "200px"></div>
       <div class="userDisplayName">$groupName</div>
       <div class="userActivities">$niceDate<br><strong>$groupActivityList</strong></div>
       <div class="userAboutMe">
