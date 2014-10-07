@@ -22,7 +22,7 @@ try {
     
     // echo the result
     echo <<<EOD
-      <div class="userAvatar"><img src = "../images/1-group.jpg" alt="sorry" title="sorry" width="200px" height="200px"></div>
+      <div class="userAvatar"><img src = "../images/$pageProfileID.jpg" alt="selfies" title="selfies" width="200px" height="200px"></div>
       <div class="userDisplayName">$firstName $lastName</div>
       <div class="userActivities">$city<br><strong>yes</strong></div>
       <div class="userAboutMe">
