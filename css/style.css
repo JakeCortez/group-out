@@ -8,12 +8,12 @@ html {
   margin-right: 10px;
 }
 
-textarea{
-    resize:none;
+textarea {
+    resize: none;
 }
 
 /** Map for create a route **/
-.createRoute{
+.createRoute {
     height:20em;
     width:20em;
 }
@@ -60,11 +60,11 @@ textarea{
 
 
 /*** ARTICLE AREA ***/
-#createHeader{
+#createHeader {
     text-align: center;
 }
 
-input[type=checkbox]{
+input[type=checkbox] {
     margin: 0 auto !important;
 }
 
@@ -229,11 +229,11 @@ aside {
   text-align: center;
 }
 
-.description{
+.description {
     text-align: left !important;
 }
 
-.basicForm input, .basicForm button, .basicForm label, .basicForm textarea, .basicForm select{
+.basicForm input, .basicForm button, .basicForm label, .basicForm textarea, .basicForm select {
   display: block;
   margin-left: auto;  
   margin-right: auto;
@@ -305,7 +305,7 @@ footer {
   padding: 1em;
 }
 
-#map-canvas{
+#map-canvas {
     height:40em;;
     width:100%;
     margin: 0 auto;
@@ -318,9 +318,11 @@ input:focus:invalid {
   background-color: #CCCCCC;
   outline: 1px solid red;
 }
+
 input:valid {
  outline: 1px solid green;
 }
+
 input:required {
     border: 1px solid aliceblue;
 }
@@ -339,7 +341,7 @@ input:required {
 /*** RESPONSIVE (@MEDIA) STYLES ***/
 
 @media (min-width: 768px) {
-    .dropdown:hover .dropdown-hover{
+    .dropdown:hover .dropdown-hover {
     display: block;
-    }
+  }
 }

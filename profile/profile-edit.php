@@ -36,7 +36,7 @@
         
         <form id="displayName" method="post" action="">
             <label for="displayName"><h4>Display Name</h4></label>
-            <input name="displayName" type="text" id="displayName" placeholder="GroupOut" required max="25"><br />
+            <input type="text" name="displayName" id="displayName" placeholder="GroupOut" max="25"><br />
             <h4>Preferred Activities</h4><p> Choose one or more</p>
             <input name="activity" type="checkbox" value="hike">Hike</input>&nbsp; &nbsp;
             <input type="checkbox" value="bike">Bike</input>&nbsp; &nbsp;
@@ -110,20 +110,20 @@
                   <option value="AO">Armed Forces Others</option>
              </select><br />
             
-            <label for="zip"><h4>Zip Code</h4></label><input type="text" id="zipCode" required name="zipCode" placeholder="87185" minlength="5" maxlength="10"><br />
-            <label for="aboutMe"><h4>Describe Yourself</h4></label>
-            <textarea type="text" id="aboutMe" name="aboutMe" placeholder="I like turtles!"></textarea><br />
+            <label for="zip"><h4>Zip Code</h4></label>
+              <input type="text" id="zipCode" name="zipCode" placeholder="87185" minlength="5" maxlength="10"><br />
+            <label for="aboutMe"><h4>Describe Yourself</h4></label><br />
+              <textarea type="text" id="aboutMe" name="aboutMe" placeholder="I like turtles!"></textarea><br />
             <label for="email"><h4>Email (required)</h4></label>
-            <input type"email" name="email" id="email" placeholder="abc@defg.com">
+              <input type"email" name="email" id="email" placeholder="abc@defg.com">
             <label for="website"><div class="optional"><h4>Website (optional)</h4><label>
-            <input type="url" class="optional" name="website" placeholder="abc@groupout.com"/></div>
+              <input type="url" class="optional" name="website" placeholder="abc@groupout.com"/></div>
             <label for="faceboook"><div class="optional"><h4>Facebook (optional)</h4><label>
-            <input type="text" class="optional" name="facebook" placeholder="@facebook"></div>
+              <input type="text" class="optional" name="facebook" placeholder="@facebook"></div>
             <label for="twitter"><div class="optional"><h4>Twitter (optional)</h4><label>
-            <input type="text" class="optional" name="twitter" placeholder="@twitter"/></div>
+              <input type="text" class="optional" name="twitter" placeholder="@twitter"/></div>
             <label for="instagram"><div class="optional"><h4>Instagram (optional)</h4><label>
-            <input type="text" class="optional" name="instagram" placeholder="@instagram"/></div>
-            
+              <input type="text" class="optional" name="instagram" placeholder="@instagram"/></div>
         </form>
       </article>
     </div>
