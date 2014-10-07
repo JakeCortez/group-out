@@ -2,7 +2,7 @@
 session_start();
 
 if(!isset($_SESSION["profileID"])){
-  header("Location: create-profile.php")
+  header("Location: create-profile.php");
 }
 
 ?>
