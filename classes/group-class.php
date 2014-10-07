@@ -274,32 +274,28 @@ class Group {
      **/
     public function setGroupAvatar(&$newGroupAvatar){
         //create the white list of allowed types
-        $goodExtensions = array("jpg", "jpeg", "png");
-        $goodMimes = array("image/jpeg", "image/png");
-
+        //$goodExtensions = array("jpg", "jpeg", "png");
+        //$goodMimes = array("image/jpeg", "image/png");
         //verify the file was uploaded ok
-        if($newGroupAvatar["error"] !== UPLOAD_ERR_OK) {
-            throw(new RunTimeException ("error while uploading file: " . $newGroupAvatar["error"]));
-        }
-
+        //if($newGroupAvatar["error"] !== UPLOAD_ERR_OK) {
+        //    throw(new RunTimeException ("error while uploading file: " . $newGroupAvatar["error"]));
+        //}
         //verify the file is an allowed extension and type
-        $extension = strtolower(end(explode(".", $newGroupAvatar["name"])));
-        if(in_array($extension, $goodExtensions) === false 
-           || in_array($newGroupAvatar["type"], $goodMimes) === false ) {
-            throw(new RuntimeException($newGroupAvatar["name"]. " is not a JPEG or PNG file"));
-           }
-          
+        //$extension = strtolower(end(explode(".", $newGroupAvatar["name"])));
+        //if(in_array($extension, $goodExtensions) === false || in_array($newGroupAvatar["type"], $goodMimes) === false ) {
+        //   throw(new RuntimeException($newGroupAvatar["name"]. " is not a JPEG or PNG file"));
+        //   }
+        //  
         //move the file to its peramanent home
-        $destination = "/var/www/html/group-out/images/user";
+        //$destination = "/var/www/html/group-out/images/user";
         //sanitize file name for security reasons
-        $fileName = "avatar-". $this->groupName . ".$extension";
-        if(move_uploaded_file($newGroupAvatar["tmp_name"], "$destination/$fileName") === false) {
-            throw(new RuntimeException("Unable to move file"));
-
-        }
+        //$fileName = "avatar-". $this->groupName . ".$extension";
+        //if(move_uploaded_file($newGroupAvatar["tmp_name"], "$destination/$fileName") === false) {
+        //    throw(new RuntimeException("Unable to move file"));
+        //}
         
         //sets value for user's avatar
-        $this->groupAvatar = "$destination/$fileName";
+        $this->groupAvatar = "/var/www/html/group-out/images/user/avatar-1.png";
     }
     
     /**
