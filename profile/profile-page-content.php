@@ -24,7 +24,7 @@ try {
     echo <<<EOD
       <div class="userAvatar"><img src = "../images/d-kitty.jpg" alt="selfies" title="selfies" width="200px" height="200px"></div>
       <div class="userDisplayName">$firstName $lastName</div>
-      <div class="userActivities">$city<br><strong>yes</strong></div>
+      <div class="userActivities">$city<br><strong>road bike</strong></div>
       <div class="userAboutMe">
         <h1>About Me</h1>
         <p>$aboutMe</p>
