@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
     <html>
         <head>
@@ -27,7 +28,7 @@
       <div class = "col-lg-1"></div>
         <article class = "col-lg-10">
             <h1>Create My Profile</h1>
-            <form id="profileForm" method="post" class = "basicForm" action = "user-profile-processor.php" enctype="multipart/form-data">
+            <form id="profileForm" method="post" class = "basicForm" action = "userprofile-processor.php" enctype="multipart/form-data">
             <label for="firstName" placeholder="my name">First Name</label>
             <input type="text" id="firstName" name="firstName" /><br /><br />
             <label for="lastName">Last Name</label>
@@ -45,7 +46,7 @@
             <input name="activity[]" type="checkbox" value="5">
             <br><br>
             <label for="userCity"><h4>City</h4></label>
-            <input type="text" id="city" name="serCity" placeholder="Albuquerque"/><br />
+            <input type="text" id="city" name="userCity" placeholder="Albuquerque"/><br />
             <label for="userState"><h4>State</h4></label>
             <select name = "userState">
                   <option value="AL">Alabama</option>
@@ -121,6 +122,7 @@
             </select><br>
             <label for="website"><h4>Website (optional)</h4></label>
             <input type="url" id="website" name="website" placeholder="website"/>
+            <button type = "submit">Create Your Profile</button>
         </form>
       </article>
       <div class = "col-lg-1"></div>
