@@ -21,7 +21,7 @@
   </head>
   <body>
     
-    <?php require_once('../php/nav.html');?>
+    <?php require_once('../php/nav.php');?>
     <div class = "container-fluid">
       <article class = "col-lg-9">
         <img src="url" alt="Profile Photo"><br />

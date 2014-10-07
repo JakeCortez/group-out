@@ -24,7 +24,7 @@ session_start();
   </head>
   <body>
 
-    <?php require_once('../php/nav.html');?>
+    <?php require_once('../php/nav.php');?>
     <div class="container-fluid">
       <div class="col-lg-1"></div>
       <article class="col-md-10">
