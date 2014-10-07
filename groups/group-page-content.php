@@ -18,7 +18,7 @@ try {
   $groupArray = Group::getGroupInfo($mysqli, $pageGroupID);
 
   foreach($groupArray as $group) {
-  
+
     $dateTime = $group->getGroupDateCreated();
     $niceDate = $dateTime->format("F j, Y");
     $groupName = $group->getGroupName();
@@ -30,7 +30,7 @@ try {
 
     // echo the result
     echo <<<EOD
-      <div class="userAvatar"><img src = "../images/1-event.jpg" width = "200px" height = "200px"></div>
+      <div class="userAvatar"><img src = "../images/$pageGroupID-group.jpg" alt="$groupName" title="$groupName" width="200px" height="200px"></div>
       <div class="userDisplayName">$groupName</div>
       <div class="userActivities">$niceDate<br><strong>$groupActivityList</strong></div>
       <div class="userAboutMe">

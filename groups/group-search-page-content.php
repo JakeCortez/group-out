@@ -31,7 +31,7 @@ foreach($groupArray as $group) {
   // echo the result
   echo <<<EOD
     <div class="listItem">
-    <div class="listThumb"><img src = "../images/1-event.jpg" width = "140px" height = "140px"></div>
+    <div class="listThumb"><img src = "../images/$pageGroupID-group.jpg" alt="$groupName" title="$groupName" width="140px" height="140px"></div>
 
     <div class="listDetails">
       <div class="listHead"><a href="group.php?groupID=$groupID">$groupName</a> | $groupActivityList</div>
