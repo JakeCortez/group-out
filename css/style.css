@@ -19,9 +19,20 @@ textarea {
 }
 
 /*** TOP NAV ***/
-.page-header {
-  padding-left: 2em;
+.pageheader {
+  padding: 1em 0em 1em 1em;
   color: #b8e65c
+}
+.pageheader h1 {
+  font-size: 3.5em;
+  margin: 0px;
+  padding: 0px;
+}
+.pageheader p {
+  font-size: 1.25em;
+  color: #787878;
+  padding: 5px 0px 0px 0px;
+  margin: 0px;
 }
 
 .navbar-default {

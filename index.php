@@ -15,10 +15,10 @@ session_start();
 
       <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
       <script src="//malsup.github.com/jquery.form.js"></script>
-     
+
       <script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/jquery.validate.min.js"></script>
       <script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/additional-methods.min.js"></script>
-      
+
       <script src="js/bootstrap.min.js"></script>
           <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
           <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -29,8 +29,9 @@ session_start();
 
   </head>
   <body>
-    <div class="page-header">
-      <h1>group<strong>out</strong><small> Event creator for outdoor enthusiasts.</small></h1>
+    <div class="pageheader">
+      <h1>group<strong>out</strong></h1>
+      <p>event creator for outdoor enthusiasts</p>
     </div>
 
     <?php require_once('php/nav-index.html');?>
