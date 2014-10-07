@@ -13,7 +13,6 @@ private $userProfileId;
 * @see Profile
 */
 
-
 private $dateCreated;
 /*
 * date of user profile creation, this is unique field
@@ -40,6 +39,7 @@ private $firstName;
   * user's preferred or home city, validate & sanitize string regexp
   *
   */
+ 
  private $userState;
  
  /*
@@ -79,14 +79,14 @@ private $firstName;
   * path to the user's avatar, absolute path to the image
   *
   */
+ 
  private $userId;
  
  /*
   * user's Id, validate
   *
   */
- 
-    
+ //___________________________________________________________________________  
     /*
      *constructor method for a user
      *@param int user id
@@ -138,6 +138,7 @@ private $firstName;
      *
      * @return integer value of user id
     */
+    
     public function getUserProfileId() {
         return($this->userProfileId);        
     }
@@ -192,7 +193,6 @@ private $firstName;
      *@throws RangeException if the date creation does not match format
      */
 
-    
     public function setDateCreated($newDateCreated) {
         //check for null
         if($newDateCreated === null){
@@ -248,7 +248,6 @@ private $firstName;
         return($this->lastName);
     }
     
-
     /**
      *mutator method for user's last name format match or null
      *@throws UnexpectedValueException if last name is not special characters or string.
@@ -271,7 +270,6 @@ private $firstName;
     //set value of last name
     $this->lastName = $newLastName;
     }
-    
     
     /**
      * accessor method for user city
@@ -385,6 +383,7 @@ private $firstName;
      * @param mixed value of description with allowing null if not set
      * @throws UnexpectedValueException if value is not a string
      **/
+    
     public function setAboutMe($newAboutMe){
          //clear out white space
         $newAboutMe = trim($newAboutMe);
@@ -407,6 +406,7 @@ private $firstName;
     /**
      * accessor method for user privcacy level
      **/
+    
     public function getUserPrivacyLevel(){
         return($this->userPrivacyLevel);
     }
@@ -417,6 +417,7 @@ private $firstName;
      * @param mixed value of privacy level, default maximum privacy if null
      * @throws if value is not an integer
      **/
+    
     public function setUserPrivacyLevel($newUserPrivacyLevel){
         //sets default privacy level of new group
         if($newUserPrivacyLevel === null){
@@ -440,6 +441,7 @@ private $firstName;
     /**
      * accessor method for user website link
      **/
+   
     public function getUserWebsite(){
         return($this->userWebsite);
     }
@@ -448,6 +450,7 @@ private $firstName;
      * mutator method for user's website link
      *
      **/
+    
     public function setUserWebsite($newUserWebsite){
     
         if(gettype($newUserWebsite) !== "string") {
@@ -465,6 +468,7 @@ private $firstName;
     /**
      * accessor method for user avatar
      **/
+    
     public function getUserAvatar(){
         return($this->userAvatar);
     }
@@ -474,6 +478,7 @@ private $firstName;
      *
      * @param $newUserAvatar array input from the $_FILES superglobal
      **/
+    
     public function setUserAvatar(&$newUserAvatar){
         //create the white list of allowed types
         $goodExtensions = array("jpg", "jpeg", "png");
@@ -507,10 +512,10 @@ private $firstName;
       /**
      * accessor method for user ID
      **/
+    
     public function getUserID(){
         return($this->userID);
     }
-    
     
     /**
      * mutator method for user id
@@ -520,6 +525,7 @@ private $firstName;
      * @throws RangeException if the user ID is not positive
      * @throws RangeException if userID is not in Database
      **/
+    
     public function setUserID($newUserID){
         //check if value is integer
         if(filter_var($newUserID, FILTER_VALIDATE_INT) === false){
@@ -535,20 +541,18 @@ private $firstName;
         //check if UserID is in Database
        
     }
-   ///////////////////////
-   //////////////////////
-   //////////////////////
-   /////////////////////
+   //________________________________________________________________________________
+   //________________________________________________________________________________
+  //_________________________________________________________________________________
+  //_________________________________________________________________________________
    
-   
-    
 public static function selectUserByProfileId (&$mysqli, $newProfileId) {
 
     // handle degenerate cases
     if(gettype($newProfileId) !== "string") {
     throw (new UnexpectedValueExceptioon("The input format is invalid, please insert string"));
     }   
-   //trim whitespace
+    //trim whitespace
     $newProfileId = trim ($newProfileId);
     if($newProfileId === null) {
             $this->profileId = null;
@@ -578,9 +582,6 @@ public static function selectUserByProfileId (&$mysqli, $newProfileId) {
     }       
 
     // create query template
-
-
-
     $query = "SELECT userID, userDateCreated, userfirstName, userlastName, userCity, userState, userZip, userAboutMe, userPrivacyLevel, userWebsite, userId FROM userProfiles WHERE userProfileId = ?";
 
     $statement = $mysqli->prepare($query);  
@@ -610,6 +611,7 @@ public static function selectUserByProfileId (&$mysqli, $newProfileId) {
     }
 
     }
+    
     public function insert(&$mysqli) {
     // create a database connection
         // create a sql statement
@@ -652,50 +654,44 @@ public static function selectUserByProfileId (&$mysqli, $newProfileId) {
     if($wasClean === false) {
 
     throw(new mysqli_sql_exception("Unable to bind parameters"));
+    
+    }
 
-}
+    // execute the statement
+    if($statement->execute() === false) {
+        throw(new mysqli_sql_exception("Unable to execute mySQL statement"));
 
-// execute the statement
+    }
 
-if($statement->execute() === false) {
+    // update the null resourceId with what mySQL just gave us
+    $this->userProfileId = $mysqli->profileID;
 
-throw(new mysqli_sql_exception("Unable to execute mySQL statement"));
+    }
 
-}
+    /**
 
-// update the null resourceId with what mySQL just gave us
+    * deletes this Resource from mySQL
+    
+    *
+    
+    * @param resource $mysqli pointer to mySQL connection, by reference
+    
+    * @throws mysqli_sql_exception when mySQL related errors occur
+    
+    **/
 
-$this->userProfileId = $mysqli->profileID;
+    public function delete(&$mysqli) {
 
-}
+    // handle degenerate cases
+    if(gettype($mysqli) !== "object" || get_class($mysqli) !== "mysqli") {
+        throw(new mysqli_sql_exception("input is not a mysqli object"));
 
-/**
+    }
 
-* deletes this Resource from mySQL
+    // enforce the resourceId is not null (i.e., don't delete a resource that hasn't been inserted)
 
-*
-
-* @param resource $mysqli pointer to mySQL connection, by reference
-
-* @throws mysqli_sql_exception when mySQL related errors occur
-
-**/
-
-public function delete(&$mysqli) {
-
-// handle degenerate cases
-
-if(gettype($mysqli) !== "object" || get_class($mysqli) !== "mysqli") {
-
-throw(new mysqli_sql_exception("input is not a mysqli object"));
-
-}
-
-// enforce the resourceId is not null (i.e., don't delete a resource that hasn't been inserted)
-
-if($this->profileID=== null) {
-
-throw(new mysqli_sql_exception("Unable to delete a resource that does not exist"));
+    if($this->profileID=== null) {
+        throw(new mysqli_sql_exception("Unable to delete a resource that does not exist"));
 
 }
 
