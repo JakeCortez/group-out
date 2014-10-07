@@ -1,7 +1,7 @@
 
 <?php
 
-class Userprofile {
+class UserProfile {
 
 /**
 * primary key of the user, auto incrementd
@@ -17,7 +17,7 @@ private $userProfileId;
 private $dateCreated;
 /*
 * date of user profile creation, this is unique field
-* validate & sanitize date format, regexp
+* validate & sanitize date format, 
 */
 
 private $firstName;
@@ -76,7 +76,7 @@ private $firstName;
  private $userAvatar;
  
  /*
-  * validate user's personal profile Avatar source format
+  * path to the user's avatar, absolute path to the image
   *
   */
  private $userId;
@@ -98,8 +98,8 @@ private $firstName;
      *@param int user's zip
      *@param string user's self-description    
      *@param integer user's privacy level
-     **@param url user's external website link
-     *@param jpg/png for user's profile avatar
+     **@param url user's external website string
+     *@param jpg/png for user's profile avatar binary large object
      *@param user id
      *@throws UnexpectedValueException of a parameter is of the incorrect type
      *@throws RangeException if a parameter is out of bounds
@@ -109,23 +109,22 @@ private $firstName;
     **/
     
     public function __construct($newUserProfileId, $newDateCreated, $newFirstName, $newLastName, $newUserCity, $newUserState,
-                               $newUserZip, $newAboutMe, $newUserWebsite, $newUserFacebook, $newUserTwitter, $newUserInstagram ) {
+                               $newUserZip, $newAboutMe, $newUserPrivacyLevel, $newUserWebsite, $newUserAvatar, $newUserId) {
         //use the mutator methods to populate the user
         try {
+            echo "BLAME BOB!!!! $newUserId<br />";
             $this->setUserProfileId($newUserProfileId);
             $this->setDateCreated($newDateCreated);
             $this->setFirstName($newFirstName);
             $this->setLastName($newLastName);
             $this->setUserCity($newUserCity);
-            $this->setUserState($newUserState);
+            $this->setUserState($newUserState);  
             $this->setUserZip($newUserZip);
             $this->setAboutMe($newAboutMe);
             $this->setUserPrivacyLevel($newUserPrivacyLevel);
             $this->setUserWebsite($newUserWebsite);
             $this->setUserAvatar($newUserAvatar);
-            $this->setUserId($newUserId);
-            
-                    
+            $this->setUserID($newUserId);   
         }catch (UnexpectedValueException $unexpectedValue) {
                 //rethrow to the caller
             throw(new UnexpectedValueException("Unable to construct user", 0, $unexpectedValue));
@@ -134,7 +133,7 @@ private $firstName;
             //rethrow to the caller
             throw(new RangeException("Unable to construct user", 0, $range));
         }
-    
+    }
     /*
      * accessor method for user id
      *
@@ -166,7 +165,7 @@ private $firstName;
             throw(new UnexpectedValueException("user id $userProfileId is not an integer"));
         }
         //third, convdert the user id to an integer and ensure it's positive
-        $newUserProfileId =intval(newUserId);
+        $newUserProfileId =intval($newUserProfileId);
         if($newUserProfileId <=0) {
             throw(new RangeException("Please make sure that  $userId is a positive number"));
         
@@ -220,7 +219,7 @@ private $firstName;
      * mutator method for user's first name format match or null
      *@throws UnexpectedValueException if first name is not a special character format or string
     */
-    }
+    
     public function setFirstName($newFirstName) {
         //first trim the input of excess whitespace
         
@@ -256,7 +255,7 @@ private $firstName;
      *@throws UnexpectedValueException if last name is not special characters or string.
      */
     
-    public function setLastName(4newLastName) {
+    public function setLastName($newLastName) {
         //first trim the input of excess whitespace
         $newLastName = trim($newLastName);
         if($newLastName === null) {
@@ -329,18 +328,14 @@ private $firstName;
             return;
         }
         
-        //check if group state
-        if(filter_var($newUserState, FILTER_SANITIZE_FULL_SPECIAL_CHARS)){
+        //check if user state
+      /*  if(filter_var($newUserState, FILTER_SANITIZE_FULL_SPECIAL_CHARS)){
             throw(new UnexpectedValueException("Your input does not subscribe to an acceptable state abbreviation."));
         }
         
-        
-        //verifies that all values are on server
-        try{
-            $newUserState->setUserState($newUserState);
-        }
-        catch(mysqli_sql_exception $error) {
-            throw(new RangeException("This state doesn't exist"));
+     */
+       if(gettype($newUserState) !== "string"){
+            throw(new UnexpectedValueExcperion("$newUserState is not a valid State"));
         }
         
         //set value of state
@@ -371,7 +366,7 @@ private $firstName;
         }
         
         //validates value is Integer
-        if(filter_var_array($newUserZip, FILTER_VALIDATE_INT) === false){
+        if(filter_var($newUserZip, FILTER_VALIDATE_INT) === false){
             throw(new UnexpectedValueException("The Zip Code you entered is Invalid"));
         }
         
@@ -391,7 +386,7 @@ private $firstName;
      * @param mixed value of description with allowing null if not set
      * @throws UnexpectedValueException if value is not a string
      **/
-    public function setaboutMe($newAboutMe){
+    public function setAboutMe($newAboutMe){
          //clear out white space
         $newAboutMe = trim($newAboutMe);
         if($newAboutMe === null){
@@ -464,24 +459,8 @@ private $firstName;
         if(filter_var($newUserWebsite, FILTER_VALIDATE_URL) === false) {
             throw(new UnexpectedValueException("Please use a valid URL link"));
         }
-
-        $splitUserWebsite = explode ("://", $newUserWebsite);
-        if(strtolower($splitUserWebsite[0]) !== "http" || strtolower($splitUserWebsite[0]) !== "https") {
-            throw(new UnexpectedValueException("Please use only Http and Https"));
-        }
-
-        $splitUserWebsite[1] = filter_var($splitUserWebsite[1], FILTER_SANITIZE_STRING);
-
-        $this->userWebsite = implode("://", $splitUserWebsite);
-    }
-    
-    
-    
-    
-    
-    //sets value for user website
-    $this->userWebsite = $newUserWebsite;
-    
+         //sets value for user website
+         $this->userWebsite = $newUserWebsite;
     }
     
     /**
@@ -494,52 +473,36 @@ private $firstName;
     /**
      * mutator method for user avatar
      *
+     * @param $newUserAvatar array input from the $_FILES superglobal
      **/
-    public function setUserAvatar($newUserAvatar){
+    public function setUserAvatar(&$newUserAvatar){
         //create the white list of allowed types
-        $goodExtentions = array("jpg", "jpeg", "png");
+        $goodExtensions = array("jpg", "jpeg", "png");
         $goodMimes = array("image/jpeg", "image/png");
-        
+
         //verify the file was uploaded ok
-        if($_FILES["avatar"]["error"] !== UPLOAD_ERR_OK) {
-            throw(new RunTimeException ("error while uploading file: " . $_FILES["avatar"]["error"]));
+        if($newUserAvatar["error"] !== UPLOAD_ERR_OK) {
+            throw(new RunTimeException ("error while uploading file: " . $newUserAvatar["error"]));
         }
-        
+
         //verify the file is an allowed extension and type
-        $extension = end(explode(".", $_FILES["avatar"]["name"]));
-        if(in_array($extension, $goodExtentions) === false 
-           || in_array($_FILES["avatar"]["type"], $goodMimes) === false ) {
-            throw(new RuntimeException($_FILES["avatar"]["name"]. " is not a JPEG or PNG file"));
+        $extension = strtolower(end(explode(".", $newUserAvatar["name"])));
+        if(in_array($extension, $goodExtensions) === false 
+           || in_array($newUserAvatar["type"], $goodMimes) === false ) {
+            throw(new RuntimeException($newUserAvatar["name"]. " is not a JPEG or PNG file"));
            }
           
-        //move the file to its peramanent home - instead of mt_rand() - use mysql for the id, please...
-        $destination = "/var/www/html/upload";
+        //move the file to its peramanent home
+        $destination = "/var/www/html/group-out/images/user";
         //sanitize file name for security reasons
-        $fileName = "avatar-".mt_rand(1,1024).".".strtolower($extension);
-        if(move_uploaded_file($_FILES["avatar"]["tmp_name"], "$destination/$fileName") === false) {
+        $fileName = "avatar-". $this->userProfileId . ".$extension";
+        if(move_uploaded_file($newUserAvatar["tmp_name"], "$destination/$fileName") === false) {
             throw(new RuntimeException("Unable to move file"));
-        
+
         }
-        //report successful upload to the user
         
-        $avatarName = $_FILES["avatar"]["name"];
-        $avatarSize = $_FILES["avatar"]["size"];
-        $avatarType = $_FILES["avatar"]["type"];
-        $firstName = $_POST["firstName"];
-        $lastName =  $_POST["lastName"];
-        echo<<<_EOF
-        <p>Profile successfully updated</p>
-        <ul>
-            <li>First Name: $firstName</li>
-            <li>Last Name: $lastName</li>
-            <li>Avatar: $avatarName ($avatarType, $avatarSize bytes) <br />
-            <img src="/upload/$avatarName" /></li>
-        </ul>
-_EOF;
-        // the file name was not sanitized, for safe
-                
-    //sets value for user's avatar
-    $this->userAvatar = ($newUserAvatar);
+        //sets value for user's avatar
+        $this->userAvatar = "$destination/$fileName";
         
     }
       /**
@@ -559,34 +522,290 @@ _EOF;
      * @throws RangeException if userID is not in Database
      **/
     public function setUserID($newUserID){
-        //allow null
-        if($newUserID === null){
-            $this->userID = null;
-            return;
-        }
-        
         //check if value is integer
+        echo "WTF array!?!? BAD BOB!!!!<br />";
+        var_dump($newUserID);
         if(filter_var($newUserID, FILTER_VALIDATE_INT) === false){
             throw(new UnexpectedValueException("The value of the User ID is not an integer"));
         }
         
         //check if User ID is positive
-        $newUserID = int_val($newUserID);
+        $newUserID = intval($newUserID);
         if($newUserID <= 0){
             throw(new RangeException("Invalid User ID detected"));
         }
         
         //check if UserID is in Database
-        try{
-            $newUserID->setUserID($newUserID);
-        }
-        catch(mysqli_sql_exception $error){
-            throw(new RangeException("Unrecognized User ID detected"));
-        }
-        
-        //set value of owner's User ID
-        $this->userID = $newUserID;
-        
+       
     }
+   ///////////////////////
+   //////////////////////
+   //////////////////////
+   /////////////////////
+   
+    
+
+   
+   
+   
+   
+   
+   
+   
+    
+public static function selectUserByProfileId (&$mysqli, $newProfileId) {
+
+    // handle degenerate cases
+    if(gettype($newProfileId) !== "string") {
+    throw (new UnexpectedValueExceptioon("The input format is invalid, please insert string"));
+    }   
+   //trim whitespace
+    $newProfileId = trim ($newProfileId);
+    if($newLastName === null) {
+            $this->lastName = null;
+            return;
+    }
+
+    if((filter_var($newUserProfileId, FILTER_VALIDATE_INT)) === false) {
+            throw(new UnexpectedValueException("user id $newProfileId is not an integer"));
+        }
+        //third, convdert the user id to an integer and ensure it's positive
+        $newProfileId =intval($newProfileId);
+        if($newProfileId <=0) {
+            throw(new RangeException("Please make sure that  $userId is a positive number"));
+        
+        }
+
+        if(gettype($mysqli) !== "object" || get_class($mysqli) !== "mysqli") {
+        throw(new mysqli_sql_exception("input is not a mysqli object"));
+
+    }
+
+    // enforce the resourceId is not null (i.e., don't update a resource that hasn't been inserted)
+
+    if($this->resourceId === null) {
+        throw(new mysqli_sql_exception("Unable to update a resource that does not exist"));
+
+    }       
+
+    // create query template
+
+
+
+    $query = "SELECT userID, userDateCreated, userfirstName, userlastName, userCity, userState, userZip, userAboutMe, userPrivacyLevel, userWebsite, userId FROM userProfiles WHERE userProfileId = ?";
+
+    $statement = $mysqli->prepare($query);  
+
+    if($statement === false) {
+
+    throw(new mysqli_sql_exception("Unable to prepare statement"));
+
+    }
+
+    // bind the member variables to the place holders in the template
+
+    $wasClean = $statement->bind_param("i", $this->profileID);                  
+
+    if($wasClean === false) {
+
+    throw(new mysqli_sql_exception("Unable to bind parameters"));
+
+    }
+
+    // execute the statement
+
+    if($statement->execute() === false) {
+
+    throw(new mysqli_sql_exception("Unable to execute mySQL statement"));
+
+    }
+
+    }
+    public function insert(&$mysqli) {
+    // create a database connection
+        // create a sql statement
+        //prepare sql statement
+        //bind variables
+        //insert sql statement
+    // handle degenerate cases
+
+    if(gettype($mysqli) !== "object" || get_class($mysqli) !== "mysqli") {
+
+    throw(new mysqli_sql_exception("input is not a mysqli object"));
+
+    }
+
+    // enforce the resoureId is null (i.e., don't insert a resource that already exists)
+
+    if($this->profileID !== null) {
+
+    throw(new mysqli_sql_exception("not a new profile Id"));
+
+    }
+
+    // create query template
+
+    $query = "INSERT INTO resource(userdateCreated, userfirstName, userlastName, userCity, userState, userZip, userAboutMe, userPrivacyLevel, userWebsite, userId) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";  
+
+    $statement = $mysqli->prepare($query);
+
+    if($statement === false) {
+
+    throw(new mysqli_sql_exception("Unable to prepare statement"));
+
+    }
+
+    // bind the member variables to the place holders in the template
+
+    $wasClean = $statement->bind_param("sssssssibi", $this->dateCreated, $this->firstName, $this->lastName, $this->userCity, $this->userState, $this->userZip, $this->aboutMe, $this->userPrivacyLevel, $this-> userWebsite,
+                                   $this-> userId);
+
+    if($wasClean === false) {
+
+    throw(new mysqli_sql_exception("Unable to bind parameters"));
+
+}
+
+// execute the statement
+
+if($statement->execute() === false) {
+
+throw(new mysqli_sql_exception("Unable to execute mySQL statement"));
+
+}
+
+// update the null resourceId with what mySQL just gave us
+
+$this->userProfileId = $mysqli->profileID;
+
+}
+
+/**
+
+* deletes this Resource from mySQL
+
+*
+
+* @param resource $mysqli pointer to mySQL connection, by reference
+
+* @throws mysqli_sql_exception when mySQL related errors occur
+
+**/
+
+public function delete(&$mysqli) {
+
+// handle degenerate cases
+
+if(gettype($mysqli) !== "object" || get_class($mysqli) !== "mysqli") {
+
+throw(new mysqli_sql_exception("input is not a mysqli object"));
+
+}
+
+// enforce the resourceId is not null (i.e., don't delete a resource that hasn't been inserted)
+
+if($this->profileID=== null) {
+
+throw(new mysqli_sql_exception("Unable to delete a resource that does not exist"));
+
+}
+
+// create query template
+
+$query = "DELETE FROM userProfiles WHERE profileID = ?";
+
+$statement = $mysqli->prepare($query);
+
+if($statement === false) {
+
+throw(new mysqli_sql_exception("Unable to prepare statement"));
+
+}
+
+// bind the member variables to the place holder in the template
+
+$wasClean = $statement->bind_param("i", $this->proileID);
+
+if($wasClean === false) {
+
+throw(new mysqli_sql_exception("Unable to bind parameters"));
+
+}
+
+// execute the statement
+
+if($statement->execute() === false) {
+
+throw(new mysqli_sql_exception("Unable to execute mySQL statement"));
+
+}
+
+}
+
+/**
+
+* updates this Resource in mySQL
+
+*
+
+* @param resource $mysqli pointer to mySQL connection, by reference
+
+* @throws mysqli_sql_exception when mySQL related errors occur
+
+**/
+
+public function update(&$mysqli) {
+
+// handle degenerate cases
+
+if(gettype($mysqli) !== "object" || get_class($mysqli) !== "mysqli") {
+
+throw(new mysqli_sql_exception("input is not a mysqli object"));
+
+}
+
+// enforce the resourceId is not null (i.e., don't update a resource that hasn't been inserted)
+
+if($this->profileID === null) {
+
+throw(new mysqli_sql_exception("Unable to update a resource that does not exist"));
+
+}
+
+// create query template
+
+$query = "UPDATE userProfiles SET profileID = ?, userProfileId = ?, dateCreated = ?, firstName = ?, lastName = ?, userCity = ?, userState = ?,
+                               userZip = ?, aboutMe = ?, userPrivacyLevel = ?, userWebsite = ?,  userId = ?";
+
+$statement = $mysqli->prepare($query);
+
+if($statement === false) {
+
+throw(new mysqli_sql_exception("Unable to prepare statement"));
+
+}
+
+// bind the member variables to the place holders in the template
+
+$wasClean = $statement->bind_param("sssssssibi", $this->dateCreated, $this->firstName, $this->lastName, $this->userCity, $this->userState, $this->userZip, $this->aboutMe, $this->userPrivacyLevel, $this-> userWebsite,
+                                   $this-> userId);
+
+if($wasClean === false) {
+
+throw(new mysqli_sql_exception("Unable to bind parameters"));
+
+}
+
+// execute the statement
+
+if($statement->execute() === false) {
+
+throw(new mysqli_sql_exception("Unable to execute mySQL statement"));
+
+}
+
+}
+
+}
 
 ?>

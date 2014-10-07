@@ -17,8 +17,7 @@ private $activityTypeDescription;
   * activity type, validate
   *
   */
- 
-    
+     
     /*
      *constructor method for a Activity user
      *@param int activity type

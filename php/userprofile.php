@@ -577,7 +577,7 @@ public static function selectUserByProfileId (&$mysqli, $newProfileId) {
     // enforce the ProfileId is not null (i.e., don't update a resource that hasn't been inserted)
 
     if($this->profileId === null) {
-        throw(new mysqli_sql_exception("Unable to update a resource that does not exist"));
+        throw(new mysqli_sql_exception("Unable to update a profile id that does not exist"));
 
     }       
 
@@ -636,7 +636,7 @@ public static function selectUserByProfileId (&$mysqli, $newProfileId) {
 
     // create query template
 
-    $query = "INSERT INTO resource(userdateCreated, userfirstName, userlastName, userCity, userState, userZip, userAboutMe, userPrivacyLevel, userWebsite, userId) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";  
+    $query = "INSERT INTO userProfiles(userdateCreated, userfirstName, userlastName, userCity, userState, userZip, userAboutMe, userPrivacyLevel, userWebsite, userId) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";  
 
     $statement = $mysqli->prepare($query);
 

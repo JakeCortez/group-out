@@ -4,9 +4,9 @@
 */
 
 class Route {
-    
+
     // PROPERTIES
-    
+
     /**
      * primary key, integer, auto inserted upon creating a route
      */
@@ -45,24 +45,23 @@ class Route {
     private $centerLat
 
 
-
-
   /**
    * constructor for Route
    *
-   * @param $newRouteID FOREIGN KEY, integer, originates from Routes
-   * @param $newUserID FOREIGN KEY, integer, originates from userID of current session
-   * @param $newRouteDateCreated CURRENT_TIMESTAMP auto inserted upon creating an event
-   * @param $newRouteName string, user enters text into field with character limit
-   * @param $newRouteDescription string, user types text into a field with a character limit
-   * @param $newRouteDifficulty integer, 0=easy | 1=moderate | 3=hard | 4=expert
-   * @param $newRoutePrivacy integer, 0=public | 2=group | 3=private
-   * @param $newCenterLng double provided by google maps api
-   * @param $newCenterLat double provided by google maps api
-   * @throws UnexpectedValueException when a parameter is of the wrong type
-   * @throws RangeException when a parameter is invalid
+   * @ param $newRouteID FOREIGN KEY, integer, originates from Routes
+   * @ param $newUserID FOREIGN KEY, integer, originates from userID of current session
+   * @ param $newRouteDateCreated CURRENT_TIMESTAMP auto inserted upon creating an event
+   * @ param $newRouteName string, user enters text into field with character limit
+   * @ param $newRouteDescription string, user types text into a field with a character limit
+   * @ param $newRouteDifficulty integer, 0=easy | 1=moderate | 3=hard | 4=expert
+   * @ param $newRoutePrivacy integer, 0=public | 2=group | 3=private
+   * @ param $newCenterLng double provided by google maps api
+   * @ param $newCenterLat double provided by google maps api
+   * @ throws UnexpectedValueException when a parameter is of the wrong type
+   * @ throws RangeException when a parameter is invalid
    **/
-  public function __construct($newRouteID, $newUserID, $newRouteDateCreated, $newRouteName, $newRouteDescription, $newRouteDifficulty, $newRoutePrivacy, $newCenterLng, $newCenterLat) {
+   public function __construct($newRouteID, $newUserID, $newRouteDateCreated, $newRouteName, $newRouteDescription, $newRouteDifficulty, $newRoutePrivacy, $newCenterLng, $newCenterLat) {
+
       try {
         $this->setRouteID($newRouteID); // FOREIGN KEY
         $this->setUserID($newUserID); // FOREIGN KEY
@@ -72,6 +71,7 @@ class Route {
         $this->setRouteDifficulty($newEventDifficulty);
         $this->setCenterLng($newCenterLng);
         $this->setCenterLng($newCenterLng);
+
       } catch(UnexpectedValueException $unexpectedValue) {
           // rethrow to the caller
           throw(new UnexpectedValueException("Unable to construct Route", 0, $unexpectedValue));
@@ -79,14 +79,14 @@ class Route {
           // rethrow to the caller
           throw(new RangeException("Unable to construct Route", 0, $range));
       }
-  }
+    }
 
-///// GET & SET FOR routeID !!FOREIGN KEY!!
+    //// GET & SET FOR routeID !!FOREIGN KEY!!
   /**
    * gets the value of routeID
    *
-   * @return mixed routeID (or null if new object)
-   **/
+   *@ return mixed routeID (or null if new object)
+   */
     public function getRouteID() {
         return($this->routeID);
     }
@@ -94,9 +94,9 @@ class Route {
     /**
      * sets the value of routeID
      *
-     * @param mixed $newRouteID routeID (or null if new object)
-     * @throws UnexpectedValueException if not an integer or null
-     * @throws RangeException if routeID isn't positive
+     * @ param mixed $newRouteID routeID (or null if new object)
+     * @ throws UnexpectedValueException if not an integer or null
+     * @ throws RangeException if routeID isn't positive
      **/
     public function setRouteID($newRouteID) {
     // zeroth, set allow the routeID to be null if a new object
@@ -124,7 +124,7 @@ class Route {
     /**
      * gets the value of userID
      *
-     * @return mixed userID (or null if new object)
+     * @ return mixed userID (or null if new object)
      **/
     public function getUserID() {
         return($this->userID);
@@ -133,9 +133,9 @@ class Route {
     /**
      * sets the value of userID
      *
-     * @param mixed $newUserID userID (or null if new object)
-     * @throws UnexpectedValueException if not an integer or null
-     * @throws RangeException if userID isn't positive
+     * @ param mixed $newUserID userID (or null if new object)
+     * @ throws UnexpectedValueException if not an integer or null
+     * @ throws RangeException if userID isn't positive
      **/
     public function setUserID($newUserID) {
         // zeroth, set allow the userID to be null if a new object
@@ -164,8 +164,8 @@ class Route {
     /**
      * gets the value of routeDateCreated
      *
-     * @return DateTime routeDateCreated and time as a DateTime object
-     * @see http://php.net/manual/en/class.datetime.php
+     * @ return DateTime routeDateCreated and time as a DateTime object
+     * @ see http://php.net/manual/en/class.datetime.php
      **/
     public function getRouteDateCreated() {
         return($this->routeDateCreated);
@@ -174,10 +174,10 @@ class Route {
   /**
    * sets the value of routeDateCreated
    *
-   * @param mixed $newRouteDateCreated routeDateCreated as a string in Y-m-d H:i:s format or as a DateTime object
-   * @throws RangeException if the input is a string and cannot be parsed
-   * @see http://php.net/manual/en/function.date.php
-   * @see http://php.net/manual/en/class.datetime.php
+   * @ param mixed $newRouteDateCreated routeDateCreated as a string in Y-m-d H:i:s format or as a DateTime object
+   * @ throws RangeException if the input is a string and cannot be parsed
+   * @ see http://php.net/manual/en/function.date.php
+   * @ see http://php.net/manual/en/class.datetime.php
    **/
   public function setRouteDateCreated($newRouteDateCreated) {
     // if null for new event
@@ -223,17 +223,18 @@ class Route {
   /**
    * gets the value of eventName
    *
-   * @return string eventName
+   * @ return string eventName
    **/
-  public function getEventName() {
-      return($this->eventName);
+  public function getRouteName() {
+      return($this->routeName);
   }
 
   /**
    * sets the value of routeName
    *
-   * @param string $newRouteName routeName
+   * @ param string $newRouteName routeName
    **/
+
   public function setRouteName($newRouteName) {
       // filter the city as a generic string
       $newRouteName = trim($newRouteName);
@@ -247,7 +248,7 @@ class Route {
   /**
    * gets the value of routeDescription
    *
-   * @return string routeDescription
+   * @ return string routeDescription
    **/
   public function getRouteDescription() {
       return($this->routeDescription);
@@ -256,7 +257,7 @@ class Route {
   /**
    * sets the value of routeDescription
    *
-   * @param string $newRouteDescription product name
+   * @ param string $newRouteDescription product name
    **/
   public function setRouteDescription($newRouteDescription) {
       // filter the description as a generic string
@@ -271,7 +272,7 @@ class Route {
   /**
    * gets the value of routeDifficulty
    *
-   * @return mixed routeDifficulty (or null if new object)
+   * @ return mixed routeDifficulty (or null if new object)
    **/
   public function getRouteDifficulty() {
       return($this->routeDifficulty);
@@ -353,15 +354,42 @@ class Route {
     // longitude: [-180, 180]
     // if it passes all that, take out of quarentine
     // Y U NO PRINT MORE MEMES!?!?!
-    
-    
-    
-    
+
+    //accessor method for centerLng
+    public function getCenterLng() {
+        return($this->centerLng) ;
+    }
+
+    //mutator method for centerLng
+    //@param float new value of latitude
+    public function setCenterLat($newCenterLng) {
+        if($newCenterLng === null) {
+            $this->centerLng = null;
+            return;
+        }
+    }
+    $newCenterLng = trim($newCenterLng);
+
+    if(filter_var($newCenterLng, FILTER_VALIDATE_FLOAT) === false) {
+        throw(new UnexpectedValueException("provided longitude $newCenterLng is invalid"));
+    }
+
+    if($newCenterLng < -90) {
+        throw(new RangeException("provided longitude $newCenterLng is invalid"));
+    }
+
+    if($newCenterLng > 90) {
+        throw(new RangeException("provided longitude $newCenterLng is invalid"));
+    }
+
+     //finaly the centerLng is clean and can be taken out of quarentien
+    $this->centerLng = $newCenterLng;
+
     //accessor method for centerLat
     public function getCenterLat() {
         return($this->centerLat) ;
     }
-    
+
     //mutator method for centerLat
     //@param float new value of latitude
     public function setCenterLat($newCenterLat) {
@@ -370,57 +398,25 @@ class Route {
             return;
         }
     }
-    
+
     $newCenterLat = trim($newCenterLat);
-    
+
     if(filter_var($newCenterLat, FILTER_VALIDATE_FLOAT) === false) {
         throw(new UnexpectedValueException("provided latitude $newCenterLat is invalid"));
     }
-    
+
     if($newCenterLat < -180) {
         throw(new RangeException("provided latitude $newCenterLat is invalid"));
     }
-    
+
     if($newCenterLat > 180) {
         throw(new RangeException("provided latitude $newCenterLat is invalid"));
     }
-    
+
     //finaly the centerLat is clean and can be taken out of quarentien
     $this->centerLat = $newCenterLat;
-    
-    
-    
-    //accessor method for centerLng
-    public function getCenterLng() {
-        return($this->centerLng) ;
-    }
-    
-    //mutator method for centerLng
-    //@param float new value of latitude
-    public function setCenterLat($newCenterLng) {
-        if($newCenterLng === null) {
-            $this->centerLng = null;
-            return;
-        }
-    }    
-    $newCenterLng = trim($newCenterLng);
-    
-    if(filter_var($newCenterLng, FILTER_VALIDATE_FLOAT) === false) {
-        throw(new UnexpectedValueException("provided longitude $newCenterLng is invalid"));
-    }
-    
-    if($newCenterLng < -90) {
-        throw(new RangeException("provided longitude $newCenterLng is invalid"));
-    }
-    
-    if($newCenterLng > 90) {
-        throw(new RangeException("provided longitude $newCenterLng is invalid"));
-    }
-    
-     //finaly the centerLng is clean and can be taken out of quarentien
-    $this->centerLng = $newCenterLng;
-    
-    
+
+
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -430,167 +426,122 @@ class Route {
   /**
    * inserts this Event to mysql
    *
-   * @param resource $mysqli pointer to mySQL connection, by reference
-   * @throws mysqli_sql_exception when mySQL related errors occur
+   * @ param resource $mysqli pointer to mySQL connection, by reference
+   * @ throws mysqli_sql_exception when mySQL related errors occur
    **/
-  public static function select(&$mysqli) {
+  public static function selectRouteByRouteId(&$mysqli, $newRouteID) {
     // handle degenerate cases
-    if(gettype($mysqli) !== "object" || get_class($mysqli) !== "mysqli") {
-      throw(new mysqli_sql_exception("input is not a mysqli object"));
+    if(gettype($newRouteID) !== "string") {
+     throw (new UnexpectedValueExceptioon("The id is not an integer"));
     }
 
-    // enforce the eventID is null (i.e., don't insert an event that already exists)
-    if($this->eventID !== null) {
-      throw(new mysqli_sql_exception("Event already exists"));
+    //trim whitespace
+    $newRouteID = trim ($newRouteID);
+    if($newRouteID === null) {
+            $this->routeID = null;
+            return;
     }
 
+    if((filter_var($newRouteID, FILTER_VALIDATE_INT)) === false) {
+            throw(new UnexpectedValueException("user id $newProfileId is not an integer"));
+        }
+        //third, convdert the user id to an integer and ensure it's positive
+        $newRouteID =intval($newRouteID);
+        if($newRouteID <=0) {
+            throw(new RangeException("Please make sure that  $routeID is a positive number"));
+
+        }
+
+        if(gettype($mysqli) !== "object" || get_class($mysqli) !== "mysqli") {
+        throw(new mysqli_sql_exception("input is not a mysqli object"));
+
+    }
+
+    // enforce the routeId is not null (i.e., don't update a resource that hasn't been inserted)
+
+    if($this->routeID === null) {
+        throw(new mysqli_sql_exception("Unable to update a routeID that does not exist"));
+
+    }
     // create query template
-    $query = "INSERT INTO event(routeID, userID, eventDateCreated, eventCity, eventDate, eventDescription, eventDifficulty, eventName, eventPrivacy, eventState, eventZip) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $query = "SELECT routeID, userID, routeDateCreated, routeName, routeDescription, routeDifficulty, routePrivacy, centerLng, centerLat FROM routes WHERE routeID = ?";
+
     $statement = $mysqli->prepare($query);
+
     if($statement === false) {
-      throw(new mysqli_sql_exception("Unable to prepare statement"));
+
+    throw(new mysqli_sql_exception("Unable to prepare statement"));
+
     }
 
     // bind the member variables to the place holders in the template
-    // for bind_param s=string i=integer d=double
-    $wasClean = $statement->bind_param("iissssisiis", $this->routeID, $this->userID, $this->eventDateCreated, $this->eventCity, $this->eventDate, $this->eventDescription, $this->eventDifficulty, $this->eventName, $this->eventPrivacy, $this->eventState, $this->eventZip);
+
+    $wasClean = $statement->bind_param("i", $this->routeID);
+
     if($wasClean === false) {
-      throw(new mysqli_sql_exception("Unable to bind parameters"));
+
+    throw(new mysqli_sql_exception("Unable to bind parameters"));
+
     }
 
     // execute the statement
+
     if($statement->execute() === false) {
-      throw(new mysqli_sql_exception("Unable to execute mySQL statement"));
-    }
 
-    // update the null eventID with what mySQL just created via auto_increment
-    $this->eventID = $mysqli->insert_id;
+    throw(new mysqli_sql_exception("Unable to execute mySQL statement"));
+
+    }
   }
-
-///// METHOD TO DELETE EVENT INTO MYSQL
-  /**
-   * deletes this Event from mysql
-   *
-   * @param resource $mysqli pointer to mySQL connection, by reference
-   * @throws mysqli_sql_exception when mySQL related errors occur
-   **/
-  public function delete(&$mysqli) {
+  public function insert(&$mysqli) {
+    // create a database connection
+        // create a sql statement
+        //prepare sql statement
+        //bind variables
+        //insert sql statement
     // handle degenerate cases
+
     if(gettype($mysqli) !== "object" || get_class($mysqli) !== "mysqli") {
-      throw(new mysqli_sql_exception("input is not a mysqli object"));
+
+    throw(new mysqli_sql_exception("input is not a mysqli object"));
+
     }
 
-    // enforce the eventID is not null (i.e., don't delete a user that hasn't been inserted)
-    if($this->eventID === null) {
-      throw(new mysqli_sql_exception("Unable to delete an event that does not exist"));
+    // enforce the resoureId is null (i.e., don't insert a resource that already exists)
+
+    if($this->routeID !== null) {
+
+    throw(new mysqli_sql_exception("not a new route Id"));
+
     }
 
     // create query template
-    $query = "DELETE FROM Event WHERE eventID = ?";
-    $statement = $mysqli->prepare($query);
-    if($statement === false) {
-      throw(new mysqli_sql_exception("Unable to prepare statement"));
-    }
 
-    // bind the member variables to the pace holder in the template
-    $wasClean = $statement->bind_param("i", $this->eventID);
+    $query = "INSERT INTO routes(routeDateCreated, routeName, routeDescription, routeDifficulty, routePrivacy, centerLng, centerLat) VALUES( ?, ?, ?, ?, ?, ?, ?)";
+
+    $statement = $mysqli->prepare($query);
+
+    if($statement === false) {
+
+    throw(new mysqli_sql_exception("Unable to prepare statement"));
+
+    }
+     // bind the member variables to the place holders in the template
+
+    $wasClean = $statement->bind_param("sssssssibi", $this->rouetDateCreated, $this->routeName, $this->routeDescription, $this->routedifficulty, $this->routePrivacy, $this->centerLng, $this->centerLat);
+
     if($wasClean === false) {
-      throw(new mysqli_sql_exception("unable to bind parameters"));
+
+    throw(new mysqli_sql_exception("Unable to bind parameters"));
+
     }
 
     // execute the statement
     if($statement->execute() === false) {
-      throw(new mysqli_sql_exception("unable to execute mySQL statement"));
+        throw(new mysqli_sql_exception("Unable to execute mySQL statement"));
+
     }
 
-  }
+    // update the null resourceId with what mySQL just gave us
+    $this->routeID = $mysqli->routeID;
 
-///// METHOD TO UPDATE EVENT INTO MYSQL
-///// !! DOESN'T TAKE INTO ACCOUNT FOREIGN KEYS FOR routeID, UserID!!
-  /**
-   * updates this Event in mysql
-   *
-   * @param resource $mysqli pointer to mySQL connection, by reference
-   * @throws mysqli_sql_exception when mySQL related errors occur
-   **/
-  public function update(&$mysqli) {
-    // handle degenerate cases
-    if(gettype($mysqli) !== "object" || get_class($mysqli) !== "mysqli") {
-      throw(new mysqli_sql_exception("input is not a mysqli object"));
     }
-
-    // enforce the eventID is not null (i.e., don't delete a user that hasn't been inserted)
-    if($this->eventID === null) {
-      throw(new mysqli_sql_exception("Unable to delete an event that does not exist"));
-    }
-
-    // create query template
-    $query = "UPDATE Event SET routeID = ?, userID = ?, eventDateCreated = ?, eventCity = ?, eventDate = ?, eventDescription = ?, eventDifficulty = ?, eventName = ?, eventPrivacy = ?, eventState = ?, eventZip = ? WHERE eventID = ?";
-    $statement = $mysqli->prepare($query);
-    if($statement === false) {
-      throw(new mysqli_sql_exception("Unable to prepare statement"));
-    }
-
-    // bind the member variables to the place holders in the template
-    // for bind_param s=string i=integer d=double
-    $wasClean = $statement->bind_param("iissssisiisi", $this->routeID, $this->userID, $this->eventDateCreated, $this->eventCity, $this->eventDate, $this->eventDescription, $this->eventDifficulty, $this->eventName, $this->eventPrivacy, $this->eventState, $this->eventZip, $this->eventID);
-    if($wasClean === false) {
-      throw(new mysqli_sql_exception("Unable to bind parameters"));
-    }
-
-    // execute the statement
-    if($statement->execute() === false) {
-      throw(new mysqli_sql_exception("unable to execute mySQL statement"));
-    }
-
-  }
-
-///// STATIC METHOD to get public events by the userID of the event author
-  /**
-   *
-   * @param makes a query on the Events table to grab results for a list of Events
-   * @return creates multiple $eventArry objects that can be looped through
-   *
-   **/
-  public static function getEventsByUserID(&$mysqli, $userID) {
-    // create & prepare a query template
-    // old query $query = "SELECT eventID, routeID, userID, eventDate, eventCity, eventDate, eventDescription, eventDifficulty, eventName, eventPrivacy, eventState, eventZip, eventMemberCount FROM events WHERE userID = ? AND eventPrivacy = 2 LIMIT 3";
-    $query = "SELECT events.eventID, events.routeID, events.userID, events.eventDate, events.eventCity, events.eventDateCreated, events.eventDescription, events.eventDifficulty, events.eventName, events.eventPrivacy, events.eventState, events.eventZip, events.eventMemberCount, eventToActivity.eventActivityList
-              FROM events
-              INNER JOIN (SELECT DISTINCT eventID, GROUP_CONCAT(DISTINCT activityTypeName ORDER BY activityTypeName SEPARATOR ', ') AS eventActivityList FROM eventToActivity LEFT JOIN activityType ON eventToActivity.activityTypeID = activityType.activityTypeID GROUP BY eventID) eventToActivity
-              ON events.eventID = eventToActivity.eventID
-              WHERE events.userID = ? AND events.eventPrivacy = 2
-              LIMIT 3";
-
-    // prepare the statement
-    if(($statement = $mysqli->prepare($query)) === false) {
-      throw(new mysqli_sql_exception("Unable to prepare query $query"));
-    }
-
-    // bind parameters to the template
-    if(($statement->bind_param("i", $userID)) === false) {
-      throw(new mysqli_sql_exception("Unable to bind parameters"));
-    }
-
-    // execute the query
-    if(($statement->execute()) === false) {
-      throw(new mysqli_sql_exception("Unable to execute statement"));
-    }
-
-    // get the results
-    if(($result = $statement->get_result()) === false) {
-      throw(new mysqli_sql_exception("Unable to get results"));
-    }
-
-    // create the $eventArray that can be looped through
-    $eventArray = array();
-
-    while(($row = $result->fetch_assoc()) !== null) {
-      $eventArray[] = new Event($row["eventID"], $row["routeID"], $row["userID"], $row["eventDateCreated"], $row["eventCity"], $row["eventDate"], $row["eventDescription"], $row["eventDifficulty"], $row["eventName"], $row["eventPrivacy"], $row["eventState"], $row["eventZip"], $row["eventMemberCount"], $row["eventActivityList"]);
-    }
-
-    return $eventArray;
-  }
-
-}
-?>
