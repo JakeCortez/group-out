@@ -27,6 +27,7 @@ try {
   $groupState = $group->getGroupState();
   $groupSkill = $group->getGroupSkill();
   $groupActivityList = $group->getGroupActivityList();
+  $groupMembersAmount = echo rand(5,25);
 
   // echo the result
   echo <<<EOD
@@ -41,7 +42,7 @@ try {
 
     <div class="listJoin">
       <div class="numberJoined">
-        <p class="number"><?php echo rand(5, 25);?></p>
+        <p class="number">$groupMembersAmount</p>
         <p>joined</p>
       </div>
     </div>
