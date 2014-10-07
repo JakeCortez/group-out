@@ -1,6 +1,5 @@
 <?php
 session_start();
-$_SESSION["userID"] = 1;
 require_once("../php/commentText-class.php");
 
 // Jim's xampp

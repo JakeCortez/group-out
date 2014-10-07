@@ -1,9 +1,6 @@
 <?php
     //start session
     session_start();
-    
-    $_SESSION["userID"] = 2;
-    
     //check if userID exists
     if(!isset($_SESSION["userID"])){
         echo("You must be logged into an account to create a group");
@@ -30,7 +27,7 @@
     try{
         $mysqli = Pointer::getPointer();
     }
-    catch(mysqli_sql_excpetion $error){
+    catch(mysqli_sql_exception $error){
         throw(new mysqli_sql_exception("could not connect to server", 0, $error));
     }
     

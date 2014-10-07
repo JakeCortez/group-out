@@ -1,5 +1,4 @@
 <?php
-$_SESSION["userID"] = 1;
 require_once("../classes/group-class.php");
 
 // Jim's xampp
