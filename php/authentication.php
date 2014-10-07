@@ -6,8 +6,8 @@
     session_start();
     
     //insert something into the session to follow user & userZip
-    $_SESSION["userID"]  = null;
-    $_SESSION["userZip"] = null;
+    //$_SESSION["userID"]  ="";
+    //$_SESSION["userZip"] = null;
         
     //destroy the cookie
    // $params = session_get_cookie_params();
@@ -15,19 +15,9 @@
 
     //destroy the current session
     //session_destroy();
-    
-?>
-<!DOCTYPE html>
-    <html>
-        <head>
-            <title>
-                Form allows trusted user to Log In, Sets SessionIDs
-            </title>
-        </head> 
-        <body>
-<?php
+
         $userEmail = $_POST['userEmail'];
-        $userPassword = $_POST['userPassword'];
+        $password = $_POST['userPassword'];
   
         //connect to mySQL
         require_once("/etc/apache2/capstone-mysql/group-out.php");
@@ -37,8 +27,10 @@
         // get the user by Email
         $user = User::getUserByEmail($mysqli, $userEmail);
         $userSalt = $user->getUserSalt();
-        $userHash = hash_pbkdf2("sha512", $userPassword, $userSalt, 2048, 128);
+        $userHash = hash_pbkdf2("sha512", $password, $userSalt, 2048, 128);
+        $userPassword = $user->getUserPassword();
         $userAuthToken = $user->getUserAuthToken();
+        $userID = $user->getUserID();
         
         //examine AuthToken -- if not set to null, cancel user's session
         if ($userAuthToken !== null) {
@@ -46,8 +38,8 @@
         }
   
         // if found, compare passwords
-        if ($user!== null && $userHash === $user->getUserPassword()) {
-            $_SESSION["userID"]=$user->getUserID();
+        if ($user!== null && $userHash === $userPassword) {
+            $_SESSION["userID"] = $userID;
             
         //if equal let them through and send user back to entry page 
             header("Location: {$_SERVER['HTTP_REFERER']}");
@@ -58,5 +50,4 @@
             throw (new exception ("your password doesn't match"));
         }
 ?>
-    </body>
-</html>
+
