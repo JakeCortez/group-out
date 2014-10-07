@@ -32,7 +32,7 @@ $(document).ready(function () {
                   type: "POST",
                   //url to submit to:
                   // .txt is a placeholder -- looking for PHP
-                  url: "php/logIn.php",
+                  url: "php/authentication.php",
                   //data to be submitted
                   data: $(form).serialize(),
                   //anonymous callback function to react to a successful query
