@@ -41,7 +41,7 @@ try {
 
     <div class="listJoin">
       <div class="numberJoined">
-        <p class="number">lots</p>
+        <p class="number"><?php echo rand(5, 25);?></p>
         <p>joined</p>
       </div>
     </div>
