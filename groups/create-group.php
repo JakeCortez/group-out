@@ -56,7 +56,7 @@
           <label fot = "groupDescription">Group Description:</label>
           <textarea rows = "5" cols = "80" max = "500" type = "text" name = "groupDescription"></textarea><br>
           <label for = "groupState">State:</label>
-          <input name = "groupState" type = "text" max = "2"><br>
+          <input name = "groupState" type = "text" maxlength = "2"><br>
           <label for = "groupZip">Postal Code:</label>
           <input name = "groupZip" type = "number"><br>
           <label for = "groupCity">City:</label>
