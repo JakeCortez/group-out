@@ -4,7 +4,7 @@
         <form action = "profile/profile-session.php">
             <button type = "submit" class ="logOut btn btn-default navbar-right navbar-btn">Profile</button>
         </form>
-        <form action = "php/log-out.php">
+        <form action = "php/log-out-index.php">
             <button type = "submit" class ="logOut btn btn-default navbar-right navbar-btn">Log Out</button>
         </form>
 _EOD;
