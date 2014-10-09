@@ -385,7 +385,7 @@ class User {
         }
         
         //sanitize the authToken 
-        $authToken = trim($authToken);
+        $authToken = trim($newauthToken);
         
         //verify this is a string of 32 hexadecimal characters using filter_var:
         $filterOptions = array("options" => array("regexp" =>"/^[0-9a-f]{32}$/i"));
