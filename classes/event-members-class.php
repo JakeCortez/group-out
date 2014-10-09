@@ -144,7 +144,7 @@ class EventMember {
     $this->setEventMemberDate($newEventMemberDate);
   } catch(UnexpectedValueException $unexpectedValue) {
     // rethrow to the caller
-    throw(new UnexpectedValueException("Unable to contruct", 0, $unexpectedValue));
+    throw(new UnexpectedValueException("Unable to construct", 0, $unexpectedValue));
   } catch(RangeException $range) {
     // rethrow to the caller
     throw(new RangeException("Unable to construct", 0, $range));
