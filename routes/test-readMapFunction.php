@@ -38,7 +38,7 @@ $userZipGeocode = file_get_contents(
     var request = null;
     var userZipLatLng;
     request = createRequest();
-     var url = "https://maps.googleapis.com/maps/api/geocode/json?address="+<?php echo $_SESSION["userZip"]?>+"&key=AIzaSyB2aOD4S27kgQRMsngL2OLy_nKGYJ6YUO8";
+     var url = "https://maps.googleapis.com/maps/api/geocode/json?address=" + <?php echo $_SESSION["userZip"]?>+"&key=AIzaSyB2aOD4S27kgQRMsngL2OLy_nKGYJ6YUO8";
      request.open("GET",url, false);
      request.onreadystatechange = function(){
       if (request.readyState==4) {
@@ -66,7 +66,7 @@ $userZipGeocode = file_get_contents(
   </head>
   <body>
   <script type = "text/javscript" src = "../js/maptest.js"></script> 
-    <?php require_once('../php/nav.html');?>
+    <?php require_once('../php/nav.php');?>
     <div id = "container-fluid">
     <div class = "row">
       <article class = "col-lg-9">
