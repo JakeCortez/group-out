@@ -21,7 +21,7 @@
   </head>
   <body>
     
-    <?php require_once('../php/nav.html');?>
+    <?php require_once('../php/nav.php');?>
     <?php require_once('../config/Pointer.php');?>
     <div class = "container-fluid">
       <div class = "col-lg-1"></div>
