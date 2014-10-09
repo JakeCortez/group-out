@@ -14,7 +14,7 @@
      * primary key of the comment, auto incremented
      * @see Comment
      **/
-    private $commentId;
+    private $commentID;
     /**
      * time stamping a user comment
      * @see CommentDate
@@ -24,22 +24,22 @@
      * users profile auto incremented in the User table
      * @see User
      **/
-    private $userId;
+    private $userID;
     /**
      * route profile auto incremented in the Route table
      * @see Route
      **/
-    private $routeId;
+    private $routeID;
     /**
      * event profile auto incremented in the Event table
      * @see Event
      **/
-    private $eventId;
+    private $eventID;
     /**
      * group profile auto incremented in the Group table
      * @see Group
      **/
-    private $groupId;
+    private $groupID;
     /**
      * string for users comment
      * @see Comment
@@ -51,8 +51,8 @@
      *
      * @return integer value of comment id
      * */
-    public function getCommentId() {
-        return($this->commentId);
+    public function getCommentID() {
+        return($this->commentID);
     }
     
     /**
@@ -62,29 +62,29 @@
      * @throws UnexpectedValueException if the comment id is not an integer
      * @throws RangeException if the comment id is not positive
      * */
-    public function setCommentId($newCommentId) {
+    public function setCommentID($newCommentID) {
         // zeroth, allow a null if this is a new object
-        if($newCommentId === null) {
-            $this->commentId = null;
+        if($newCommentID === null) {
+            $this->commentID = null;
             return;
         }
         
         // first, trim the input of excess whitespace
-        $newCommentId = trim($newCommentId);
+        $newCommentID = trim($newCommentID);
         
         // second, verify this is an integer
-        if((filter_var($newCommentId, FILTER_VALIDATE_INT)) === false) {
-            throw(new UnexpectedValueException("user id $commentId is not an integer"));
+        if((filter_var($newCommentID, FILTER_VALIDATE_INT)) === false) {
+            throw(new UnexpectedValueException("user id $commentID is not an integer"));
         }
         
         // third, convert the id to an integer and ensure its positive
-        $newCommentId = intval($newCommentId);
-        if($newCommentId <= 0) {
-            throw(new RangeException("comment id $newcommentId is not positive"));
+        $newCommentId = intval($newCommentID);
+        if($newCommentID <= 0) {
+            throw(new RangeException("comment id $newCommentID is not positive"));
         }
         
         //finally, the user id is clean and can be taken out to quarantine
-        $this->commentId = $newCommentId;
+        $this->commentID = $newCommentID;
     }
     
     /**
@@ -93,7 +93,7 @@
      * @return date of comment date created
      * */
     public function getCommentDateCreated() {
-        return($this->commentdatecreatedId);
+        return($this->commentDateCreatedID);
     }
     
     /**
@@ -109,7 +109,7 @@
         // first, verify date
         $newCommentDateCreated = DateTime::createFromFormat("n/j/y h:i:s a", $newCommentDateCreated);
         if($newCommentDateCreated === false) {
-            throw(new RangeExcaption("Unable to create date from $newCommentDateCreated"));
+            throw(new RangeException("Unable to create date from $newCommentDateCreated"));
         }
         
         // finally, comment date created
@@ -121,8 +121,8 @@
      *
      * @return integer value of user id
      * */
-    public function getUserId() {
-        return($this->userId);
+    public function getUserID() {
+        return($this->userID);
         
     }
     
@@ -133,29 +133,29 @@
      * @throws UnexpectedValueException if the iser id is not an integer
      * @throws RangeException if the user id is not positive
      * */
-    public function setUserId($newUserId) {
+    public function setUserId($newUserID) {
         // zeroth, allow a null if this is a new object
-        if($newUserId === null) {
-            $this->userId = null;
+        if($newUserID === null) {
+            $this->userID = null;
             return;
         }
         
         // first, trim the input of excess whitespace
-        $newUserId = trim($newUserId);
+        $newUserID = trim($newUserID);
         
         // second, verify this is an integer
-        if((filter_var($newUserId, FILTER_VALIDATE_INT)) === false) {
-            throw(new UnexpectedValueException("user id $userId is not an integer"));
+        if((filter_var($newUserID, FILTER_VALIDATE_INT)) === false) {
+            throw(new UnexpectedValueException("user id $userID is not an integer"));
         }
         
         // third, convert the id to an integer and ensure its positive
-        $newUserId = intval($newUserId);
-        if($newUserId <= 0) {
-            throw(new RangeException("user id $newuserId is not positive"));
+        $newUserID = intval($newUserID);
+        if($newUserID <= 0) {
+            throw(new RangeException("user id $newUserID is not positive"));
         }
         
         //finally, the user id is clean and can be taken out to quarantine
-        $this->userId = $newUserId;
+        $this->userID = $newUserID;
     }
         
      /**
@@ -163,8 +163,8 @@
      *
      * @return integer value of route id
      * */
-    public function getRouteId() {
-        return($this->routeId);
+    public function getRouteID() {
+        return($this->routeID);
     }
     
     /**
@@ -174,29 +174,29 @@
      * @throws UnexpectedValueException if the route id is not an integer
      * @throws RangeException if the route id is not positive
      * */
-    public function setRouteId($newRouteId) {
+    public function setRouteID($newRouteID) {
         // zeroth, allow a null if this is a new object
-        if($newRouteId === null) {
-            $this->routeId = null;
+        if($newRouteID === null) {
+            $this->routeID = null;
             return;
         }
         
         // first, trim the input of excess whitespace
-        $newRouteId = trim($newRouteId);
+        $newRouteID = trim($newRouteID);
         
         // second, verify this is an integer
-        if((filter_var($newRouteId, FILTER_VALIDATE_INT)) === false) {
-            throw(new UnexpectedValueException("route id $routeId is not an integer"));
+        if((filter_var($newRouteID, FILTER_VALIDATE_INT)) === false) {
+            throw(new UnexpectedValueException("route id $routeID is not an integer"));
         }
         
         // third, convert the id to an integer and ensure its positive
-        $newRouteId = intval($newRouteId);
-        if($newRouteId <= 0) {
-            throw(new RangeException("user id $newrouteId is not positive"));
+        $newRouteID = intval($newRouteID);
+        if($newRouteID <= 0) {
+            throw(new RangeException("user id $newRouteID is not positive"));
         }
         
         //finally, the route id is clean and can be taken out to quarantine
-        $this->userId = $newRouteId;
+        $this->userId = $newRouteID;
     }
     
      /**
@@ -204,8 +204,8 @@
      *
      * @return integer value of event id
      * */
-    public function getEventId() {
-        return($this->eventId);
+    public function getEventID() {
+        return($this->eventID);
     }
     
     /**
@@ -215,29 +215,29 @@
      * @throws UnexpectedValueException if the event id is not an integer
      * @throws RangeException if the event id is not positive
      * */
-    public function setEventId($newEventId) {
+    public function setEventID($newEventID) {
         // zeroth, allow a null if this is a new object
-        if($newEventId === null) {
-            $this->eventId = null;
+        if($newEventID === null) {
+            $this->eventID = null;
             return;
         }
         
         // first, trim the input of excess whitespace
-        $newEventId = trim($newEventId);
+        $newEventID = trim($newEventID);
         
         // second, verify this is an integer
-        if((filter_var($newEventId, FILTER_VALIDATE_INT)) === false) {
-            throw(new UnexpectedValueException("event id $eventId is not an integer"));
+        if((filter_var($newEventID, FILTER_VALIDATE_INT)) === false) {
+            throw(new UnexpectedValueException("event id $eventID is not an integer"));
         }
         
         // third, convert the id to an integer and ensure its positive
-        $newEventId = intval($newEventId);
-        if($newEventId <= 0) {
-            throw(new RangeException("event id $neweventId is not positive"));
+        $newEventID = intval($newEventID);
+        if($newEventID <= 0) {
+            throw(new RangeException("event id $newEventID is not positive"));
         }
         
         //finally, the event id is clean and can be taken out to quarantine
-        $this->eventId = $newEventId;
+        $this->eventID = $newEventID;
     }
     
      /**
@@ -245,8 +245,8 @@
      *
      * @return integer value of group id
      * */
-    public function getGroupId() {
-        return($this->groupId);
+    public function getGroupID() {
+        return($this->groupID);
     }
     
     /**
@@ -256,29 +256,29 @@
      * @throws UnexpectedValueException if the group id is not an integer
      * @throws RangeException if the group id is not positive
      * */
-    public function setGroupId($newGroupId) {
+    public function setGroupID($newGroupID) {
         // zeroth, allow a null if this is a new object
-        if($newGroupId === null) {
-            $this->groupId = null;
+        if($newGroupID === null) {
+            $this->groupID = null;
             return;
         }
         
         // first, trim the input of excess whitespace
-        $newGroupId = trim($newGroupId);
+        $newGroupID = trim($newGroupID);
         
         // second, verify this is an integer
-        if((filter_var($newGroupId, FILTER_VALIDATE_INT)) === false) {
-            throw(new UnexpectedValueException("group id $groupId is not an integer"));
+        if((filter_var($newGroupID, FILTER_VALIDATE_INT)) === false) {
+            throw(new UnexpectedValueException("group id $groupID is not an integer"));
         }
         
         // third, convert the id to an integer and ensure its positive
-        $newGroupId = intval($newGroupId);
-        if($newGroupId <= 0) {
-            throw(new RangeException("group id $newgroupId is not positive"));
+        $newGroupID = intval($newGroupID);
+        if($newGroupID <= 0) {
+            throw(new RangeException("group id $newGroupID is not positive"));
         }
         
         //finally, the group id is clean and can be taken out to quarantine
-        $this->groupId = $newGroupId;
+        $this->groupID = $newGroupID;
     }
     
     /**
