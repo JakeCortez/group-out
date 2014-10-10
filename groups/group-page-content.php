@@ -28,7 +28,12 @@ try {
     $groupDescription = $group->getGroupDescription();
     $groupActivityList = $group->getGroupActivityList();
     $userID = $group->getUserID();
-    require_once("../php/group-edit-button.php");
+    
+    if($_SESSION["userID"] === $userID){
+        echo <<<EOD
+          <a href = "group-manage.php"><button type = "submit" class ="logOut btn btn-default navbar-right navbar-btn">Profile</button></a>
+EOD;
+    }
     
     // echo the result
     echo <<<EOD

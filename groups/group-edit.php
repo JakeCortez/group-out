@@ -3,6 +3,7 @@
     session_start();
     
     //require group-class
+    require_once("/etc/apache2/capstone-mysql/group-out.php");
     require_once("../classes/group-class.php");
     
     //set up connection to server
@@ -15,12 +16,12 @@
     
     //get group
     try{
-    $group = Group::getGroupByUserID($_SESSION["userID"]);
+    $group = Group::getGroupByUserID($mysqli, $_SESSION["userID"]);
     }catch(mysqli_sql_exception $error){
         throw(new mysqli_sql_exception("could not find group", 0, $error));
     }
     
-    $groupID = group->getGroupID();
+    $groupID = $group->getGroupID();
 
     if($_POST["groupName"] !== null){
         $group->setGroupName($_POST["groupName"]);
