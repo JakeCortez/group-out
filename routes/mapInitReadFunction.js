@@ -1,4 +1,21 @@
   function initialize() {
+        //we need to include the createRequest.js wherever this is called
+    //get relevant variables from database
+    /* CODE TO GET JSON STRING FROM DATABASE AND THEN TURN IT INTO A DATA OBJECT SITS BELOW WE COMMENT IT OUT FOR TESTING
+    this.mapID = tMapID;
+    var dataObject;
+    var newRequest = createRequest();
+    var url = "returnMap.php";
+    newRequest.open("GET",url,false);
+    newRequest.onreadystatechange = function(){
+        if (request.readyState==4){
+            dataObject = JSON.parse(newRequest.responseText);
+        }
+    }
+    newRequest.send(mapID=tMapID);
+    */
+    //at this point we should have a dataObject object with all the properties we need to reproduce the map
+    //for the sake of testing we will create one just below
 	this.dataObject =
         {"start":{"lat":35.339354,"lng":-106.94816500000002},
 "end":{"lat":35.5439559,"lng":-106.76062030000003},"waypoints":[]}
