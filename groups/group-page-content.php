@@ -45,7 +45,7 @@ try {
         <p>$groupDescription</p>
       </div>
 EOD;
-  }
+
 }catch(mysqli_sql_exception $error) {
   echo($error);
   echo 'oops';
