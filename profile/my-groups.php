@@ -37,10 +37,6 @@ session_start();
             <input type="text" class="form-control" id="groupID" name="groupID">
           </div>
           <div class="form-group col-md-10">
-            <label for="routeID">RouteID</label>
-            <input type="text" class="form-control" id="routeID" name="routeID">
-          </div>
-          <div class="form-group col-md-10">
             <label for="eventID">EventID</label>
             <input type="text" class="form-control" id="eventID" name="eventID">
           </div>
