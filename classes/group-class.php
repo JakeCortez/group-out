@@ -710,17 +710,17 @@ class Group {
      * @returns mixed value of groupID int or null if group not found
      * @throws mysqli_sql_exception if mysqli errors occur
      **/
-    public static function getGroupByID($mysqli, $groupID){
+    public static function getGroupByUserID($mysqli, $userID){
         //handle degenerate cases
         if(gettype($mysqli) !== "object" || get_class($mysqli) !== "mysqli"){
             throw(new mysqli_sql_exception("input is not a mysqli object"));
         }
         
         //cleanse input
-        $groupID = trim($groupID);
-        $groupID = intval($groupID);
-        if(filter_var($groupID, FILTER_VALIDATE_INT) === false){
-            throw(new UnexpectedValueException("groupID is invalid"));
+        $userID = trim($userID);
+        $userID = intval($userID);
+        if(filter_var($userID, FILTER_VALIDATE_INT) === false){
+            throw(new UnexpectedValueException("userID is invalid"));
         }
         
         //query template
@@ -760,7 +760,7 @@ class Group {
         if($row !==null){
             try{
                 $group = new Group($row["groupID"], $row["userID"], $row["groupDateCreated"], $row["groupAvatar"], $row["groupCity"], $row["groupDescription"],
-                                   $row["groupName"], $row["groupSkill"], $row["groupState"], $row["groupZip"], $row["privacyLevel"]);
+                                   $row["groupName"], $row["groupSkill"], $row["groupState"], $row["groupZip"], $row["privacyLevel"], $row["groupActivityList"]);
             }
             catch(Exception $exception){
                 throw(new mysqli_sql_exception("Unable to convert row to group", 0, $exception));
