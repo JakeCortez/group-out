@@ -13,11 +13,12 @@
     catch(mysqli_sql_exception $error){
         throw(new mysqli_sql_exception("could not connect to server", 0, $error));
     }
-    
+    $userID = $_SESSION["userID"];
     //get group
     try{
-    $group = Group::getGroupByUserID($mysqli, $_SESSION["userID"]);
+    $group = Group::getGroupByUserID($mysqli, $userID);
     }catch(mysqli_sql_exception $error){
+        echo($error);
         throw(new mysqli_sql_exception("could not find group", 0, $error));
     }
     

@@ -730,7 +730,7 @@ class Group {
         AS groupActivityList
         FROM groupToActivity LEFT JOIN activityType ON groupToActivity.activityTypeID = activityType.activityTypeID GROUP BY groupID) groupToActivity
         ON groups.groupID = groupToActivity.groupID
-        WHERE groups.userID = ? AND groups.privacyLevel = 1";
+        WHERE groups.userID = ?";
     
         $statement = $mysqli->prepare($query);
         if($statement === false){
