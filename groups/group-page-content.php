@@ -27,14 +27,16 @@ try {
     $groupSkill = $group->getGroupSkill();
     $groupDescription = $group->getGroupDescription();
     $groupActivityList = $group->getGroupActivityList();
-
+    $userID = $group->getUserID();
+    require_once("../php/group-edit-button.php");
+    
     // echo the result
     echo <<<EOD
       <div class="userAvatar"><img src = "../images/$pageGroupID-group.jpg" alt="$groupName" title="$groupName" width="200px" height="200px"></div>
       <div class="userDisplayName">$groupName</div>
       <div class="userActivities">$niceDate<br><strong>$groupActivityList</strong></div>
       <div class="userAboutMe">
-        <h1>Event Description</h1>
+        <h1>Group Description</h1>
         <p>$groupDescription</p>
       </div>
 EOD;
