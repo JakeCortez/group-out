@@ -9,7 +9,7 @@ try{
     //handle connection error
     throw(new mysqli_sql_exception("Unable to connect to the database"));
 }
-
+$_SESSION["userID"]=1;
 $data = $_REQUEST['mapdata'];//data is assigned to string we passed using saveMapFunction
 $routeData = $_REQUEST['routeData'];//routeData is assigned to data we passed from SaveMapFunction
 $routeData = json_decode($routeData);//turns the string into an object so we can grab the parts in our bind_param
@@ -33,7 +33,5 @@ if($statement->execute() === false){
 
 
 
-
-insert($query);
 
 ?>
