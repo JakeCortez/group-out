@@ -40,7 +40,7 @@ class User {
     /**
      * constructor for a user
      *
-     * @param mixed user id 
+     * @param mixed user id
      * @param mixed authentication token
      * @param string userEmail
      * @param string PBFKDF2 hash of user's password
@@ -67,7 +67,7 @@ class User {
             throw(new RangeException("Unable to construct user", 0, $range));
         }
     }
-    
+
     /** get GET methods out of the way...
      * accessor method for UserId
      * *
@@ -89,26 +89,26 @@ class User {
             $this->userID = null;
             return;
         }
-        
+
         //first, trim the input of any excess white space
         $newUserID = trim($newUserID);
-        
+
         //second, verify this is an integer
         if(filter_var($newUserID, FILTER_VALIDATE_INT) === false)  {
             throw(new UnexpectedValueException("userID $newUserID is not an integer"));
         }
-        
+
         //third, convert the id to an integer and ensure it's positive
         $newUserID = intval($newUserID);
         if($newUserID <= 0) {
             throw(new RangeException("userId $newUserID is not positive"));
         }
-        
+
         //finally, the user id is clean and can be taken out of quarantine
         // we want to use it now
-        $this->userID = $newUserID;      
+        $this->userID = $newUserID;
     }
-    
+
     /**
      *accessor method for authentication token
      *
@@ -130,7 +130,7 @@ class User {
         }
         //first, trim the input of any excess white space
         $newUserAuthToken = trim($newUserAuthToken);
-     
+
         //second, verify this is a stringn of 32 hexadecimal characters
         $filterOptions = array("options" => array("regexp" =>"/^[0-9a-f]{32}$/i"));
         if((filter_var($newUserAuthToken, FILTER_VALIDATE_REGEXP, $filterOptions)) === false) {
@@ -149,7 +149,7 @@ class User {
      public function getUserEmail() {
         return($this->userEmail);
      }
-     
+
      /**
       *mutator method for UserEmail
       *real verification is authToken, re-mailing user,
@@ -178,14 +178,14 @@ class User {
     /**
      *mutator method for UserPassword
      *
-     *@param new string value for UserPassword 
+     *@param new string value for UserPassword
      *@throws Unexpected ValueException if the Userpassword not hexadecimal string
      **/
     public function setUserPassword($newUserPassword) {
 
         //first, trim the input of any excess white space
         $newUserPassword = trim($newUserPassword);
-     
+
         //second, verify this is a string of 32 hexadecimal characters
         $filterOptions = array("options" => array("regexp" =>"/^[0-9a-f]{128}$/i"));
         if((filter_var($newUserPassword, FILTER_VALIDATE_REGEXP, $filterOptions)) === false) {
@@ -194,9 +194,9 @@ class User {
         //finally, if it passed Regular Expression, it is clean and free to move about the code
         $newUserPassword = strtolower($newUserPassword);
         $this->userPassword = $newUserPassword;
-        
+
      }
-     
+
     public function getUserRole() {
         return($this->userRole);
      }
@@ -221,7 +221,7 @@ class User {
         }
         //finally, the user id is clean and can be taken out of quarantine
         // we want to use it now
-        $this->userRole = $newUserRole;      
+        $this->userRole = $newUserRole;
     }
        /*
       *accessor method for UserSALT
@@ -234,13 +234,13 @@ class User {
     /**
      *mutator method for UserSALT
      *
-     *@param new string value for UserSALT 
+     *@param new string value for UserSALT
      *@throws Unexpected ValueException if the UserSALT not hexadecimal string
      **/
     public function setUserSalt($newUserSalt) {
         //first, trim the input of any excess white space
         $newUserSalt = trim($newUserSalt);
-     
+
         //second, verify this is a string of 64 hexadecimal characters
         $filterOptions = array("options" => array("regexp" =>"/^[0-9a-f]{64}$/i"));
         if((filter_var($newUserSalt, FILTER_VALIDATE_REGEXP, $filterOptions)) === false) {
@@ -261,12 +261,12 @@ class User {
         if(gettype($mysqli) !== "object" || get_class($mysqli) !== "mysqli") {
             throw(new mysqli_sql_exception("input is not a mysqli object"));
         }
-        
+
         // enforce the userId is null (i.e., don't insert a user that already exists)
         if($this->userID !== null) {
             throw(new mysqli_sql_exception("not a new user"));
         }
-        
+
         // create query template
         $query     = "INSERT INTO userLogin(userAuthToken, userEmail, userPassword, userRole, userSalt) VALUES(?, ?, ?, ?, ?)";
         $statement = $mysqli->prepare($query);
@@ -274,24 +274,24 @@ class User {
             echo($statement->error);
             throw(new mysqli_sql_exception("Unable to prepare statement"));
         }
-        
+
         // bind the member variables to the place holders in the template
-        $wasClean = $statement->bind_param("sssss", $this->userAuthToken, $this->userEmail, $this->userPassword, 
+        $wasClean = $statement->bind_param("sssss", $this->userAuthToken, $this->userEmail, $this->userPassword,
                                                     $this->userRole, $this->userSalt);
         if($wasClean === false) {
             throw(new mysqli_sql_exception("Unable to bind parameters"));
         }
-        
+
         // execute the statement
         if($statement->execute() === false) {
             echo ($statement->error);
             throw(new mysqli_sql_exception("Unable to execute mySQL statement"));
         }
-        
+
         // update the null userId with what mySQL just gave us
         $this->userID = $mysqli->insert_id;
     }
-    
+
     /**
      *deletes this User from mySQL
      *
@@ -303,32 +303,32 @@ class User {
         if(gettype($mysqli) !== "object" || get_class($mysqli) !== "mysqli") {
             throw(new mysqli_sql_exception("input is not a mysqli object"));
         }
-        
+
         //enforce that userId is not null (i.e.: don't delete a user hasn't been inserted)
         if($this->userID === null) {
             throw(new mysqli_sql_exception("Unable to delete a user that does not exist"));
         }
-        
+
         //create query template
         $query     = "DELETE FROM userLogin WHERE userId = ?";
         $statement = $mysqli->prepare($query);
         if($statement === false)  {
             throw(new mysqli_sql_exception("Unable to prepare statement"));
         }
-        
+
         //bind member variables to the placeholder in the template
         $wasClean = $statement->bind_param("i", $this->userID);
-        
+
         if($wasClean === false) {
             throw(new mysqli_sql_exception("Unable to bind parameters"));
         }
-        
+
         //execute the statement
         if($statement->execute() === false) {
             throw(new mysqli_sql_exception("Unable to prepare statement"));
         }
     }
-    
+
     /**
      *updates this User in mySQL
      *
@@ -340,35 +340,35 @@ class User {
         if(gettype($mysqli) !== "object" || get_class($mysqli) !== "mysqli") {
             throw(new mysqli_sql_exception("input is not a mysqli object"));
         }
-        
+
         //enforce that userId is not null (i.e.: don't update a user who hasn't been inserted)
         if($this->userID === null) {
             throw(new mysqli_sql_exception("Unable to update a user that does not exist"));
         }
-        
+
         //create query template
         $query     = "UPDATE userLogin SET userAuthToken = ?, userEmail = ?, userPassword = ?, userRole =?, userSalt =?  WHERE userID = ?";
         $statement = $mysqli->prepare($query);
-        
+
         if($statement === false)  {
             throw(new mysqli_sql_exception("Unable to prepare statement"));
         }
-        
+
         //bind member variables to the placeholder in the template (ORDER MATTERS!)
-        $wasClean = $statement->bind_param("sssisi", $this->userAuthToken, $this->userEmail, 
-                                                     $this->userPassword,  $this->userRole, 
+        $wasClean = $statement->bind_param("sssisi", $this->userAuthToken, $this->userEmail,
+                                                     $this->userPassword,  $this->userRole,
                                                      $this->userSalt,      $this->userID);
-        
+
         if($wasClean === false) {
             throw(new mysqli_sql_exception("Unable to bind parameters"));
         }
-        
+
         //execute the statement
         if($statement->execute() === false) {
             throw(new mysqli_sql_exception("Unable to execute the statement"));
         }
     }
-    
+
     /**
      *get USER by authToken
      *
@@ -378,45 +378,45 @@ class User {
      *@throws mysqli_sql_exception when mySQL related errors occur
      **/
     public static function getUserByAuthToken(&$mysqli, $authToken) {
-        
+
           //handle degenerate cases
         if(gettype($mysqli) !== "object" || get_class($mysqli) !== "mysqli") {
             throw(new mysqli_sql_exception("input is not a mysqli object"));
         }
         
-        //sanitize the authToken 
-        $authToken = trim($newauthToken);
-        
+        //sanitize the authToken
+        $authToken = trim($newAuthToken);
+
         //verify this is a string of 32 hexadecimal characters using filter_var:
         $filterOptions = array("options" => array("regexp" =>"/^[0-9a-f]{32}$/i"));
         if((filter_var($newAuthToken, FILTER_VALIDATE_REGEXP, $filterOptions)) === false) {
             throw(new UnexpectedValueException("$newAuthToken is not hexadecimal"));
         }
-        
-        //create query template -- 
+
+        //create query template --
         $query     = "SELECT userID, userAuthToken, userEmail, userPassword, userRole, userSalt FROM userLogin WHERE userAuthToken = ?";
         $statement = $mysqli->prepare($query);
         if($statement === false)  {
             throw(new mysqli_sql_exception("Unable to prepare statement"));
         }
-        
+
         //bind authToken to the placeholder in the template
         $wasClean = $statement->bind_param("s", $authToken);
         if($wasClean === false) {
             throw(new mysqli_sql_exception("Unable to bind parameters"));
         }
-        
+
         //execute the statement
         if($statement->execute() === false) {
             throw(new mysqli_sql_exception("Unable to execute mySQL statement"));
         }
-        
+
         //get result from the SELECT query
         $result = $statement->get_result();
         if($result === false) {
             throw(new mysqli_sql_exception("Unable to get result set"));
         }
-        
+
         // since this is a unique field, this will only return 0 or 1 results
         // 1) if there's a match, the AuthToken can be discarded and User object normally formed
         // 2) if there's no match, AuthToken remains and user will not be allowed into site
@@ -433,7 +433,7 @@ class User {
         } else {
             return(null);
         }
-        
+
         //create a new query template
         $newQuery = "UPDATE userLogin SET userAuthToken = ? WHERE userID = ?";
         $statement = $mysqli->prepare($newQuery);
@@ -442,12 +442,12 @@ class User {
         }
         //bind authToken match to allow new user to site
         $wasClean = $statement->bind_param("ss", null, $this->userID);
-        
+
         //execute the statement
         if($statement->execute() === false) {
             throw(new mysqli_sql_exception("Unable to execute mySQL statement"));
         }
-        
+
         // now return the new, authToken-free user
         $user->setUserAuthToken(null);
         return($user);
@@ -465,29 +465,29 @@ class User {
         if(gettype($mysqli) !== "object" || get_class($mysqli) !== "mysqli") {
             throw(new mysqli_sql_exception("input is not a mysqli object"));
         }
-        
+
         //sanitize the Email before searching
         $email = trim($email);
         $email = filter_var($email, FILTER_SANITIZE_EMAIL);
-        
+
         //create query template
         $query     = "SELECT userID, userAuthToken, userEmail, userPassword, userRole, userSalt FROM userLogin WHERE userEmail = ?";
         $statement = $mysqli->prepare($query);
         if($statement === false)  {
             throw(new mysqli_sql_exception("Unable to prepare statement"));
         }
-        
+
         //bind email to the placeholder in the template
         $wasClean = $statement->bind_param("s", $email);
         if($wasClean === false) {
             throw(new mysqli_sql_exception("Unable to bind parameters"));
         }
-        
+
         //execute the statement
         if($statement->execute() === false) {
             throw(new mysqli_sql_exception("Unable to execute mySQL statement"));
         }
-        
+
         //get result from the SELECT query
         $result = $statement->get_result();
         if($result === false) {
